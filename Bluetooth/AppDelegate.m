@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "DeviceSelectorTableViewController.h"
+#import "DevicesCollectionViewController.h"
+#import "MyNavigationController.h"
 
 @interface AppDelegate ()
             
@@ -18,12 +19,15 @@
             
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window.backgroundColor = [UIColor whiteColor];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
-    DeviceSelectorTableViewController *deviceSelector = [[DeviceSelectorTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
     
-    self.window.rootViewController = deviceSelector;
+    DevicesCollectionViewController *deviceSelector = [[DevicesCollectionViewController alloc]init];
+    MyNavigationController *deviceSelectorNavController = [[MyNavigationController alloc]initWithRootViewController:deviceSelector];
+
+    self.window.rootViewController = deviceSelectorNavController;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
