@@ -8,6 +8,8 @@
 
 #import "DevicesCollectionViewController.h"
 #import "LightBulbDetailViewController.h"
+#import "LampDetailViewController.h"
+
 #import "DeviceCell.h"
 #import "Device.h"
 
@@ -51,6 +53,10 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.collectionView reloadData];
 }
 
+
+
+
+
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -84,9 +90,17 @@ static NSString * const reuseIdentifier = @"Cell";
     CBPeripheral *peripheral = [self.devices objectAtIndex:indexPath.row];
     Device *device = [[Device alloc]init];
     device.peripheral = peripheral;
-    LightBulbDetailViewController *lightBulbVC = [[LightBulbDetailViewController alloc]initWithDevice:device];
-    [self.navigationController pushViewController:lightBulbVC animated:NO];
+    device.centralManager = self.centralManager;
+    
+    if ([peripheral.name isEqualToString:@"Coin"]) {
+        LampDetailViewController *lampVC = [[LampDetailViewController alloc]initWithDevice:device];
+        [self.navigationController pushViewController:lampVC animated:NO];
 
+    } else if ([peripheral.name isEqualToString:@"LEDnet-72C8D396"]) {
+        
+        LightBulbDetailViewController *lightBulbVC = [[LightBulbDetailViewController alloc]initWithDevice:device];
+        [self.navigationController pushViewController:lightBulbVC animated:NO];
+    }
 }
 
 
@@ -96,12 +110,11 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     [self.collectionView reloadData];
     if (central.state != CBCentralManagerStatePoweredOn) {
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Oops" message:[NSString stringWithFormat:@"CoreBluetooth return state: %ld",central.state] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Oops" message:[NSString stringWithFormat:@"CoreBluetooth return state: %d",central.state] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
     else {
         [central scanForPeripheralsWithServices:nil options:nil];
-        
     }
 }
 
@@ -127,20 +140,25 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"Connected %@", peripheral.name);
     [self.collectionView reloadData];
-    [peripheral discoverServices:nil];
+    
+    if ([peripheral.name isEqual:@"Coin"]) {
+        [peripheral discoverServices:@[[CBUUID UUIDWithString:kCNCoinBLEServiceUUID]]];
+    } else {
+        [peripheral discoverServices:nil];
+    }
     NSLog(@"Discovering Services in %@", peripheral.name);
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    NSLog(@"Peripheral Disconnected");
-    int i = 0;
-    for (;i<devices.count; i++) {
-        CBPeripheral *p = [devices objectAtIndex:i];
-        if (p.identifier == peripheral.identifier) {
-            [devices removeObjectAtIndex:i];
-        }
-    }
+//    NSLog(@"Peripheral Disconnected");
+//    int i = 0;
+//    for (;i<devices.count; i++) {
+//        CBPeripheral *p = [devices objectAtIndex:i];
+//        if (p.identifier == peripheral.identifier) {
+//            [devices removeObjectAtIndex:i];
+//        }
+//    }
     [self.collectionView reloadData];
 
 }
@@ -159,7 +177,18 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
     NSLog(@"Discovered characteristics: %@ for service %@", service.characteristics,service);
+    for (CBCharacteristic *characteristic in service.characteristics){
+        
+        // And check if it's the right one
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kCNCoinBLEWriteCharacteristicUUID]])
+        {
+            NSLog(@"Found our write characteristic");
 
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kCNCoinBLEReadCharacteristicUUID]]) {
+            NSLog(@"Found our read characteristic");
+            
+        }
+    }
     
 }
 

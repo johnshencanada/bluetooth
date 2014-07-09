@@ -9,5 +9,5 @@
 #import "Device.h"
 
 @implementation Device
-
+@synthesize peripheral,centralManager;
 @end

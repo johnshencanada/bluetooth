@@ -13,8 +13,13 @@
 		5200821619639C8D00B2F433 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5200821519639C8D00B2F433 /* Images.xcassets */; };
 		5200822219639C8D00B2F433 /* BluetoothTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5200822119639C8D00B2F433 /* BluetoothTests.m */; };
 		5200822C1963A47900B2F433 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5200822B1963A47900B2F433 /* CoreBluetooth.framework */; };
-		5200822F1963A7B500B2F433 /* DeviceSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5200822E1963A7B500B2F433 /* DeviceSelectorTableViewController.m */; };
-		520082321963AB5800B2F433 /* LightBulbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 520082311963AB5800B2F433 /* LightBulbCell.m */; };
+		52D0465419662D68004F429A /* DevicesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465319662D68004F429A /* DevicesCollectionViewController.m */; };
+		52D0465719662EA6004F429A /* DeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465619662EA6004F429A /* DeviceCell.m */; };
+		52D0465A19663254004F429A /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465919663254004F429A /* Device.m */; };
+		52D04660196632F3004F429A /* LightBulbDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465F196632F3004F429A /* LightBulbDetailViewController.m */; };
+		52E45B6E1969295200E6EDA0 /* LampDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E45B6D1969295200E6EDA0 /* LampDetailViewController.m */; };
+		52E7ADF01964DA6100D8D9BE /* MyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */; };
+		D81A252D3CC248A7B40F7644 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E992773B23C455DBAA429AC /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,10 +44,20 @@
 		5200822019639C8D00B2F433 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5200822119639C8D00B2F433 /* BluetoothTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BluetoothTests.m; sourceTree = "<group>"; };
 		5200822B1963A47900B2F433 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		5200822D1963A7B500B2F433 /* DeviceSelectorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceSelectorTableViewController.h; sourceTree = "<group>"; };
-		5200822E1963A7B500B2F433 /* DeviceSelectorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceSelectorTableViewController.m; sourceTree = "<group>"; };
-		520082301963AB5800B2F433 /* LightBulbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbCell.h; sourceTree = "<group>"; };
-		520082311963AB5800B2F433 /* LightBulbCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbCell.m; sourceTree = "<group>"; };
+		52D0465219662D68004F429A /* DevicesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicesCollectionViewController.h; sourceTree = "<group>"; };
+		52D0465319662D68004F429A /* DevicesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevicesCollectionViewController.m; sourceTree = "<group>"; };
+		52D0465519662EA6004F429A /* DeviceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceCell.h; sourceTree = "<group>"; };
+		52D0465619662EA6004F429A /* DeviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceCell.m; sourceTree = "<group>"; };
+		52D0465819663254004F429A /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
+		52D0465919663254004F429A /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
+		52D0465E196632F3004F429A /* LightBulbDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbDetailViewController.h; sourceTree = "<group>"; };
+		52D0465F196632F3004F429A /* LightBulbDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbDetailViewController.m; sourceTree = "<group>"; };
+		52E45B6C1969295200E6EDA0 /* LampDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LampDetailViewController.h; sourceTree = "<group>"; };
+		52E45B6D1969295200E6EDA0 /* LampDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LampDetailViewController.m; sourceTree = "<group>"; };
+		52E7ADEE1964DA6100D8D9BE /* MyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNavigationController.h; sourceTree = "<group>"; };
+		52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNavigationController.m; sourceTree = "<group>"; };
+		7E992773B23C455DBAA429AC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E882DC98027F4C98980EF592 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5200822C1963A47900B2F433 /* CoreBluetooth.framework in Frameworks */,
+				D81A252D3CC248A7B40F7644 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +87,8 @@
 				5200820719639C8D00B2F433 /* Bluetooth */,
 				5200821E19639C8D00B2F433 /* BluetoothTests */,
 				5200820619639C8D00B2F433 /* Products */,
+				E882DC98027F4C98980EF592 /* Pods.xcconfig */,
+				C5769B1A91854D98A969A1C3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,12 +106,9 @@
 			children = (
 				5200820C19639C8D00B2F433 /* AppDelegate.h */,
 				5200820D19639C8D00B2F433 /* AppDelegate.m */,
-				5200822D1963A7B500B2F433 /* DeviceSelectorTableViewController.h */,
-				5200822E1963A7B500B2F433 /* DeviceSelectorTableViewController.m */,
-				520082301963AB5800B2F433 /* LightBulbCell.h */,
-				520082311963AB5800B2F433 /* LightBulbCell.m */,
-				5200821219639C8D00B2F433 /* Main.storyboard */,
-				5200821519639C8D00B2F433 /* Images.xcassets */,
+				52D046501965E3F1004F429A /* Model */,
+				52D0464F1965E3E9004F429A /* View */,
+				52D046511965E3FA004F429A /* Controller */,
 				5200820819639C8D00B2F433 /* Supporting Files */,
 			);
 			path = Bluetooth;
@@ -125,6 +140,49 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		52D0464F1965E3E9004F429A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5200821519639C8D00B2F433 /* Images.xcassets */,
+				52D0465519662EA6004F429A /* DeviceCell.h */,
+				52D0465619662EA6004F429A /* DeviceCell.m */,
+				5200821219639C8D00B2F433 /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		52D046501965E3F1004F429A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				52D0465819663254004F429A /* Device.h */,
+				52D0465919663254004F429A /* Device.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		52D046511965E3FA004F429A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				52E7ADEE1964DA6100D8D9BE /* MyNavigationController.h */,
+				52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */,
+				52D0465219662D68004F429A /* DevicesCollectionViewController.h */,
+				52D0465319662D68004F429A /* DevicesCollectionViewController.m */,
+				52D0465E196632F3004F429A /* LightBulbDetailViewController.h */,
+				52D0465F196632F3004F429A /* LightBulbDetailViewController.m */,
+				52E45B6C1969295200E6EDA0 /* LampDetailViewController.h */,
+				52E45B6D1969295200E6EDA0 /* LampDetailViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		C5769B1A91854D98A969A1C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7E992773B23C455DBAA429AC /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +190,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5200822519639C8D00B2F433 /* Build configuration list for PBXNativeTarget "Bluetooth" */;
 			buildPhases = (
+				D38F2E66276B45CEA2960E02 /* Check Pods Manifest.lock */,
 				5200820119639C8D00B2F433 /* Sources */,
 				5200820219639C8D00B2F433 /* Frameworks */,
 				5200820319639C8D00B2F433 /* Resources */,
+				17711DEB838D47BAB8F5655A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -219,15 +279,52 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		17711DEB838D47BAB8F5655A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D38F2E66276B45CEA2960E02 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5200820119639C8D00B2F433 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52D0465419662D68004F429A /* DevicesCollectionViewController.m in Sources */,
+				52E45B6E1969295200E6EDA0 /* LampDetailViewController.m in Sources */,
 				5200820E19639C8D00B2F433 /* AppDelegate.m in Sources */,
-				5200822F1963A7B500B2F433 /* DeviceSelectorTableViewController.m in Sources */,
+				52D0465719662EA6004F429A /* DeviceCell.m in Sources */,
+				52D04660196632F3004F429A /* LightBulbDetailViewController.m in Sources */,
+				52D0465A19663254004F429A /* Device.m in Sources */,
 				5200820B19639C8D00B2F433 /* main.m in Sources */,
-				520082321963AB5800B2F433 /* LightBulbCell.m in Sources */,
+				52E7ADF01964DA6100D8D9BE /* MyNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +436,7 @@
 		};
 		5200822619639C8D00B2F433 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E882DC98027F4C98980EF592 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -350,6 +448,7 @@
 		};
 		5200822719639C8D00B2F433 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E882DC98027F4C98980EF592 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
