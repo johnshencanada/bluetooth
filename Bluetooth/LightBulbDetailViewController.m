@@ -6,10 +6,13 @@
 //  Copyright (c) 2014 Banana Technology. All rights reserved.
 //
 
+#import "MyNavigationController.h"
 #import "LightBulbDetailViewController.h"
+#import "CircleCounter.h"
 
 @interface LightBulbDetailViewController ()
-
+@property (nonatomic) CircleCounter *circleCounter;
+@property (nonatomic) UIView *switchView;
 @end
 
 @implementation LightBulbDetailViewController
@@ -38,46 +41,63 @@
     }
 }
 
+
 - (void) viewDidAppear:(BOOL)animated
 {
 
-
+    [self findCharacteristics];
     self.title = [NSString stringWithFormat:@"%@", self.lightBulb.peripheral.name];
-    self.rssiLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 100, 100, 100)];
-    self.rssiLabel.textColor = [UIColor whiteColor];
-    [self.lightBulb.peripheral readRSSI];
-    self.rssiLabel.text = [NSString stringWithFormat:@"0%%"];
-    [self.view addSubview:self.rssiLabel];
+    MyNavigationController *nav = self.navigationController;
     
-    self.identifierLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 200, 320, 100)];
-    self.identifierLabel.textColor = [UIColor whiteColor];
-    self.identifierLabel.font = [UIFont fontWithName:@"Gill Sans" size:10.0];
+    UIVibrancyEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:nav.blurEffect];
+    UIVisualEffectView *vibrancyView = [[UIVisualEffectView alloc]initWithEffect:vibrancyEffect];
+    vibrancyView.frame = self.view.bounds;
 
-    self.identifierLabel.text = [NSString stringWithFormat:@"%@", self.lightBulb.peripheral.identifier];
-    [self.view addSubview:self.identifierLabel];
+    self.switchView = [[UIView alloc]initWithFrame:CGRectMake(0, ((self.view.frame.size.height)/2 - 160), 320, 320)];
+    self.circleCounter = [[CircleCounter alloc] initWithFrame:self.switchView.frame];
+    [self.switchView addSubview:self.circleCounter];
+    [self.view addSubview:self.switchView];
     
-    self.on = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.on.frame = CGRectMake(200, 120, 320, 100);
-    [self.on addTarget:self action:@selector(turnOn) forControlEvents:UIControlEventTouchUpInside];
-    self.on.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.on];
+    [vibrancyView.contentView addSubview:self.circleCounter];
+    [nav.blurView.contentView addSubview:vibrancyView];
     
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(adjustBrightness:)];
     
-    self.lightBulb.isOn = false;
-//    UInt8 bytes[1];
-//    bytes[0] = 0x04;
-//    NSData *dataToSend = [NSData dataWithBytes:&bytes length:sizeof(bytes)];
-//    [self.lightBulb.peripheral writeValue:dataToSend forCharacteristic:self.lightBulb.congigureCharacteristic type:CBCharacteristicWriteWithResponse];
-//    
-//    CBCharacteristic *characteristic =
-//    [self.lightBulb.peripheral.services findCharacteristicFromUUID:@"FFF2" service:@"FFF0"];
-//    [self.lightBulb.peripheral writeValue:dataToSend forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(toogleSwitch)];
+    tap.numberOfTapsRequired = 1;
+    
+    [self.switchView addGestureRecognizer:tap];
+    [self.switchView addGestureRecognizer:pan];
+
+
 }
 
-
-- (void) turnOn
+- (void)findCharacteristics
 {
+    self.lightBulb.isOn = false;
 
+    for (CBService *service in self.lightBulb.peripheral.services)
+    {
+        for (CBCharacteristic *characteristic in service.characteristics) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF1"]]) {
+                self.lightBulb.congigureCharacteristic = characteristic;
+            }
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF2"]]) {
+                self.lightBulb.onOffCharacteristic = characteristic;
+            }
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE9"]]) {
+                self.lightBulb.readCharacteristic = characteristic;
+            }
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE4"]]) {
+                self.lightBulb.writeCharacteristic = characteristic;
+                
+            }
+        }
+    }
+}
+
+- (void) toogleSwitch
+{
     if (self.lightBulb.isOn == false) {
         [self.lightBulb.peripheral writeValue:self.lightBulb.onData forCharacteristic:self.lightBulb.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
         self.lightBulb.isOn = true;
@@ -86,8 +106,25 @@
         [self.lightBulb.peripheral writeValue:self.lightBulb.offData forCharacteristic:self.lightBulb.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
         self.lightBulb.isOn = false;
     }
-
 }
+
+- (void)adjustBrightness:(UIPanGestureRecognizer *)panGesture
+{
+    CGPoint vel = [panGesture velocityInView:self.view];
+    
+    if (panGesture.state == UIGestureRecognizerStateChanged)
+    {
+        if (vel.y > 0)
+        {
+            [self.circleCounter increment];
+        }
+        
+        if (vel.y < 0) {
+            [self.circleCounter decrement];
+        }
+    }
+}
+
 
 
 #pragma mark - CBCentralManager delegate function
@@ -102,13 +139,11 @@
 //    [central connectPeripheral:peripheral options:nil];
     
 }
--(void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
-{
-//    NSLog(@"Connected");
 
-}
 
 #pragma mark - CBPeripheral delegate function
+
+
 
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
 {

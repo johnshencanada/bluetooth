@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MyNavigationController : UINavigationController
-
+@property UIBlurEffect *blurEffect;
+@property UIVisualEffectView *blurView;
 @end

@@ -18,7 +18,7 @@
 @property (strong,nonatomic) CBCharacteristic *readCharacteristic;
 @property (strong,nonatomic) CBCharacteristic *writeCharacteristic;
 
-@property (strong,nonatomic) NSData *configureState;
+@property (strong,nonatomic) NSData *configurationEnabledData;
 @property (strong,nonatomic) NSData *onData;
 @property (strong,nonatomic) NSData *offData;
 

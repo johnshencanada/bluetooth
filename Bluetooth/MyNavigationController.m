@@ -21,10 +21,10 @@
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 600)];
     imageView.image = [UIImage imageNamed:@"house"];
     [self.view addSubview:imageView];
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    UIVisualEffectView *blurView =  [[UIVisualEffectView alloc]initWithEffect:blurEffect];
-    blurView.frame = imageView.bounds;
-    [imageView addSubview:blurView];
+    self.blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    self.blurView =  [[UIVisualEffectView alloc]initWithEffect:self.blurEffect];
+    self.blurView.frame = imageView.bounds;
+    [imageView addSubview:self.blurView];
     [self.view sendSubviewToBack:imageView];
 
     self.navigationBar.barTintColor = [UIColor blackColor];

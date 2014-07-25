@@ -13,6 +13,7 @@
 		5200821619639C8D00B2F433 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5200821519639C8D00B2F433 /* Images.xcassets */; };
 		5200822219639C8D00B2F433 /* BluetoothTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5200822119639C8D00B2F433 /* BluetoothTests.m */; };
 		5200822C1963A47900B2F433 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5200822B1963A47900B2F433 /* CoreBluetooth.framework */; };
+		52B13CA719824287006EC977 /* CircleCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B13CA619824287006EC977 /* CircleCounter.m */; };
 		52D0465419662D68004F429A /* DevicesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465319662D68004F429A /* DevicesCollectionViewController.m */; };
 		52D0465719662EA6004F429A /* DeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465619662EA6004F429A /* DeviceCell.m */; };
 		52D0465A19663254004F429A /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465919663254004F429A /* Device.m */; };
@@ -44,6 +45,8 @@
 		5200822019639C8D00B2F433 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5200822119639C8D00B2F433 /* BluetoothTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BluetoothTests.m; sourceTree = "<group>"; };
 		5200822B1963A47900B2F433 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		52B13CA519824287006EC977 /* CircleCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCounter.h; sourceTree = "<group>"; };
+		52B13CA619824287006EC977 /* CircleCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCounter.m; sourceTree = "<group>"; };
 		52D0465219662D68004F429A /* DevicesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicesCollectionViewController.h; sourceTree = "<group>"; };
 		52D0465319662D68004F429A /* DevicesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevicesCollectionViewController.m; sourceTree = "<group>"; };
 		52D0465519662EA6004F429A /* DeviceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceCell.h; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 				5200821519639C8D00B2F433 /* Images.xcassets */,
 				52D0465519662EA6004F429A /* DeviceCell.h */,
 				52D0465619662EA6004F429A /* DeviceCell.m */,
+				52B13CA519824287006EC977 /* CircleCounter.h */,
+				52B13CA619824287006EC977 /* CircleCounter.m */,
 				5200821219639C8D00B2F433 /* Main.storyboard */,
 			);
 			name = View;
@@ -324,6 +329,7 @@
 				52D04660196632F3004F429A /* LightBulbDetailViewController.m in Sources */,
 				52D0465A19663254004F429A /* Device.m in Sources */,
 				5200820B19639C8D00B2F433 /* main.m in Sources */,
+				52B13CA719824287006EC977 /* CircleCounter.m in Sources */,
 				52E7ADF01964DA6100D8D9BE /* MyNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

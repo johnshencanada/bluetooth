@@ -119,24 +119,6 @@ static NSString * const reuseIdentifier = @"Cell";
     device.peripheral = peripheral;
     device.centralManager = self.centralManager;
     
-    for (CBService *service in peripheral.services)
-    {
-        for (CBCharacteristic *characteristic in service.characteristics) {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF1"]]) {
-                device.congigureCharacteristic = characteristic;
-            }
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF2"]]) {
-                device.onOffCharacteristic = characteristic;
-            }
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE9"]]) {
-                device.readCharacteristic = characteristic;
-            }
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE4"]]) {
-                device.writeCharacteristic = characteristic;
-            }
-        }
-    }
-    
     if ([peripheral.name isEqualToString:@"Coin"]) {
         LampDetailViewController *lampVC = [[LampDetailViewController alloc]initWithDevice:device];
         [self.navigationController pushViewController:lampVC animated:NO];
@@ -211,11 +193,16 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void) peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
+    for (CBService *service in peripheral.services) {
+        [peripheral discoverCharacteristics:nil forService:service];
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-
+    for (CBCharacteristic *characteristic in service.characteristics) {
+        NSLog(@"Discovered characteristic %@", characteristic);
+    }
 }
 
 
