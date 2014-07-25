@@ -16,6 +16,7 @@
 @property (nonatomic) UILabel *identifierLabel;
 @property (nonatomic) UILabel *stateLabel;
 @property (nonatomic) UILabel *rssiLabel;
+@property (nonatomic) UIButton *on;
 
 -(id) initWithDevice:(Device *)device;
 

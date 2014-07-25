@@ -14,6 +14,7 @@
 #import "Device.h"
 
 @interface DevicesCollectionViewController ()
+
 @end
 
 
@@ -35,6 +36,13 @@ static NSString * const reuseIdentifier = @"Cell";
     layout.minimumInteritemSpacing = 2.0;
     layout.minimumLineSpacing = 2.0;
     self = [super initWithCollectionViewLayout:layout];
+    
+    /* chekc the connection every 5 seconds */
+    [NSTimer scheduledTimerWithTimeInterval:5.0
+                                     target:self
+                                   selector:@selector(checkForConnectionAndConnectPeripheral)
+                                   userInfo:nil
+                                   repeats:YES];
     return self;
 }
 
@@ -49,10 +57,29 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self.centralManager scanForPeripheralsWithServices:nil options:nil];
-    [self.collectionView reloadData];
+
+    
 }
 
+- (void)checkForConnectionAndConnectPeripheral
+{
+    for (CBPeripheral *p in self.devices) {
+        
+        if (p.state == CBPeripheralStateConnecting) {
+        
+                
+        }
+            
+        if (p.state == CBPeripheralStateDisconnected) {
+            [self.centralManager connectPeripheral:p options:nil];
+            [self.collectionView reloadData];
+        }
+            
+        [self.collectionView reloadData];
+
+        }
+    
+}
 
 
 
@@ -92,11 +119,29 @@ static NSString * const reuseIdentifier = @"Cell";
     device.peripheral = peripheral;
     device.centralManager = self.centralManager;
     
+    for (CBService *service in peripheral.services)
+    {
+        for (CBCharacteristic *characteristic in service.characteristics) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF1"]]) {
+                device.congigureCharacteristic = characteristic;
+            }
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF2"]]) {
+                device.onOffCharacteristic = characteristic;
+            }
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE9"]]) {
+                device.readCharacteristic = characteristic;
+            }
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE4"]]) {
+                device.writeCharacteristic = characteristic;
+            }
+        }
+    }
+    
     if ([peripheral.name isEqualToString:@"Coin"]) {
         LampDetailViewController *lampVC = [[LampDetailViewController alloc]initWithDevice:device];
         [self.navigationController pushViewController:lampVC animated:NO];
 
-    } else if ([peripheral.name isEqualToString:@"LEDnet-72C8D396"]) {
+    } else if ([peripheral.name hasPrefix:@"LEDnet"]) {
         
         LightBulbDetailViewController *lightBulbVC = [[LightBulbDetailViewController alloc]initWithDevice:device];
         [self.navigationController pushViewController:lightBulbVC animated:NO];
@@ -131,14 +176,13 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     if (!existing) {
         [self.devices addObject:peripheral];
+        [central connectPeripheral:peripheral options:nil];
+        [self.collectionView reloadData];
+        NSLog(@"Connecting %@", peripheral.name);
     }
-    NSLog(@"Connecting %@", peripheral.name);
-    [central connectPeripheral:peripheral options:nil];
-    [self.collectionView reloadData];
 }
 
 -(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
-    NSLog(@"Connected %@", peripheral.name);
     [self.collectionView reloadData];
     
     if ([peripheral.name isEqual:@"Coin"]) {
@@ -167,29 +211,11 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void) peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
-    NSLog(@"Services scanned !");
-    for (CBService *service in peripheral.services) {
-        NSLog(@"Service found : %@",service.UUID);
-        [peripheral discoverCharacteristics:nil forService:service];
-    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    NSLog(@"Discovered characteristics: %@ for service %@", service.characteristics,service);
-    for (CBCharacteristic *characteristic in service.characteristics){
-        
-        // And check if it's the right one
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kCNCoinBLEWriteCharacteristicUUID]])
-        {
-            NSLog(@"Found our write characteristic");
 
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kCNCoinBLEReadCharacteristicUUID]]) {
-            NSLog(@"Found our read characteristic");
-            
-        }
-    }
-    
 }
 
 

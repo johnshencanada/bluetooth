@@ -16,5 +16,4 @@
 @interface DevicesCollectionViewController : UICollectionViewController <CBCentralManagerDelegate,CBPeripheralDelegate>
 @property (strong,nonatomic) CBCentralManager *centralManager;
 @property (strong,nonatomic) NSMutableArray *devices;
-
 @end

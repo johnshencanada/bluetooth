@@ -40,6 +40,8 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
+
+
     self.title = [NSString stringWithFormat:@"%@", self.lightBulb.peripheral.name];
     self.rssiLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 100, 100, 100)];
     self.rssiLabel.textColor = [UIColor whiteColor];
@@ -54,10 +56,38 @@
     self.identifierLabel.text = [NSString stringWithFormat:@"%@", self.lightBulb.peripheral.identifier];
     [self.view addSubview:self.identifierLabel];
     
+    self.on = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.on.frame = CGRectMake(200, 120, 320, 100);
+    [self.on addTarget:self action:@selector(turnOn) forControlEvents:UIControlEventTouchUpInside];
+    self.on.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.on];
+    
+    
+    self.lightBulb.isOn = false;
+//    UInt8 bytes[1];
+//    bytes[0] = 0x04;
+//    NSData *dataToSend = [NSData dataWithBytes:&bytes length:sizeof(bytes)];
+//    [self.lightBulb.peripheral writeValue:dataToSend forCharacteristic:self.lightBulb.congigureCharacteristic type:CBCharacteristicWriteWithResponse];
+//    
+//    CBCharacteristic *characteristic =
+//    [self.lightBulb.peripheral.services findCharacteristicFromUUID:@"FFF2" service:@"FFF0"];
+//    [self.lightBulb.peripheral writeValue:dataToSend forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
 
+- (void) turnOn
+{
 
+    if (self.lightBulb.isOn == false) {
+        [self.lightBulb.peripheral writeValue:self.lightBulb.onData forCharacteristic:self.lightBulb.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+        self.lightBulb.isOn = true;
+        
+    } else if(self.lightBulb.isOn == true ) {
+        [self.lightBulb.peripheral writeValue:self.lightBulb.offData forCharacteristic:self.lightBulb.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+        self.lightBulb.isOn = false;
+    }
+
+}
 
 
 #pragma mark - CBCentralManager delegate function
@@ -82,6 +112,20 @@
 
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    NSLog(@"hi");
+    if (error) {
+        NSLog(@"Error writing characteristic value: %@", [error localizedDescription]);
+    }
 }
 
 @end
