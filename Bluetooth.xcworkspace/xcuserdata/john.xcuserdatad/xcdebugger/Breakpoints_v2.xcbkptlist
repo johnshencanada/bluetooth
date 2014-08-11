@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bluetooth/LightBulbDetailViewController.m"
-            timestampString = "427967998.39129"
+            timestampString = "429431454.096966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "-toogleSwitch"
             landmarkType = "5">
          </BreakpointContent>

@@ -18,6 +18,8 @@
 		52D0465719662EA6004F429A /* DeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465619662EA6004F429A /* DeviceCell.m */; };
 		52D0465A19663254004F429A /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465919663254004F429A /* Device.m */; };
 		52D04660196632F3004F429A /* LightBulbDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465F196632F3004F429A /* LightBulbDetailViewController.m */; };
+		52DC62B7198F9B9500E8FE18 /* LightBulbColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DC62B6198F9B9500E8FE18 /* LightBulbColorViewController.m */; };
+		52DC62BA198F9BA400E8FE18 /* LightBulbRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DC62B9198F9BA400E8FE18 /* LightBulbRoomViewController.m */; };
 		52E45B6E1969295200E6EDA0 /* LampDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E45B6D1969295200E6EDA0 /* LampDetailViewController.m */; };
 		52E7ADF01964DA6100D8D9BE /* MyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */; };
 		D81A252D3CC248A7B40F7644 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E992773B23C455DBAA429AC /* libPods.a */; };
@@ -55,6 +57,10 @@
 		52D0465919663254004F429A /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
 		52D0465E196632F3004F429A /* LightBulbDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbDetailViewController.h; sourceTree = "<group>"; };
 		52D0465F196632F3004F429A /* LightBulbDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbDetailViewController.m; sourceTree = "<group>"; };
+		52DC62B5198F9B9500E8FE18 /* LightBulbColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbColorViewController.h; sourceTree = "<group>"; };
+		52DC62B6198F9B9500E8FE18 /* LightBulbColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbColorViewController.m; sourceTree = "<group>"; };
+		52DC62B8198F9BA400E8FE18 /* LightBulbRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbRoomViewController.h; sourceTree = "<group>"; };
+		52DC62B9198F9BA400E8FE18 /* LightBulbRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbRoomViewController.m; sourceTree = "<group>"; };
 		52E45B6C1969295200E6EDA0 /* LampDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LampDetailViewController.h; sourceTree = "<group>"; };
 		52E45B6D1969295200E6EDA0 /* LampDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LampDetailViewController.m; sourceTree = "<group>"; };
 		52E7ADEE1964DA6100D8D9BE /* MyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNavigationController.h; sourceTree = "<group>"; };
@@ -174,6 +180,10 @@
 				52D0465319662D68004F429A /* DevicesCollectionViewController.m */,
 				52D0465E196632F3004F429A /* LightBulbDetailViewController.h */,
 				52D0465F196632F3004F429A /* LightBulbDetailViewController.m */,
+				52DC62B5198F9B9500E8FE18 /* LightBulbColorViewController.h */,
+				52DC62B6198F9B9500E8FE18 /* LightBulbColorViewController.m */,
+				52DC62B8198F9BA400E8FE18 /* LightBulbRoomViewController.h */,
+				52DC62B9198F9BA400E8FE18 /* LightBulbRoomViewController.m */,
 				52E45B6C1969295200E6EDA0 /* LampDetailViewController.h */,
 				52E45B6D1969295200E6EDA0 /* LampDetailViewController.m */,
 			);
@@ -328,7 +338,9 @@
 				52D0465719662EA6004F429A /* DeviceCell.m in Sources */,
 				52D04660196632F3004F429A /* LightBulbDetailViewController.m in Sources */,
 				52D0465A19663254004F429A /* Device.m in Sources */,
+				52DC62B7198F9B9500E8FE18 /* LightBulbColorViewController.m in Sources */,
 				5200820B19639C8D00B2F433 /* main.m in Sources */,
+				52DC62BA198F9BA400E8FE18 /* LightBulbRoomViewController.m in Sources */,
 				52B13CA719824287006EC977 /* CircleCounter.m in Sources */,
 				52E7ADF01964DA6100D8D9BE /* MyNavigationController.m in Sources */,
 			);

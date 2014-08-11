@@ -12,8 +12,9 @@
 @interface LightBulbDetailViewController : UIViewController <CBCentralManagerDelegate,CBPeripheralDelegate>
 
 @property (strong,nonatomic) Device *lightBulb;
-@property (nonatomic) UILabel *stateLabel;
+@property (strong,nonatomic) NSArray *devices;
 
--(id) initWithDevice:(Device *)device;
+@property (nonatomic) UILabel *stateLabel;
+-(id) initWithDevices:(NSArray *)devices;
 
 @end

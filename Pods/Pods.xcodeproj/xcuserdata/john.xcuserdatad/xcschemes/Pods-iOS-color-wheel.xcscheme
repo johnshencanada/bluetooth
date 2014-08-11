@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A210A5CE3C244F50B70C1A52"
-               BuildableName = "libPods-SAMGradientView.a"
-               BlueprintName = "Pods-SAMGradientView"
+               BlueprintIdentifier = "23FBBFE956B444C892DD125A"
+               BuildableName = "libPods-iOS-color-wheel.a"
+               BlueprintName = "Pods-iOS-color-wheel"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

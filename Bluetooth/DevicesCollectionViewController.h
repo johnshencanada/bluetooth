@@ -7,13 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <HomeKit/HomeKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "Device.h"
 
 #define kCNCoinBLEServiceUUID @"3870cd80-fc9c-11e1-a21f-0800200c9a66"
 #define kCNCoinBLEWriteCharacteristicUUID @"E788D73B-E793-4D9E-A608-2F2BAFC59A00"
 #define kCNCoinBLEReadCharacteristicUUID @"4585C102-7784-40B4-88E1-3CB5C4FD37A3"
 
-@interface DevicesCollectionViewController : UICollectionViewController <CBCentralManagerDelegate,CBPeripheralDelegate>
+@interface DevicesCollectionViewController : UICollectionViewController <CBCentralManagerDelegate,CBPeripheralDelegate, HMHomeManagerDelegate >
 @property (strong,nonatomic) CBCentralManager *centralManager;
+@property (strong,nonatomic) NSNumber *rssi;
 @property (strong,nonatomic) NSMutableArray *devices;
+@property (strong,nonatomic) NSMutableArray *selectedDevices;
+@property (strong,nonatomic) UIButton *GoButton;
 @end

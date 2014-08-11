@@ -27,8 +27,8 @@
 
 - (void)start;
 
-- (void)increment;
+- (void)incrementBy:(NSUInteger)amount;
 
-- (void)decrement;
+- (void)decrementBy:(NSUInteger)amount;
 
 @end

@@ -10,7 +10,8 @@
 #import <SAMGradientView/SAMGradientView.h>
 
 @interface DeviceCell : UICollectionViewCell
+@property (nonatomic) UILabel *room;
 @property (nonatomic) UILabel *name;
-@property (nonatomic) UILabel *identifier;
 @property (nonatomic) UILabel *state;
+@property (nonatomic) UIButton *profilePicture;
 @end

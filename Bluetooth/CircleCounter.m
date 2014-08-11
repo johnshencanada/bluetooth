@@ -9,7 +9,7 @@
 #import "CircleCounter.h"
 @interface CircleCounter()
 @property (nonatomic) double currentPosition;
-@property (strong,nonatomic) UILabel *label;
+@property (strong,nonatomic) UIButton *toogleButton;
 @end
 
 @implementation CircleCounter
@@ -17,21 +17,23 @@
 - (void)setCurrentPosition:(double)currentPosition
 {
     _currentPosition = currentPosition;
-    int i = (int)self.currentPosition * 100;
-    [self.label setText:[NSString stringWithFormat:@"%i%%",i]];
-    [self setNeedsDisplay];
 
 }
 
 - (void)baseInit {
+    
+    
+    self.toogleButton = [[UIButton alloc]initWithFrame:CGRectMake(115, 120, 110, 75)];
+    [self.toogleButton setTitle:@"100%" forState:UIControlStateNormal];
+    [self.toogleButton setTitleColor:JWG_CIRCLE_COLOR_DEFAULT forState:UIControlStateNormal];
+    self.toogleButton.titleLabel.text = [NSString stringWithFormat:@"100%%"];
+    self.toogleButton.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:35.0];
+    self.toogleButton.backgroundColor = [UIColor clearColor];
+    [self addSubview:self.toogleButton];
     self.backgroundColor = [UIColor clearColor];
-    
-    self.circleColor = [UIColor greenColor];
+    self.circleColor = JWG_CIRCLE_COLOR_DEFAULT;
     self.circleBackgroundColor = JWG_CIRCLE_BACKGROUND_COLOR_DEFAULT;
-    self.circleWidth = JWG_CIRCLE_TIMER_WIDTH;
-    
-
-
+    self.circleWidth = 30.0f;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -39,7 +41,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self baseInit];
-
     }
     return self;
 }
@@ -50,21 +51,26 @@
     [self setNeedsDisplay];
 }
 
-- (void)increment
-{
-    if (self.currentPosition < 1){
-        self.currentPosition += 0.01;
-    }
-    [self setNeedsDisplay];
-}
-
-- (void)decrement
+- (void)incrementBy:(NSUInteger)amount
 {
     if (self.currentPosition > 0) {
-        self.currentPosition -= 0.01;
+        self.currentPosition -= 0.02;
+        int i = 100-(int)(self.currentPosition * 100);
+        [self.toogleButton.titleLabel setText:[NSString stringWithFormat:@"%i%%",i]];
         [self setNeedsDisplay];
     }
 }
+
+- (void)decrementBy:(NSUInteger)amount
+{
+    if (self.currentPosition < 1){
+        self.currentPosition += 0.02;
+        int i = 100-(int)(self.currentPosition * 100);
+        [self.toogleButton.titleLabel setText:[NSString stringWithFormat:@"%i%%",i]];
+        [self setNeedsDisplay];
+    }
+}
+
 
 - (void)drawRect:(CGRect)rect
 {
@@ -97,13 +103,9 @@
                     0);
     CGContextSetStrokeColorWithColor(context, [self.circleColor CGColor]);
     CGContextStrokePath(context);
-    
-    NSLog(@"%f", self.currentPosition);
-    
-    self.label = [[UILabel alloc]initWithFrame:CGRectMake(self.bounds.origin.x - 50, self.bounds.origin.y - 50, 100, 100)];
-    [self addSubview:self.label];
-    int i = (int)self.currentPosition * 100;
-    self.label.text = [NSString stringWithFormat:@"%i%%",i];
+
+
+//    NSLog(@"%f", self.currentPosition);
 }
 
 

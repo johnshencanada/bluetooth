@@ -21,6 +21,13 @@
 @property (strong,nonatomic) NSData *configurationEnabledData;
 @property (strong,nonatomic) NSData *onData;
 @property (strong,nonatomic) NSData *offData;
+@property (strong,nonatomic) NSData *colorData;
 
+@property (strong,nonatomic) NSString *room;
 @property bool isOn;
+@property (nonatomic) double brightness;
+
+- (int)incrementBrightnessBy:(double)brightness;
+- (int)decrementBrightnessBy:(double)brightness;
+
 @end
