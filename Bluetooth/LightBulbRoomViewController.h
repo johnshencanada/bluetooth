@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Device.h"
 
 @interface LightBulbRoomViewController : UIViewController
+
+- (id) initWithDevices:(NSArray *)devices;
+@property (strong,nonatomic) NSArray *devices;
 
 @end

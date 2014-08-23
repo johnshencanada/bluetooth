@@ -13,6 +13,8 @@
 		5200821619639C8D00B2F433 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5200821519639C8D00B2F433 /* Images.xcassets */; };
 		5200822219639C8D00B2F433 /* BluetoothTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5200822119639C8D00B2F433 /* BluetoothTests.m */; };
 		5200822C1963A47900B2F433 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5200822B1963A47900B2F433 /* CoreBluetooth.framework */; };
+		5201847D199E1444009573B3 /* BrightnessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5201847C199E1444009573B3 /* BrightnessView.m */; };
+		5268E64819A00BF300E8C3CC /* Dashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 5268E64719A00BF300E8C3CC /* Dashboard.m */; };
 		52B13CA719824287006EC977 /* CircleCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B13CA619824287006EC977 /* CircleCounter.m */; };
 		52D0465419662D68004F429A /* DevicesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465319662D68004F429A /* DevicesCollectionViewController.m */; };
 		52D0465719662EA6004F429A /* DeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465619662EA6004F429A /* DeviceCell.m */; };
@@ -22,6 +24,9 @@
 		52DC62BA198F9BA400E8FE18 /* LightBulbRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DC62B9198F9BA400E8FE18 /* LightBulbRoomViewController.m */; };
 		52E45B6E1969295200E6EDA0 /* LampDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E45B6D1969295200E6EDA0 /* LampDetailViewController.m */; };
 		52E7ADF01964DA6100D8D9BE /* MyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */; };
+		52F4037719A85F0A00879F26 /* RoomsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4037619A85F0A00879F26 /* RoomsCollectionViewController.m */; };
+		52F4037A19A85F2600879F26 /* RoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4037919A85F2600879F26 /* RoomCell.m */; };
+		52F4037D19A8869D00879F26 /* HeaderCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4037C19A8869D00879F26 /* HeaderCellView.m */; };
 		D81A252D3CC248A7B40F7644 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E992773B23C455DBAA429AC /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +52,10 @@
 		5200822019639C8D00B2F433 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5200822119639C8D00B2F433 /* BluetoothTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BluetoothTests.m; sourceTree = "<group>"; };
 		5200822B1963A47900B2F433 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		5201847B199E1444009573B3 /* BrightnessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrightnessView.h; sourceTree = "<group>"; };
+		5201847C199E1444009573B3 /* BrightnessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrightnessView.m; sourceTree = "<group>"; };
+		5268E64619A00BF300E8C3CC /* Dashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dashboard.h; sourceTree = "<group>"; };
+		5268E64719A00BF300E8C3CC /* Dashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dashboard.m; sourceTree = "<group>"; };
 		52B13CA519824287006EC977 /* CircleCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCounter.h; sourceTree = "<group>"; };
 		52B13CA619824287006EC977 /* CircleCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCounter.m; sourceTree = "<group>"; };
 		52D0465219662D68004F429A /* DevicesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicesCollectionViewController.h; sourceTree = "<group>"; };
@@ -65,6 +74,12 @@
 		52E45B6D1969295200E6EDA0 /* LampDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LampDetailViewController.m; sourceTree = "<group>"; };
 		52E7ADEE1964DA6100D8D9BE /* MyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNavigationController.h; sourceTree = "<group>"; };
 		52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNavigationController.m; sourceTree = "<group>"; };
+		52F4037519A85F0A00879F26 /* RoomsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomsCollectionViewController.h; sourceTree = "<group>"; };
+		52F4037619A85F0A00879F26 /* RoomsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomsCollectionViewController.m; sourceTree = "<group>"; };
+		52F4037819A85F2600879F26 /* RoomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomCell.h; sourceTree = "<group>"; };
+		52F4037919A85F2600879F26 /* RoomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomCell.m; sourceTree = "<group>"; };
+		52F4037B19A8869D00879F26 /* HeaderCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderCellView.h; sourceTree = "<group>"; };
+		52F4037C19A8869D00879F26 /* HeaderCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderCellView.m; sourceTree = "<group>"; };
 		7E992773B23C455DBAA429AC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E882DC98027F4C98980EF592 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,8 +168,16 @@
 			isa = PBXGroup;
 			children = (
 				5200821519639C8D00B2F433 /* Images.xcassets */,
+				5268E64619A00BF300E8C3CC /* Dashboard.h */,
+				5268E64719A00BF300E8C3CC /* Dashboard.m */,
+				52F4037B19A8869D00879F26 /* HeaderCellView.h */,
+				52F4037C19A8869D00879F26 /* HeaderCellView.m */,
+				52F4037819A85F2600879F26 /* RoomCell.h */,
+				52F4037919A85F2600879F26 /* RoomCell.m */,
 				52D0465519662EA6004F429A /* DeviceCell.h */,
 				52D0465619662EA6004F429A /* DeviceCell.m */,
+				5201847B199E1444009573B3 /* BrightnessView.h */,
+				5201847C199E1444009573B3 /* BrightnessView.m */,
 				52B13CA519824287006EC977 /* CircleCounter.h */,
 				52B13CA619824287006EC977 /* CircleCounter.m */,
 				5200821219639C8D00B2F433 /* Main.storyboard */,
@@ -176,6 +199,8 @@
 			children = (
 				52E7ADEE1964DA6100D8D9BE /* MyNavigationController.h */,
 				52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */,
+				52F4037519A85F0A00879F26 /* RoomsCollectionViewController.h */,
+				52F4037619A85F0A00879F26 /* RoomsCollectionViewController.m */,
 				52D0465219662D68004F429A /* DevicesCollectionViewController.h */,
 				52D0465319662D68004F429A /* DevicesCollectionViewController.m */,
 				52D0465E196632F3004F429A /* LightBulbDetailViewController.h */,
@@ -334,15 +359,20 @@
 			files = (
 				52D0465419662D68004F429A /* DevicesCollectionViewController.m in Sources */,
 				52E45B6E1969295200E6EDA0 /* LampDetailViewController.m in Sources */,
+				5268E64819A00BF300E8C3CC /* Dashboard.m in Sources */,
 				5200820E19639C8D00B2F433 /* AppDelegate.m in Sources */,
+				52F4037A19A85F2600879F26 /* RoomCell.m in Sources */,
 				52D0465719662EA6004F429A /* DeviceCell.m in Sources */,
 				52D04660196632F3004F429A /* LightBulbDetailViewController.m in Sources */,
 				52D0465A19663254004F429A /* Device.m in Sources */,
 				52DC62B7198F9B9500E8FE18 /* LightBulbColorViewController.m in Sources */,
+				5201847D199E1444009573B3 /* BrightnessView.m in Sources */,
 				5200820B19639C8D00B2F433 /* main.m in Sources */,
 				52DC62BA198F9BA400E8FE18 /* LightBulbRoomViewController.m in Sources */,
+				52F4037719A85F0A00879F26 /* RoomsCollectionViewController.m in Sources */,
 				52B13CA719824287006EC977 /* CircleCounter.m in Sources */,
 				52E7ADF01964DA6100D8D9BE /* MyNavigationController.m in Sources */,
+				52F4037D19A8869D00879F26 /* HeaderCellView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

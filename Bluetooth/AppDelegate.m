@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "DevicesCollectionViewController.h"
 #import "MyNavigationController.h"
+#import "RoomsCollectionViewController.h"
 
 @interface AppDelegate ()
             
@@ -22,10 +22,9 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    DevicesCollectionViewController *deviceSelector = [[DevicesCollectionViewController alloc]init];
-    MyNavigationController *deviceSelectorNavController = [[MyNavigationController alloc]initWithRootViewController:deviceSelector];
-
-    self.window.rootViewController = deviceSelectorNavController;
+    RoomsCollectionViewController *roomSelector = [[RoomsCollectionViewController alloc]init];
+    MyNavigationController *roomsSelectorNavController = [[MyNavigationController alloc]initWithRootViewController:roomSelector];
+    self.window.rootViewController = roomsSelectorNavController;
     [self.window makeKeyAndVisible];
     
     return YES;

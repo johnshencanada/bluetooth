@@ -32,6 +32,7 @@
     self.navigationBar.barStyle = UIBarStyleBlackOpaque;
     self.toolbar.barStyle = UIBarStyleBlackOpaque;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"refresh" style:UIBarButtonItemStylePlain target:self action:nil];
+    self.navigationBar.hidden = true;
 }
 
 - (void)didReceiveMemoryWarning

@@ -6,45 +6,53 @@
 //  Copyright (c) 2014 Banana Technology. All rights reserved.
 //
 
+//General View
+#import "Dashboard.h"
 #import "DevicesCollectionViewController.h"
+
+// For the nextBulb
 #import "LightBulbDetailViewController.h"
 #import "LightBulbColorViewController.h"
 #import "LightBulbRoomViewController.h"
-
-#import "LampDetailViewController.h"
-
 #import "DeviceCell.h"
 
-@interface DevicesCollectionViewController ()
+//For nextLamp
+#import "LampDetailViewController.h"
 
+@interface DevicesCollectionViewController ()
+//view
+@property (strong,nonatomic) UIButton *GoButton;
+@property (strong,nonatomic) Dashboard *dashBoard;
+//HomeKit
+@property (nonatomic) HMHomeManager *homeManger;
+@property (nonatomic) NSMutableArray *homes;
+@property (nonatomic) HMHome *primaryHome;
 @property (nonatomic) NSMutableArray *rooms;
+@property (nonatomic) HMAccessory *accessory;
+//Model
+@property (strong,nonatomic) CBCentralManager *centralManager;
+@property (strong,nonatomic) NSNumber *rssi;
+@property (strong,nonatomic) NSMutableArray *peripherals;
+@property (strong,nonatomic) NSMutableArray *selectedDevices;
 @end
 
+
 @implementation DevicesCollectionViewController
-@synthesize devices;
+
+@synthesize peripherals;
 static NSString * const reuseIdentifier = @"Cell";
-
-
-#pragma mark - MVC
+#define screenWidth = self.view.frame.size.height/2)
 
 - (instancetype)init
 {
-    self.title = @"Janice's Home";
-    self.rooms = [[NSMutableArray alloc]init];
-    [self.rooms addObject:[NSString stringWithFormat:@"LivingRoom"]];
-    [self.rooms addObject:[NSString stringWithFormat:@"Bedroom"]];
-    [self.rooms addObject:[NSString stringWithFormat:@"Kitchen"]];
-
-    self.devices = [[NSMutableArray alloc]init];
-    self.selectedDevices = [[NSMutableArray alloc]init];
-
-    self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
-    NSLog (@"count:%d",devices.count);
+    [self setUpHome];
+    [self setUpDevices];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake(318, 100);
-    layout.minimumInteritemSpacing = 2.0;
-    layout.minimumLineSpacing = 2.0;
+    layout.itemSize = CGSizeMake(106, 106);
+    layout.minimumInteritemSpacing = 1.0;
+    layout.minimumLineSpacing = 1.0;
+    layout.headerReferenceSize = CGSizeMake(0,0);
     self = [super initWithCollectionViewLayout:layout];
     
     /* check the connection every 5 seconds */
@@ -59,27 +67,69 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self setUpView];
+}
+
+- (void) setUpView
+{
     self.view.backgroundColor = [UIColor clearColor];
-    self.collectionView.frame = CGRectMake(0, 0, 320, 400);
+    self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/3 - 15, 320, 400);
     self.collectionView.backgroundColor = [UIColor clearColor];
     [self.collectionView registerClass:[DeviceCell class] forCellWithReuseIdentifier:@"lightbulb"];
     
-    self.GoButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 400, 100, 320)];
+    self.dashBoard = [[Dashboard alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/3)];
+
+    [self.view addSubview:self.dashBoard];
+    
+    self.GoButton = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-25, self.view.frame.size.width, 50)];
+    self.GoButton.backgroundColor = [UIColor blackColor];
     [self.GoButton setTitle:@"Go" forState:UIControlStateNormal];
     self.GoButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.GoButton];
     [self.GoButton addTarget:self action:@selector(GoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void) setUpHome
+{
+    self.homeManger = [[HMHomeManager alloc]init];
+    self.homeManger.delegate = self;
+    
+    [self.homeManger addHomeWithName:@"My Home" completionHandler:^(HMHome *home, NSError *error) {
+        
+        if (error != nil) {
+            NSLog(@"Error: %@",error);
+        }
+        
+        /* Successful */
+        else {
+            NSLog(@"Created Home : %@",home.name);
+        }
+        
+    }];
+    
+    self.rooms = [[NSMutableArray alloc]init];
+    [self.rooms addObject:[NSString stringWithFormat:@"LivingRoom"]];
+    [self.rooms addObject:[NSString stringWithFormat:@"Bedroom"]];
+    [self.rooms addObject:[NSString stringWithFormat:@"Kitchen"]];
+}
+
+- (void) setUpDevices
+{
+    self.peripherals = [[NSMutableArray alloc]init];
+    self.selectedDevices = [[NSMutableArray alloc]init];
+    self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
+    NSLog (@"count:%d",self.peripherals.count);
+    
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
-    
+    [[self navigationController] setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)checkForConnectionAndConnectPeripheral
 {
-    for (CBPeripheral *p in self.devices) {
+    for (CBPeripheral *p in self.peripherals) {
         
         if (p.state == CBPeripheralStateConnecting) {
         
@@ -97,21 +147,24 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void) GoButtonTapped:(id)sender
 {
+    [self pushToViewControllers];
+    for (Device *device in self.selectedDevices) {
+        NSLog(@"I am %@",device.peripheral);
+    }
+}
 
+- (void) pushToViewControllers
+{
     UITabBarController *tabBarController = [[UITabBarController alloc]init];
     LightBulbDetailViewController *lightBulbVC = [[LightBulbDetailViewController alloc]initWithDevices:self.selectedDevices];
-    LightBulbColorViewController *ColorVC = [[LightBulbColorViewController alloc]init];
-    LightBulbRoomViewController *RoomVC = [[LightBulbRoomViewController alloc]init];
+    LightBulbColorViewController *ColorVC = [[LightBulbColorViewController alloc]initWithDevices:self.selectedDevices];
+    LightBulbRoomViewController *RoomVC = [[LightBulbRoomViewController alloc]initWithDevices:self.selectedDevices];
     NSArray *controllers = [NSArray arrayWithObjects: lightBulbVC, ColorVC,RoomVC, nil];
     tabBarController.viewControllers = controllers;
     tabBarController.tabBar.backgroundColor = [UIColor blackColor];
     [self.navigationController pushViewController:tabBarController animated:NO];
-
-    for (Device *device in self.selectedDevices) {
-        NSLog(@"I am %@",device.peripheral);
-    }
-    
 }
+
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -123,16 +176,14 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.devices.count;
+    return self.peripherals.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DeviceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"lightbulb" forIndexPath:indexPath];
-    CBPeripheral *device = [self.devices objectAtIndex:indexPath.row];
-    
+    CBPeripheral *device = [self.peripherals objectAtIndex:indexPath.row];
     cell.room.text = [NSString stringWithFormat:@"My Room"];
-    
     if ([device.name hasPrefix:@"LEDnet"]) {
         cell.name.text = [NSString stringWithFormat:@"BananaBulb"];
     }
@@ -142,44 +193,36 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
-
 #pragma mark <UICollectionViewDelegate>
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    CBPeripheral *peripheral = [self.devices objectAtIndex:indexPath.row];
-    
+    /*Find the peripheral and the cell at the index path */
+    CBPeripheral *peripheral = [self.peripherals objectAtIndex:indexPath.row];
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+
+    NSLog(@"Creating new deivce");
+
+    /* Create a device at the index path */
     Device *device = [[Device alloc]init];
     device.peripheral = peripheral;
     device.centralManager = self.centralManager;
-
-    if ([peripheral.name hasPrefix:@"LEDnet"]) {
-        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    
+    
+    if (!device.isSelected) {
+        device.isSelected = true;
         cell.backgroundColor = [UIColor whiteColor];
         [self.selectedDevices addObject:device];
-        for (Device *device in self.selectedDevices) {
-            NSLog(@"I am %@",device.peripheral);
-        }
         NSLog(@"%d",self.selectedDevices.count);
-
+    }
+    
+    else {
+        device.isSelected = false;
+        cell.backgroundColor = [UIColor clearColor];
     }
 }
 
-
-
-//- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-
-
-
-//    
-//    else if ([peripheral.name isEqualToString:@"Coin"]) {
-//        LampDetailViewController *lampVC = [[LampDetailViewController alloc]initWithDevice:self.device];
-//        [self.navigationController pushViewController:lampVC animated:NO];
-//    }
-//
-//}
 
 
 #pragma mark - CBCentralManager delegate
@@ -202,13 +245,13 @@ static NSString * const reuseIdentifier = @"Cell";
 
     BOOL existing = false;
     /* check if it's already in devices list */
-    for (CBPeripheral *p in devices) {
+    for (CBPeripheral *p in self.peripherals) {
         if (p.identifier == peripheral.identifier) {
             existing = true;
         }
     }
     if (!existing) {
-        [self.devices addObject:peripheral];
+        [self.peripherals addObject:peripheral];
         [central connectPeripheral:peripheral options:nil];
         [self.collectionView reloadData];
         NSLog(@"Connecting %@", peripheral.name);
@@ -230,15 +273,15 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     NSLog(@"Peripheral Disconnected");
     int i = 0;
-    for (;i<devices.count; i++) {
-        CBPeripheral *p = [devices objectAtIndex:i];
+    for (;i<self.peripherals.count; i++) {
+        CBPeripheral *p = [self.peripherals objectAtIndex:i];
         if (p.identifier == peripheral.identifier) {
-            [devices removeObjectAtIndex:i];
+            [self.peripherals removeObjectAtIndex:i];
         }
     }
     [self.collectionView reloadData];
-
 }
+
 
 
 #pragma mark - CBPeripheral delegate
@@ -274,7 +317,18 @@ static NSString * const reuseIdentifier = @"Cell";
 //    NSLog(@"The RSSI is: %@",self.rssi);
 //}
 //
+
+
+
 #pragma mark - HMHomeManager delegate
+
+- (void)homeManagerDidUpdateHomes:(HMHomeManager *)manager
+{
+    self.homes = manager.homes;
+    self.primaryHome = manager.primaryHome;
+    NSLog(@"homes count:%d",self.homes.count);
+}
+
 - (void)homeManager:(HMHomeManager *)manager didAddHome:(HMHome *)home
 {
     

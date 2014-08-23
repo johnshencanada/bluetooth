@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ISColorWheel.h"
+#import "Device.h"
 
 @interface LightBulbColorViewController : UIViewController <ISColorWheelDelegate>
 {
@@ -15,5 +16,9 @@
     UISlider* _brightnessSlider;
     UIView* _wellView;
 }
+
+@property (strong,nonatomic) NSArray *devices;
+
+- (id) initWithDevices:(NSArray *)devices;
 
 @end

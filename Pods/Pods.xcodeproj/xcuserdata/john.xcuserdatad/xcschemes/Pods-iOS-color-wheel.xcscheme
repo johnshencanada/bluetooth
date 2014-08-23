@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "23FBBFE956B444C892DD125A"
+               BlueprintIdentifier = "BA21E11BC6634E7682C9AED7"
                BuildableName = "libPods-iOS-color-wheel.a"
                BlueprintName = "Pods-iOS-color-wheel"
                ReferencedContainer = "container:Pods.xcodeproj">

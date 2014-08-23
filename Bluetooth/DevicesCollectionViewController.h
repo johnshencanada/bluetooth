@@ -16,9 +16,5 @@
 #define kCNCoinBLEReadCharacteristicUUID @"4585C102-7784-40B4-88E1-3CB5C4FD37A3"
 
 @interface DevicesCollectionViewController : UICollectionViewController <CBCentralManagerDelegate,CBPeripheralDelegate, HMHomeManagerDelegate >
-@property (strong,nonatomic) CBCentralManager *centralManager;
-@property (strong,nonatomic) NSNumber *rssi;
-@property (strong,nonatomic) NSMutableArray *devices;
-@property (strong,nonatomic) NSMutableArray *selectedDevices;
-@property (strong,nonatomic) UIButton *GoButton;
+
 @end

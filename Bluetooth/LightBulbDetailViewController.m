@@ -8,17 +8,18 @@
 
 #import "MyNavigationController.h"
 #import "LightBulbDetailViewController.h"
-#import "CircleCounter.h"
+#import "BrightnessView.h"
 
 @interface LightBulbDetailViewController ()
-@property (nonatomic) CircleCounter *circleCounter;
-@property (nonatomic) UIView *switchView;
+@property (nonatomic) BrightnessView *brightView;
 @property  (nonatomic) UIVisualEffectView *vibrancyView;
 @property (strong,nonatomic) NSNumber *rssi;
-@property (strong, nonatomic)  UILabel *rssiLabel;
+@property (strong,nonatomic) UIButton *toogleButton;
+@property int percentage;
 @end
 
 @implementation LightBulbDetailViewController
+
 
 
 #pragma mark - MVC
@@ -63,34 +64,42 @@
 
 - (void) setUpView
 {
-    self.rssiLabel = [[UILabel alloc]initWithFrame: CGRectMake(50, 50, 140, 50)];
-    self.rssiLabel.textAlignment = NSTextAlignmentLeft;
-    self.rssiLabel.font = [UIFont fontWithName:@"GillSans-Light" size:23.0];
-    self.rssiLabel.textColor = [UIColor whiteColor];
-    
     MyNavigationController *nav = self.navigationController;
     UIVibrancyEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:nav.blurEffect];
     self.vibrancyView = [[UIVisualEffectView alloc]initWithEffect:vibrancyEffect];
     self.vibrancyView.frame = self.view.bounds;
-    self.switchView = [[UIView alloc]initWithFrame:CGRectMake(0, ((self.view.frame.size.height)/2 - 160), 320, 320)];
-    self.circleCounter = [[CircleCounter alloc] initWithFrame:self.switchView.frame];
-    [self.switchView addSubview:self.circleCounter];
-    [self.view addSubview:self.switchView];
-    [self.vibrancyView.contentView addSubview:self.circleCounter];
+    
+    self.toogleButton = [[UIButton alloc]initWithFrame:CGRectMake(70, 200, 200, 75)];
+    self.percentage = 100;
+    [self.toogleButton setTitle:@"100%" forState:UIControlStateNormal];
+    self.toogleButton.titleLabel.text = [NSString stringWithFormat:@"100%%"];
+    self.toogleButton.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:75.0];
+    self.toogleButton.backgroundColor = [UIColor clearColor];
+    
+    self.brightView = [[BrightnessView alloc]initWithFrame:CGRectMake(0, 0, 320, 640)];
+    self.brightView.alpha = 0.2;
+    
+    [self.view addSubview:self.brightView];
+    [self.brightView addSubview:self.toogleButton];
+
+    [self.vibrancyView.contentView addSubview:self.brightView];
+    [self.vibrancyView.contentView addSubview:self.toogleButton];
+    
     [nav.blurView.contentView addSubview:self.vibrancyView];
     
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(adjustBrightness:)];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(toogleSwitch)];
     tap.numberOfTapsRequired = 1;
-    [self.switchView addGestureRecognizer:tap];
-    [self.switchView addGestureRecognizer:pan];
     
+    [self.view addGestureRecognizer:pan];
+    [self.view addGestureRecognizer:tap];
+
 }
 
 - (void)findCharacteristicsAndConfigure
 {
-    self.lightBulb.isOn = false;
     for (Device *device in self.devices) {
+        device.isOn = false;
         for (CBService *service in device.peripheral.services)
         {
             for (CBCharacteristic *characteristic in service.characteristics) {
@@ -119,6 +128,7 @@
 
 - (void) toogleSwitch
 {
+    NSLog(@"I am tapped");
     for(Device *device in self.devices) {
         
         if (device.isOn == false) {
@@ -136,22 +146,32 @@
 - (void)adjustBrightness:(UIPanGestureRecognizer *)panGesture
 {
     CGPoint vel = [panGesture velocityInView:self.view];
-    
+
     if (panGesture.state == UIGestureRecognizerStateChanged)
     {
         if (vel.y > 0)
         {
+            self.percentage -=2;
+            [self.toogleButton.titleLabel setText:[NSString stringWithFormat:@"%d%%",self.percentage]];
+            NSLog(@"%d",self.percentage);
+            
             for(Device *device in self.devices) {
+ 
                 [device decrementBrightnessBy:5.12];
             }
-            [self.circleCounter decrementBy:2];
+            [self.brightView decreaseHeight];
         }
         
-        if (vel.y < 0) {
+        if (vel.y < 0)
+        {
+            self.percentage +=2;
+            [self.toogleButton.titleLabel setText:[NSString stringWithFormat:@"%d%%",self.percentage]];
+            NSLog(@"%d",self.percentage);
+            
             for(Device *device in self.devices) {
                 [device incrementBrightnessBy:5.12];
             }
-            [self.circleCounter incrementBy:2];
+            [self.brightView increaseHeight];
         }
     }
     for(Device *device in self.devices) {
@@ -165,13 +185,13 @@
     if (self.lightBulb.peripheral){
         [self.lightBulb.peripheral readRSSI];
         NSLog(@"gAYYY");
-        self.rssiLabel.text = [NSString stringWithFormat:@"RSSI: %@",self.rssi];
     }
     else {
-        self.rssiLabel.text = [NSString stringWithFormat:@"RSSI: %@",[NSNumber numberWithInt:0]];
     }
     
 }
+
+
 
 #pragma mark - CBCentralManager delegate function
 
@@ -185,6 +205,7 @@
 //    [central connectPeripheral:peripheral options:nil];
     
 }
+
 
 
 #pragma mark - CBPeripheral delegate function

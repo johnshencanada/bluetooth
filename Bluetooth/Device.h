@@ -25,9 +25,11 @@
 
 @property (strong,nonatomic) NSString *room;
 @property bool isOn;
+@property (nonatomic) BOOL isSelected;
 @property (nonatomic) double brightness;
 
 - (int)incrementBrightnessBy:(double)brightness;
 - (int)decrementBrightnessBy:(double)brightness;
+- (void) changeColorWithRed:(double)red andGreen:(double)green andBlue:(double)blue;
 
 @end

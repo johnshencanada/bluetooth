@@ -53,7 +53,8 @@
         self.brightness = colorByte[4];
         self.colorData = [NSData dataWithBytes:&colorByte length:sizeof(colorByte)];
     }
-    
+    self.isSelected = false;
+
     return self;
 }
 
@@ -94,6 +95,24 @@
     NSLog(@"colorbyte = %d",colorByte[4]);
     self.colorData = [NSData dataWithBytes:&colorByte length:sizeof(colorByte)];
     return colorByte[4];
+}
+
+- (void) changeColorWithRed:(double)red andGreen:(double)green andBlue:(double)blue
+{
+    UInt8 colorByte[7];
+    colorByte[0] = 0x56;
+    colorByte[1] = red; //R
+    colorByte[2] = green; //G
+    colorByte[3] = blue; //B
+    colorByte[4] = (int)self.brightness;
+    colorByte[5] = 0xF0; //to indicate Color Change
+    colorByte[6] = 0xAA;
+    
+    NSLog(@"colorbyte = %d",colorByte[1]);
+    NSLog(@"colorbyte = %d",colorByte[2]);
+    NSLog(@"colorbyte = %d",colorByte[3]);
+
+    self.colorData = [NSData dataWithBytes:&colorByte length:sizeof(colorByte)];
 }
 
 
