@@ -13,5 +13,5 @@
 @property (nonatomic) UILabel *room;
 @property (nonatomic) UILabel *name;
 @property (nonatomic) UILabel *state;
-@property (nonatomic) UIButton *profilePicture;
+@property (nonatomic) UIButton *logo;
 @end

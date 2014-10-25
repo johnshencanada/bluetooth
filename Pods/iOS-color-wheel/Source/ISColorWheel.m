@@ -95,7 +95,7 @@ static PixelRGB ISColorWheel_HSBToRGB (float h, float s, float v)
 {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(ctx, 2.0);
-    CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
+    CGContextSetStrokeColorWithColor(ctx, [UIColor clearColor].CGColor);
     CGContextAddEllipseInRect(ctx, CGRectInset(self.bounds, 2.0, 2.0));
     CGContextStrokePath(ctx);
     
@@ -345,7 +345,7 @@ static PixelRGB ISColorWheel_HSBToRGB (float h, float s, float v)
     }
     
     CGContextSetLineWidth(ctx, 2.0);
-    CGContextSetStrokeColorWithColor(ctx, [[UIColor blackColor] CGColor]);
+    CGContextSetStrokeColorWithColor(ctx, [[UIColor clearColor] CGColor]);
     CGContextAddEllipseInRect(ctx, CGRectMake(center.x - _radius, center.y - _radius, _radius * 2.0, _radius * 2.0));
     CGContextStrokePath(ctx);
 

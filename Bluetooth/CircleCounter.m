@@ -23,7 +23,7 @@
     self.backgroundColor = [UIColor clearColor];
     self.circleColor = JWG_CIRCLE_COLOR_DEFAULT;
     self.circleBackgroundColor = JWG_CIRCLE_BACKGROUND_COLOR_DEFAULT;
-    self.circleWidth = 30.0f;
+    self.circleWidth = 10.0f;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -33,6 +33,12 @@
         [self baseInit];
     }
     return self;
+}
+
+- (void)setColor:(UIColor *)color
+{
+    self.circleColor = color;
+    [self setNeedsDisplay];
 }
 
 - (void)start

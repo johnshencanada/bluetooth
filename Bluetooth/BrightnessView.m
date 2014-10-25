@@ -14,7 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.height = 100.0;
+        self.height = 1150.0;
         self.color = [UIColor whiteColor];
     }
     return self;
@@ -22,14 +22,18 @@
 
 /* Increment the height when swiped upwards */
 - (void)increaseHeight {
-    self.height+=10.0;
-    [self setNeedsDisplay];
+    if (self.height <= 1150.0) {
+        self.height += 20.0;
+        [self setNeedsDisplay];
+    }
 }
 
 /* Decrement the height when swiped downwards */
 - (void)decreaseHeight {
-    self.height-=10.0;
-    [self setNeedsDisplay];
+    if (self.height > 20.0) {
+        self.height -= 20.0;
+        [self setNeedsDisplay];
+    }
 }
 
 /* The Detail VC is going to set a delegation in Color VC, so when the color is changed, the color of this view changes */

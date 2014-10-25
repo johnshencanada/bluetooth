@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "ISColorWheel.h"
+#import "ASValueTrackingSlider.h"
 #import "Device.h"
 
 @interface LightBulbColorViewController : UIViewController <ISColorWheelDelegate>
 {
     ISColorWheel* _colorWheel;
     UISlider* _brightnessSlider;
-    UIView* _wellView;
 }
 
 @property (strong,nonatomic) NSArray *devices;

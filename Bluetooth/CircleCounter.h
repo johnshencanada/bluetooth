@@ -24,7 +24,7 @@
 /// The thickness of the circle color - default is JWG_CIRCLE_TIMER_WIDTH.
 @property (nonatomic, assign) CGFloat circleWidth;
 
-
+- (void)setColor:(UIColor *)color;
 - (void)start;
 
 - (void)incrementBy:(NSUInteger)amount;

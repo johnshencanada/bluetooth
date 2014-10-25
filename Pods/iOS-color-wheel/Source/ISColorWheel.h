@@ -37,8 +37,6 @@
 
 - (void)setCurrentColor:(UIColor*)color;
 - (UIColor*)currentColor;
-
-
 - (void)setTouchPoint:(CGPoint)point;
 
 @end

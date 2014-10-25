@@ -14,15 +14,21 @@
 		5200822219639C8D00B2F433 /* BluetoothTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5200822119639C8D00B2F433 /* BluetoothTests.m */; };
 		5200822C1963A47900B2F433 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5200822B1963A47900B2F433 /* CoreBluetooth.framework */; };
 		5201847D199E1444009573B3 /* BrightnessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5201847C199E1444009573B3 /* BrightnessView.m */; };
+		5256A43819C2B6DA001B5664 /* NewRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5256A43719C2B6DA001B5664 /* NewRoomViewController.m */; };
+		5256A43B19C2B712001B5664 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5256A43A19C2B712001B5664 /* HomeViewController.m */; };
+		5256A43D19C3DB4D001B5664 /* HomeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5256A43C19C3DB4D001B5664 /* HomeKit.framework */; };
 		5268E64819A00BF300E8C3CC /* Dashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 5268E64719A00BF300E8C3CC /* Dashboard.m */; };
+		527870CC19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */; };
+		527870CF19C95C6100FEBAE8 /* RoomPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 527870CE19C95C6100FEBAE8 /* RoomPictureCell.m */; };
+		52A04DEF19B1730D008EF273 /* LightBulbTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A04DEE19B1730D008EF273 /* LightBulbTimerViewController.m */; };
+		52A279C019AA76D200F0C597 /* StatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A279BF19AA76D200F0C597 /* StatusLabel.m */; };
+		52ABBFE419B23F8100357EA6 /* ControlPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52ABBFE319B23F8100357EA6 /* ControlPanelView.m */; };
 		52B13CA719824287006EC977 /* CircleCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B13CA619824287006EC977 /* CircleCounter.m */; };
 		52D0465419662D68004F429A /* DevicesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465319662D68004F429A /* DevicesCollectionViewController.m */; };
 		52D0465719662EA6004F429A /* DeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465619662EA6004F429A /* DeviceCell.m */; };
 		52D0465A19663254004F429A /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465919663254004F429A /* Device.m */; };
-		52D04660196632F3004F429A /* LightBulbDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465F196632F3004F429A /* LightBulbDetailViewController.m */; };
 		52DC62B7198F9B9500E8FE18 /* LightBulbColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DC62B6198F9B9500E8FE18 /* LightBulbColorViewController.m */; };
 		52DC62BA198F9BA400E8FE18 /* LightBulbRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DC62B9198F9BA400E8FE18 /* LightBulbRoomViewController.m */; };
-		52E45B6E1969295200E6EDA0 /* LampDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E45B6D1969295200E6EDA0 /* LampDetailViewController.m */; };
 		52E7ADF01964DA6100D8D9BE /* MyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */; };
 		52F4037719A85F0A00879F26 /* RoomsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4037619A85F0A00879F26 /* RoomsCollectionViewController.m */; };
 		52F4037A19A85F2600879F26 /* RoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4037919A85F2600879F26 /* RoomCell.m */; };
@@ -54,8 +60,23 @@
 		5200822B1963A47900B2F433 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5201847B199E1444009573B3 /* BrightnessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrightnessView.h; sourceTree = "<group>"; };
 		5201847C199E1444009573B3 /* BrightnessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrightnessView.m; sourceTree = "<group>"; };
+		5256A43619C2B6DA001B5664 /* NewRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewRoomViewController.h; sourceTree = "<group>"; };
+		5256A43719C2B6DA001B5664 /* NewRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewRoomViewController.m; sourceTree = "<group>"; };
+		5256A43919C2B712001B5664 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		5256A43A19C2B712001B5664 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		5256A43C19C3DB4D001B5664 /* HomeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HomeKit.framework; path = System/Library/Frameworks/HomeKit.framework; sourceTree = SDKROOT; };
 		5268E64619A00BF300E8C3CC /* Dashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dashboard.h; sourceTree = "<group>"; };
 		5268E64719A00BF300E8C3CC /* Dashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dashboard.m; sourceTree = "<group>"; };
+		527870CA19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbRoomCollectionViewController.h; sourceTree = "<group>"; };
+		527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbRoomCollectionViewController.m; sourceTree = "<group>"; };
+		527870CD19C95C6100FEBAE8 /* RoomPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomPictureCell.h; sourceTree = "<group>"; };
+		527870CE19C95C6100FEBAE8 /* RoomPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomPictureCell.m; sourceTree = "<group>"; };
+		52A04DED19B1730D008EF273 /* LightBulbTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbTimerViewController.h; sourceTree = "<group>"; };
+		52A04DEE19B1730D008EF273 /* LightBulbTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbTimerViewController.m; sourceTree = "<group>"; };
+		52A279BE19AA76D200F0C597 /* StatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusLabel.h; sourceTree = "<group>"; };
+		52A279BF19AA76D200F0C597 /* StatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusLabel.m; sourceTree = "<group>"; };
+		52ABBFE219B23F8100357EA6 /* ControlPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPanelView.h; sourceTree = "<group>"; };
+		52ABBFE319B23F8100357EA6 /* ControlPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPanelView.m; sourceTree = "<group>"; };
 		52B13CA519824287006EC977 /* CircleCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCounter.h; sourceTree = "<group>"; };
 		52B13CA619824287006EC977 /* CircleCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCounter.m; sourceTree = "<group>"; };
 		52D0465219662D68004F429A /* DevicesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicesCollectionViewController.h; sourceTree = "<group>"; };
@@ -64,14 +85,10 @@
 		52D0465619662EA6004F429A /* DeviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceCell.m; sourceTree = "<group>"; };
 		52D0465819663254004F429A /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
 		52D0465919663254004F429A /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
-		52D0465E196632F3004F429A /* LightBulbDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbDetailViewController.h; sourceTree = "<group>"; };
-		52D0465F196632F3004F429A /* LightBulbDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbDetailViewController.m; sourceTree = "<group>"; };
 		52DC62B5198F9B9500E8FE18 /* LightBulbColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbColorViewController.h; sourceTree = "<group>"; };
 		52DC62B6198F9B9500E8FE18 /* LightBulbColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbColorViewController.m; sourceTree = "<group>"; };
 		52DC62B8198F9BA400E8FE18 /* LightBulbRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbRoomViewController.h; sourceTree = "<group>"; };
 		52DC62B9198F9BA400E8FE18 /* LightBulbRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbRoomViewController.m; sourceTree = "<group>"; };
-		52E45B6C1969295200E6EDA0 /* LampDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LampDetailViewController.h; sourceTree = "<group>"; };
-		52E45B6D1969295200E6EDA0 /* LampDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LampDetailViewController.m; sourceTree = "<group>"; };
 		52E7ADEE1964DA6100D8D9BE /* MyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNavigationController.h; sourceTree = "<group>"; };
 		52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNavigationController.m; sourceTree = "<group>"; };
 		52F4037519A85F0A00879F26 /* RoomsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomsCollectionViewController.h; sourceTree = "<group>"; };
@@ -89,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5256A43D19C3DB4D001B5664 /* HomeKit.framework in Frameworks */,
 				5200822C1963A47900B2F433 /* CoreBluetooth.framework in Frameworks */,
 				D81A252D3CC248A7B40F7644 /* libPods.a in Frameworks */,
 			);
@@ -174,8 +192,14 @@
 				52F4037C19A8869D00879F26 /* HeaderCellView.m */,
 				52F4037819A85F2600879F26 /* RoomCell.h */,
 				52F4037919A85F2600879F26 /* RoomCell.m */,
+				527870CD19C95C6100FEBAE8 /* RoomPictureCell.h */,
+				527870CE19C95C6100FEBAE8 /* RoomPictureCell.m */,
+				52A279BE19AA76D200F0C597 /* StatusLabel.h */,
+				52A279BF19AA76D200F0C597 /* StatusLabel.m */,
 				52D0465519662EA6004F429A /* DeviceCell.h */,
 				52D0465619662EA6004F429A /* DeviceCell.m */,
+				52ABBFE219B23F8100357EA6 /* ControlPanelView.h */,
+				52ABBFE319B23F8100357EA6 /* ControlPanelView.m */,
 				5201847B199E1444009573B3 /* BrightnessView.h */,
 				5201847C199E1444009573B3 /* BrightnessView.m */,
 				52B13CA519824287006EC977 /* CircleCounter.h */,
@@ -201,16 +225,20 @@
 				52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */,
 				52F4037519A85F0A00879F26 /* RoomsCollectionViewController.h */,
 				52F4037619A85F0A00879F26 /* RoomsCollectionViewController.m */,
+				5256A43919C2B712001B5664 /* HomeViewController.h */,
+				5256A43A19C2B712001B5664 /* HomeViewController.m */,
+				5256A43619C2B6DA001B5664 /* NewRoomViewController.h */,
+				5256A43719C2B6DA001B5664 /* NewRoomViewController.m */,
 				52D0465219662D68004F429A /* DevicesCollectionViewController.h */,
 				52D0465319662D68004F429A /* DevicesCollectionViewController.m */,
-				52D0465E196632F3004F429A /* LightBulbDetailViewController.h */,
-				52D0465F196632F3004F429A /* LightBulbDetailViewController.m */,
 				52DC62B5198F9B9500E8FE18 /* LightBulbColorViewController.h */,
 				52DC62B6198F9B9500E8FE18 /* LightBulbColorViewController.m */,
+				52A04DED19B1730D008EF273 /* LightBulbTimerViewController.h */,
+				52A04DEE19B1730D008EF273 /* LightBulbTimerViewController.m */,
 				52DC62B8198F9BA400E8FE18 /* LightBulbRoomViewController.h */,
 				52DC62B9198F9BA400E8FE18 /* LightBulbRoomViewController.m */,
-				52E45B6C1969295200E6EDA0 /* LampDetailViewController.h */,
-				52E45B6D1969295200E6EDA0 /* LampDetailViewController.m */,
+				527870CA19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.h */,
+				527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -218,6 +246,7 @@
 		C5769B1A91854D98A969A1C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5256A43C19C3DB4D001B5664 /* HomeKit.framework */,
 				7E992773B23C455DBAA429AC /* libPods.a */,
 			);
 			name = Frameworks;
@@ -274,6 +303,12 @@
 				TargetAttributes = {
 					5200820419639C8D00B2F433 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 5JE8Y2Q737;
+						SystemCapabilities = {
+							com.apple.HomeKit = {
+								enabled = 1;
+							};
+						};
 					};
 					5200821A19639C8D00B2F433 = {
 						CreatedOnToolsVersion = 6.0;
@@ -358,18 +393,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				52D0465419662D68004F429A /* DevicesCollectionViewController.m in Sources */,
-				52E45B6E1969295200E6EDA0 /* LampDetailViewController.m in Sources */,
 				5268E64819A00BF300E8C3CC /* Dashboard.m in Sources */,
 				5200820E19639C8D00B2F433 /* AppDelegate.m in Sources */,
+				527870CC19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m in Sources */,
+				5256A43B19C2B712001B5664 /* HomeViewController.m in Sources */,
 				52F4037A19A85F2600879F26 /* RoomCell.m in Sources */,
+				5256A43819C2B6DA001B5664 /* NewRoomViewController.m in Sources */,
 				52D0465719662EA6004F429A /* DeviceCell.m in Sources */,
-				52D04660196632F3004F429A /* LightBulbDetailViewController.m in Sources */,
 				52D0465A19663254004F429A /* Device.m in Sources */,
+				52A04DEF19B1730D008EF273 /* LightBulbTimerViewController.m in Sources */,
 				52DC62B7198F9B9500E8FE18 /* LightBulbColorViewController.m in Sources */,
 				5201847D199E1444009573B3 /* BrightnessView.m in Sources */,
 				5200820B19639C8D00B2F433 /* main.m in Sources */,
 				52DC62BA198F9BA400E8FE18 /* LightBulbRoomViewController.m in Sources */,
 				52F4037719A85F0A00879F26 /* RoomsCollectionViewController.m in Sources */,
+				527870CF19C95C6100FEBAE8 /* RoomPictureCell.m in Sources */,
+				52ABBFE419B23F8100357EA6 /* ControlPanelView.m in Sources */,
+				52A279C019AA76D200F0C597 /* StatusLabel.m in Sources */,
 				52B13CA719824287006EC977 /* CircleCounter.m in Sources */,
 				52E7ADF01964DA6100D8D9BE /* MyNavigationController.m in Sources */,
 				52F4037D19A8869D00879F26 /* HeaderCellView.m in Sources */,
@@ -488,9 +528,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Bluetooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -500,9 +543,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Bluetooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

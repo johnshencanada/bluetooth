@@ -9,7 +9,19 @@
 #import <UIKit/UIKit.h>
 
 @interface Dashboard : UIView
+@property (nonatomic) UIImageView *backgroundImageView;
 @property (nonatomic) NSString *homeName;
 @property (nonatomic) UILabel *homeLabel;
 @property (nonatomic) UILabel *state;
+@property (nonatomic) UIButton *home;
+@property (nonatomic) UIButton *add;
+@property (nonatomic) UIButton *back;
+@property (nonatomic) UIButton *refresh;
+
+
+
+- (void)setTitle:(NSString *)title;
+- (void)setbackgroundImage:(NSString *)image;
+- (void)setBackImage:(NSString *)imageName;
+- (void)setRefreshImage:(NSString *)imageName;
 @end

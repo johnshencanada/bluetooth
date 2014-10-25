@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-ASValueTrackingSlider.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SAMGradientView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>BA21E11BC6634E7682C9AED7</key>
+		<key>02F152F52B0147DA9F0060EE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BACE33BBEEB64C37A9065481</key>
+		<key>118DF97E850543D49C2934EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D3019609DF434AC797DBE326</key>
+		<key>31E40DCD0D234ADB9102BE60</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EEED494669744588950774D0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

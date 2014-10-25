@@ -1,12 +1,15 @@
 PODS:
+  - ASValueTrackingSlider (0.9.4)
   - iOS-color-wheel (0.1)
   - SAMGradientView (0.2.1)
 
 DEPENDENCIES:
+  - ASValueTrackingSlider
   - iOS-color-wheel
   - SAMGradientView
 
 SPEC CHECKSUMS:
+  ASValueTrackingSlider: 74a4bbf70c8cf43d29b701ff4c7659fc5d0afd99
   iOS-color-wheel: 571e71f6b2a3e15f3d3c7d3a4db4893b1e24040f
   SAMGradientView: 37ef027b0da8b5fd85bfdfef49801b5262160998
 
