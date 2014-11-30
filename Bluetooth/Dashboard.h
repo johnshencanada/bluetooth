@@ -13,6 +13,9 @@
 @property (nonatomic) NSString *homeName;
 @property (nonatomic) UILabel *homeLabel;
 @property (nonatomic) UILabel *state;
+@property (nonatomic) UILabel *greetingLabel;
+@property (nonatomic) UILabel *dateLabel;
+
 @property (nonatomic) UIButton *home;
 @property (nonatomic) UIButton *add;
 @property (nonatomic) UIButton *back;

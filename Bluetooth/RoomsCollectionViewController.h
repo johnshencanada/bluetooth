@@ -13,4 +13,5 @@
 
 @interface RoomsCollectionViewController : UICollectionViewController <CBCentralManagerDelegate,CBPeripheralDelegate, HMHomeManagerDelegate >
 
+
 @end

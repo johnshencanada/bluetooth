@@ -14,12 +14,15 @@
 		5200822219639C8D00B2F433 /* BluetoothTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5200822119639C8D00B2F433 /* BluetoothTests.m */; };
 		5200822C1963A47900B2F433 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5200822B1963A47900B2F433 /* CoreBluetooth.framework */; };
 		5201847D199E1444009573B3 /* BrightnessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5201847C199E1444009573B3 /* BrightnessView.m */; };
+		5247D6891A16FE4C00EE800B /* nextDuinoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5247D6881A16FE4C00EE800B /* nextDuinoViewController.m */; };
+		5247D68F1A1705EE00EE800B /* CNBluetoothCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = 5247D68E1A1705EE00EE800B /* CNBluetoothCentral.m */; };
 		5256A43819C2B6DA001B5664 /* NewRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5256A43719C2B6DA001B5664 /* NewRoomViewController.m */; };
 		5256A43B19C2B712001B5664 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5256A43A19C2B712001B5664 /* HomeViewController.m */; };
 		5256A43D19C3DB4D001B5664 /* HomeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5256A43C19C3DB4D001B5664 /* HomeKit.framework */; };
 		5268E64819A00BF300E8C3CC /* Dashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 5268E64719A00BF300E8C3CC /* Dashboard.m */; };
 		527870CC19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */; };
 		527870CF19C95C6100FEBAE8 /* RoomPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 527870CE19C95C6100FEBAE8 /* RoomPictureCell.m */; };
+		527BBADF1A2BDC130097ECC6 /* RoomLogoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 527BBADE1A2BDC130097ECC6 /* RoomLogoButton.m */; };
 		52A04DEF19B1730D008EF273 /* LightBulbTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A04DEE19B1730D008EF273 /* LightBulbTimerViewController.m */; };
 		52A279C019AA76D200F0C597 /* StatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A279BF19AA76D200F0C597 /* StatusLabel.m */; };
 		52ABBFE419B23F8100357EA6 /* ControlPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52ABBFE319B23F8100357EA6 /* ControlPanelView.m */; };
@@ -47,19 +50,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5200820519639C8D00B2F433 /* Bluetooth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bluetooth.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5200820519639C8D00B2F433 /* nextHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nextHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5200820919639C8D00B2F433 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5200820A19639C8D00B2F433 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5200820C19639C8D00B2F433 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5200820D19639C8D00B2F433 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5200821319639C8D00B2F433 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5200821519639C8D00B2F433 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		5200821B19639C8D00B2F433 /* BluetoothTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluetoothTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5200821B19639C8D00B2F433 /* nextHomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nextHomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5200822019639C8D00B2F433 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5200822119639C8D00B2F433 /* BluetoothTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BluetoothTests.m; sourceTree = "<group>"; };
 		5200822B1963A47900B2F433 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5201847B199E1444009573B3 /* BrightnessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrightnessView.h; sourceTree = "<group>"; };
 		5201847C199E1444009573B3 /* BrightnessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrightnessView.m; sourceTree = "<group>"; };
+		5247D6871A16FE4C00EE800B /* nextDuinoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nextDuinoViewController.h; sourceTree = "<group>"; };
+		5247D6881A16FE4C00EE800B /* nextDuinoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nextDuinoViewController.m; sourceTree = "<group>"; };
+		5247D68D1A1705EE00EE800B /* CNBluetoothCentral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNBluetoothCentral.h; sourceTree = "<group>"; };
+		5247D68E1A1705EE00EE800B /* CNBluetoothCentral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CNBluetoothCentral.m; sourceTree = "<group>"; };
 		5256A43619C2B6DA001B5664 /* NewRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewRoomViewController.h; sourceTree = "<group>"; };
 		5256A43719C2B6DA001B5664 /* NewRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewRoomViewController.m; sourceTree = "<group>"; };
 		5256A43919C2B712001B5664 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -67,12 +74,14 @@
 		5256A43C19C3DB4D001B5664 /* HomeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HomeKit.framework; path = System/Library/Frameworks/HomeKit.framework; sourceTree = SDKROOT; };
 		5268E64619A00BF300E8C3CC /* Dashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dashboard.h; sourceTree = "<group>"; };
 		5268E64719A00BF300E8C3CC /* Dashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dashboard.m; sourceTree = "<group>"; };
-		527870CA19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbRoomCollectionViewController.h; sourceTree = "<group>"; };
-		527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbRoomCollectionViewController.m; sourceTree = "<group>"; };
+		527870CA19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightBulbRoomCollectionViewController.h; path = Bluetooth/LightBulbRoomCollectionViewController.h; sourceTree = "<group>"; };
+		527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightBulbRoomCollectionViewController.m; path = Bluetooth/LightBulbRoomCollectionViewController.m; sourceTree = "<group>"; };
 		527870CD19C95C6100FEBAE8 /* RoomPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomPictureCell.h; sourceTree = "<group>"; };
 		527870CE19C95C6100FEBAE8 /* RoomPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomPictureCell.m; sourceTree = "<group>"; };
-		52A04DED19B1730D008EF273 /* LightBulbTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbTimerViewController.h; sourceTree = "<group>"; };
-		52A04DEE19B1730D008EF273 /* LightBulbTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbTimerViewController.m; sourceTree = "<group>"; };
+		527BBADD1A2BDC130097ECC6 /* RoomLogoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomLogoButton.h; sourceTree = "<group>"; };
+		527BBADE1A2BDC130097ECC6 /* RoomLogoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomLogoButton.m; sourceTree = "<group>"; };
+		52A04DED19B1730D008EF273 /* LightBulbTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightBulbTimerViewController.h; path = Bluetooth/LightBulbTimerViewController.h; sourceTree = "<group>"; };
+		52A04DEE19B1730D008EF273 /* LightBulbTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightBulbTimerViewController.m; path = Bluetooth/LightBulbTimerViewController.m; sourceTree = "<group>"; };
 		52A279BE19AA76D200F0C597 /* StatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusLabel.h; sourceTree = "<group>"; };
 		52A279BF19AA76D200F0C597 /* StatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusLabel.m; sourceTree = "<group>"; };
 		52ABBFE219B23F8100357EA6 /* ControlPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPanelView.h; sourceTree = "<group>"; };
@@ -85,10 +94,10 @@
 		52D0465619662EA6004F429A /* DeviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceCell.m; sourceTree = "<group>"; };
 		52D0465819663254004F429A /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
 		52D0465919663254004F429A /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
-		52DC62B5198F9B9500E8FE18 /* LightBulbColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbColorViewController.h; sourceTree = "<group>"; };
-		52DC62B6198F9B9500E8FE18 /* LightBulbColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbColorViewController.m; sourceTree = "<group>"; };
-		52DC62B8198F9BA400E8FE18 /* LightBulbRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBulbRoomViewController.h; sourceTree = "<group>"; };
-		52DC62B9198F9BA400E8FE18 /* LightBulbRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBulbRoomViewController.m; sourceTree = "<group>"; };
+		52DC62B5198F9B9500E8FE18 /* LightBulbColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightBulbColorViewController.h; path = Bluetooth/LightBulbColorViewController.h; sourceTree = "<group>"; };
+		52DC62B6198F9B9500E8FE18 /* LightBulbColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightBulbColorViewController.m; path = Bluetooth/LightBulbColorViewController.m; sourceTree = "<group>"; };
+		52DC62B8198F9BA400E8FE18 /* LightBulbRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightBulbRoomViewController.h; path = Bluetooth/LightBulbRoomViewController.h; sourceTree = "<group>"; };
+		52DC62B9198F9BA400E8FE18 /* LightBulbRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightBulbRoomViewController.m; path = Bluetooth/LightBulbRoomViewController.m; sourceTree = "<group>"; };
 		52E7ADEE1964DA6100D8D9BE /* MyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNavigationController.h; sourceTree = "<group>"; };
 		52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNavigationController.m; sourceTree = "<group>"; };
 		52F4037519A85F0A00879F26 /* RoomsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomsCollectionViewController.h; sourceTree = "<group>"; };
@@ -137,8 +146,8 @@
 		5200820619639C8D00B2F433 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5200820519639C8D00B2F433 /* Bluetooth.app */,
-				5200821B19639C8D00B2F433 /* BluetoothTests.xctest */,
+				5200820519639C8D00B2F433 /* nextHome.app */,
+				5200821B19639C8D00B2F433 /* nextHomeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,6 +160,7 @@
 				52D046501965E3F1004F429A /* Model */,
 				52D0464F1965E3E9004F429A /* View */,
 				52D046511965E3FA004F429A /* Controller */,
+				5247D68A1A16FE5800EE800B /* nextDuino */,
 				5200820819639C8D00B2F433 /* Supporting Files */,
 			);
 			path = Bluetooth;
@@ -182,6 +192,44 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5247D68A1A16FE5800EE800B /* nextDuino */ = {
+			isa = PBXGroup;
+			children = (
+				5247D68D1A1705EE00EE800B /* CNBluetoothCentral.h */,
+				5247D68E1A1705EE00EE800B /* CNBluetoothCentral.m */,
+				5247D6871A16FE4C00EE800B /* nextDuinoViewController.h */,
+				5247D6881A16FE4C00EE800B /* nextDuinoViewController.m */,
+			);
+			name = nextDuino;
+			sourceTree = "<group>";
+		};
+		5247D68B1A16FE8400EE800B /* nextBulb */ = {
+			isa = PBXGroup;
+			children = (
+				52DC62B5198F9B9500E8FE18 /* LightBulbColorViewController.h */,
+				52DC62B6198F9B9500E8FE18 /* LightBulbColorViewController.m */,
+				52A04DED19B1730D008EF273 /* LightBulbTimerViewController.h */,
+				52A04DEE19B1730D008EF273 /* LightBulbTimerViewController.m */,
+				52DC62B8198F9BA400E8FE18 /* LightBulbRoomViewController.h */,
+				52DC62B9198F9BA400E8FE18 /* LightBulbRoomViewController.m */,
+				527870CA19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.h */,
+				527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */,
+			);
+			name = nextBulb;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		5247D68C1A16FEC600EE800B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				5256A43919C2B712001B5664 /* HomeViewController.h */,
+				5256A43A19C2B712001B5664 /* HomeViewController.m */,
+				5256A43619C2B6DA001B5664 /* NewRoomViewController.h */,
+				5256A43719C2B6DA001B5664 /* NewRoomViewController.m */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
 		52D0464F1965E3E9004F429A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +240,8 @@
 				52F4037C19A8869D00879F26 /* HeaderCellView.m */,
 				52F4037819A85F2600879F26 /* RoomCell.h */,
 				52F4037919A85F2600879F26 /* RoomCell.m */,
+				527BBADD1A2BDC130097ECC6 /* RoomLogoButton.h */,
+				527BBADE1A2BDC130097ECC6 /* RoomLogoButton.m */,
 				527870CD19C95C6100FEBAE8 /* RoomPictureCell.h */,
 				527870CE19C95C6100FEBAE8 /* RoomPictureCell.m */,
 				52A279BE19AA76D200F0C597 /* StatusLabel.h */,
@@ -225,20 +275,10 @@
 				52E7ADEF1964DA6100D8D9BE /* MyNavigationController.m */,
 				52F4037519A85F0A00879F26 /* RoomsCollectionViewController.h */,
 				52F4037619A85F0A00879F26 /* RoomsCollectionViewController.m */,
-				5256A43919C2B712001B5664 /* HomeViewController.h */,
-				5256A43A19C2B712001B5664 /* HomeViewController.m */,
-				5256A43619C2B6DA001B5664 /* NewRoomViewController.h */,
-				5256A43719C2B6DA001B5664 /* NewRoomViewController.m */,
 				52D0465219662D68004F429A /* DevicesCollectionViewController.h */,
 				52D0465319662D68004F429A /* DevicesCollectionViewController.m */,
-				52DC62B5198F9B9500E8FE18 /* LightBulbColorViewController.h */,
-				52DC62B6198F9B9500E8FE18 /* LightBulbColorViewController.m */,
-				52A04DED19B1730D008EF273 /* LightBulbTimerViewController.h */,
-				52A04DEE19B1730D008EF273 /* LightBulbTimerViewController.m */,
-				52DC62B8198F9BA400E8FE18 /* LightBulbRoomViewController.h */,
-				52DC62B9198F9BA400E8FE18 /* LightBulbRoomViewController.m */,
-				527870CA19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.h */,
-				527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */,
+				5247D68C1A16FEC600EE800B /* Home */,
+				5247D68B1A16FE8400EE800B /* nextBulb */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -255,9 +295,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5200820419639C8D00B2F433 /* Bluetooth */ = {
+		5200820419639C8D00B2F433 /* nextHome */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5200822519639C8D00B2F433 /* Build configuration list for PBXNativeTarget "Bluetooth" */;
+			buildConfigurationList = 5200822519639C8D00B2F433 /* Build configuration list for PBXNativeTarget "nextHome" */;
 			buildPhases = (
 				D38F2E66276B45CEA2960E02 /* Check Pods Manifest.lock */,
 				5200820119639C8D00B2F433 /* Sources */,
@@ -269,14 +309,14 @@
 			);
 			dependencies = (
 			);
-			name = Bluetooth;
+			name = nextHome;
 			productName = Bluetooth;
-			productReference = 5200820519639C8D00B2F433 /* Bluetooth.app */;
+			productReference = 5200820519639C8D00B2F433 /* nextHome.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5200821A19639C8D00B2F433 /* BluetoothTests */ = {
+		5200821A19639C8D00B2F433 /* nextHomeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5200822819639C8D00B2F433 /* Build configuration list for PBXNativeTarget "BluetoothTests" */;
+			buildConfigurationList = 5200822819639C8D00B2F433 /* Build configuration list for PBXNativeTarget "nextHomeTests" */;
 			buildPhases = (
 				5200821719639C8D00B2F433 /* Sources */,
 				5200821819639C8D00B2F433 /* Frameworks */,
@@ -287,9 +327,9 @@
 			dependencies = (
 				5200821D19639C8D00B2F433 /* PBXTargetDependency */,
 			);
-			name = BluetoothTests;
+			name = nextHomeTests;
 			productName = BluetoothTests;
-			productReference = 5200821B19639C8D00B2F433 /* BluetoothTests.xctest */;
+			productReference = 5200821B19639C8D00B2F433 /* nextHomeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -316,7 +356,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5200820019639C8D00B2F433 /* Build configuration list for PBXProject "Bluetooth" */;
+			buildConfigurationList = 5200820019639C8D00B2F433 /* Build configuration list for PBXProject "nextHome" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -329,8 +369,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5200820419639C8D00B2F433 /* Bluetooth */,
-				5200821A19639C8D00B2F433 /* BluetoothTests */,
+				5200820419639C8D00B2F433 /* nextHome */,
+				5200821A19639C8D00B2F433 /* nextHomeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -397,6 +437,7 @@
 				5200820E19639C8D00B2F433 /* AppDelegate.m in Sources */,
 				527870CC19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m in Sources */,
 				5256A43B19C2B712001B5664 /* HomeViewController.m in Sources */,
+				527BBADF1A2BDC130097ECC6 /* RoomLogoButton.m in Sources */,
 				52F4037A19A85F2600879F26 /* RoomCell.m in Sources */,
 				5256A43819C2B6DA001B5664 /* NewRoomViewController.m in Sources */,
 				52D0465719662EA6004F429A /* DeviceCell.m in Sources */,
@@ -410,9 +451,11 @@
 				527870CF19C95C6100FEBAE8 /* RoomPictureCell.m in Sources */,
 				52ABBFE419B23F8100357EA6 /* ControlPanelView.m in Sources */,
 				52A279C019AA76D200F0C597 /* StatusLabel.m in Sources */,
+				5247D68F1A1705EE00EE800B /* CNBluetoothCentral.m in Sources */,
 				52B13CA719824287006EC977 /* CircleCounter.m in Sources */,
 				52E7ADF01964DA6100D8D9BE /* MyNavigationController.m in Sources */,
 				52F4037D19A8869D00879F26 /* HeaderCellView.m in Sources */,
+				5247D6891A16FE4C00EE800B /* nextDuinoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +472,7 @@
 /* Begin PBXTargetDependency section */
 		5200821D19639C8D00B2F433 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5200820419639C8D00B2F433 /* Bluetooth */;
+			target = 5200820419639C8D00B2F433 /* nextHome */;
 			targetProxy = 5200821C19639C8D00B2F433 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -532,7 +575,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Bluetooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = nextHome;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -547,7 +590,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Bluetooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = nextHome;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -567,7 +610,7 @@
 				INFOPLIST_FILE = BluetoothTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = nextHomeTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
@@ -583,7 +626,7 @@
 				INFOPLIST_FILE = BluetoothTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = nextHomeTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;
@@ -591,7 +634,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5200820019639C8D00B2F433 /* Build configuration list for PBXProject "Bluetooth" */ = {
+		5200820019639C8D00B2F433 /* Build configuration list for PBXProject "nextHome" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5200822319639C8D00B2F433 /* Debug */,
@@ -600,7 +643,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5200822519639C8D00B2F433 /* Build configuration list for PBXNativeTarget "Bluetooth" */ = {
+		5200822519639C8D00B2F433 /* Build configuration list for PBXNativeTarget "nextHome" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5200822619639C8D00B2F433 /* Debug */,
@@ -609,7 +652,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5200822819639C8D00B2F433 /* Build configuration list for PBXNativeTarget "BluetoothTests" */ = {
+		5200822819639C8D00B2F433 /* Build configuration list for PBXNativeTarget "nextHomeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5200822919639C8D00B2F433 /* Debug */,

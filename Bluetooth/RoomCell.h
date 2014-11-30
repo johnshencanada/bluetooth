@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "CircleCounter.h"
+#import "RoomLogoButton.h"
 
 @interface RoomCell : UICollectionViewCell
-@property (nonatomic) UIImageView *logo;
+@property (nonatomic) RoomLogoButton *logo;
 @property (nonatomic) UILabel *name;
+@property (nonatomic) UIImageView *numberOfDeviceImage;
 @property (nonatomic) UILabel *numberOfDeviceLabel;
-@property (nonatomic) UIImageView *number;
 @property (nonatomic) UIImageView *connection;
 @property int numberOfDevices;
 
 - (void)setLogoImage:(NSString*)logoName;
 - (void)setStateImage:(NSString*)state;
+-(void)setNumberOfDevice:(NSUInteger)number;
+
 @end

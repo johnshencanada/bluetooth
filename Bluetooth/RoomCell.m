@@ -16,28 +16,27 @@
     if (self) {
         self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
         
-        self.logo = [[UIImageView alloc]initWithFrame:CGRectMake(15, 20, 35, 35)];
+        self.logo = [[RoomLogoButton alloc]initWithFrame:CGRectMake(15, 20, 35, 35)];
         [self.contentView addSubview:self.logo];
 
         self.name = [[UILabel alloc]initWithFrame:CGRectMake(100, 0, 320, 80)];
         self.name.textAlignment = NSTextAlignmentLeft;
         self.name.font = [UIFont fontWithName:@"GillSans-Light" size:20.0];
-        self.name.textColor = [UIColor whiteColor];
+        self.name.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:self.name];
         self.numberOfDevices = 0;
         
-        self.number = [[UIImageView alloc]initWithFrame:CGRectMake(250,17,50,50)];
-        UIImage *logoImage = [UIImage imageNamed:@"number-deivce"];
-        [self.number setImage:logoImage];
-        self.number.contentMode = UIViewContentModeScaleAspectFit;
-        [self.contentView addSubview:self.number];
+        UIImage *image = [UIImage imageNamed:@"number-device"];
+        self.numberOfDeviceImage = [[UIImageView alloc]initWithFrame:CGRectMake(200,30,20,20)];
+        self.numberOfDeviceImage.image = image;
+        self.numberOfDeviceImage.contentMode = UIViewContentModeScaleAspectFit;
         
-        self.numberOfDeviceLabel = [[UILabel alloc]initWithFrame:CGRectMake(270,17,50,50)];
+        self.numberOfDeviceLabel = [[UILabel alloc]initWithFrame:CGRectMake(207,30,20,20)];
         self.numberOfDeviceLabel.text = [NSString stringWithFormat:@"%d", self.numberOfDevices];
         self.numberOfDeviceLabel.textColor = [UIColor whiteColor];
-        self.numberOfDeviceLabel.font = [UIFont fontWithName:@"GillSans-Light" size:20.0];
-
-        [self.contentView addSubview:self.numberOfDeviceLabel];
+        self.numberOfDeviceLabel.font = [UIFont fontWithName:@"GillSans-Light" size:10.0];
+        
+        
     }
     return self;
 }
@@ -63,18 +62,22 @@
     }
     else if ([logoName isEqualToString:@"nextBulb-mega"])
     {
-        logoImage = [UIImage imageNamed:@"nextBulb-mega"];
+        logoImage = [UIImage imageNamed:@"lightbulb_on"];
     }
     else if ([logoName isEqualToString:@"nextBulb-nano"])
     {
-        logoImage = [UIImage imageNamed:@"nextBulb-nano"];
+        logoImage = [UIImage imageNamed:@"lightbulb_on"];
     }
     else if ([logoName isEqualToString:@"nextBulb"])
     {
-        logoImage = [UIImage imageNamed:@"nextBulb"];
+        logoImage = [UIImage imageNamed:@"lightbulb_on"];
+    }
+    else if ([logoName isEqualToString:@"nextDuino"])
+    {
+        logoImage = [UIImage imageNamed:@"nextDuino"];
     }
 
-    [self.logo setImage:logoImage];
+    [self.logo setBackgroundImage:logoImage forState:UIControlStateNormal];
     self.logo.contentMode = UIViewContentModeScaleAspectFit;
 
 }
@@ -84,8 +87,8 @@
     UIImage *logoImage;
     if ([state isEqualToString:@"Connected"]) {
         [self.connection removeFromSuperview];
+        [self.numberOfDeviceImage removeFromSuperview];
         [self.numberOfDeviceLabel removeFromSuperview];
-        [self.number removeFromSuperview];
         self.connection = [[UIImageView alloc]initWithFrame:CGRectMake(250,17,50,50)];
         self.connection.contentMode = UIViewContentModeScaleAspectFit;
         logoImage = [UIImage imageNamed:@"connected"];
@@ -94,7 +97,6 @@
     else if ([state isEqualToString:@"Connecting"]) {
         [self.connection removeFromSuperview];
         [self.numberOfDeviceLabel removeFromSuperview];
-        [self.number removeFromSuperview];
         self.connection = [[UIImageView alloc]initWithFrame:CGRectMake(250,17,50,50)];
         self.connection.contentMode = UIViewContentModeScaleAspectFit;
         logoImage = [UIImage imageNamed:@"connecting"];
@@ -103,7 +105,6 @@
     else if ([state isEqualToString:@"Disconnected"]) {
         [self.connection removeFromSuperview];
         [self.numberOfDeviceLabel removeFromSuperview];
-        [self.number removeFromSuperview];
         self.connection = [[UIImageView alloc]initWithFrame:CGRectMake(250,17,50,50)];
         self.connection.contentMode = UIViewContentModeScaleAspectFit;
         logoImage = [UIImage imageNamed:@"disconnected"];
@@ -111,13 +112,20 @@
     }
     else {
         [self.connection removeFromSuperview];
+        [self.contentView addSubview:self.numberOfDeviceImage];
         [self.contentView addSubview:self.numberOfDeviceLabel];
         self.connection = [[UIImageView alloc]initWithFrame:CGRectMake(250,17,50,50)];
         self.connection.contentMode = UIViewContentModeScaleAspectFit;
-        logoImage = [UIImage imageNamed:@"number-device"];
+        logoImage = [UIImage imageNamed:@"connected2"];
         self.connection.image = logoImage;
     }
     [self.contentView addSubview:self.connection];
+}
+
+-(void)setNumberOfDevice:(NSUInteger)number
+{
+    self.numberOfDeviceLabel.text = [NSString stringWithFormat:@"%lu", number];
+
 }
 
 @end

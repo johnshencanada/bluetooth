@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5200820419639C8D00B2F433"
-               BuildableName = "Bluetooth.app"
-               BlueprintName = "Bluetooth"
-               ReferencedContainer = "container:Bluetooth.xcodeproj">
+               BuildableName = "nextHome.app"
+               BlueprintName = "nextHome"
+               ReferencedContainer = "container:nextHome.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5200821A19639C8D00B2F433"
-               BuildableName = "BluetoothTests.xctest"
-               BlueprintName = "BluetoothTests"
-               ReferencedContainer = "container:Bluetooth.xcodeproj">
+               BuildableName = "nextHomeTests.xctest"
+               BlueprintName = "nextHomeTests"
+               ReferencedContainer = "container:nextHome.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5200820419639C8D00B2F433"
-            BuildableName = "Bluetooth.app"
-            BlueprintName = "Bluetooth"
-            ReferencedContainer = "container:Bluetooth.xcodeproj">
+            BuildableName = "nextHome.app"
+            BlueprintName = "nextHome"
+            ReferencedContainer = "container:nextHome.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5200820419639C8D00B2F433"
-            BuildableName = "Bluetooth.app"
-            BlueprintName = "Bluetooth"
-            ReferencedContainer = "container:Bluetooth.xcodeproj">
+            BuildableName = "nextHome.app"
+            BlueprintName = "nextHome"
+            ReferencedContainer = "container:nextHome.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5200820419639C8D00B2F433"
-            BuildableName = "Bluetooth.app"
-            BlueprintName = "Bluetooth"
-            ReferencedContainer = "container:Bluetooth.xcodeproj">
+            BuildableName = "nextHome.app"
+            BlueprintName = "nextHome"
+            ReferencedContainer = "container:nextHome.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

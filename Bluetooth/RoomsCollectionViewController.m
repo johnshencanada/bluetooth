@@ -9,6 +9,7 @@
 //General View
 #import "RoomsCollectionViewController.h"
 #import "RoomCell.h"
+#import "RoomLogoButton.h"
 #import "Dashboard.h"
 #import "HeaderCellView.h"
 #import "DevicesCollectionViewController.h"
@@ -20,7 +21,8 @@
 #import "LightBulbTimerViewController.h"
 #import "LightBulbRoomCollectionViewController.h"
 
-
+//For nextDuino
+#import "nextDuinoViewController.h"
 
 @interface RoomsCollectionViewController ()
 //view
@@ -36,6 +38,7 @@
 @property (strong,nonatomic) NSNumber *rssi;
 @property (strong,nonatomic) NSMutableArray *peripherals;
 @property (strong,nonatomic) NSMutableArray *selectedDevices;
+@property (strong,nonatomic) NSMutableArray *Devices;
 @end
 
 
@@ -45,12 +48,13 @@ static NSString * const reuseIdentifier = @"Room";
 
 
 #pragma mark MVC
-
 - (instancetype)init
 {
     [self setUpHome];
-    [self setUpDevices];
-
+    self.selectedDevices = [[NSMutableArray alloc]init];
+    self.Devices = [[NSMutableArray alloc]init];
+    self.peripherals = [[NSMutableArray alloc]init];
+    self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake(320, 80);
     layout.minimumInteritemSpacing = 1.0;
@@ -84,14 +88,17 @@ static NSString * const reuseIdentifier = @"Room";
     [self setUpView];
 }
 
+
+#pragma mark MVC helper methods
 - (void)setUpView
 {
     self.view.backgroundColor = [UIColor clearColor];
-    self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/4, 320, 400);
+    self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/3.5, 320, 400);
     self.collectionView.backgroundColor = [UIColor clearColor];
     [self.collectionView registerClass:[RoomCell class] forCellWithReuseIdentifier:@"Room"];
     [self.collectionView registerClass:[HeaderCellView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
-    self.dashBoard = [[Dashboard alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/4)];
+    self.dashBoard = [[Dashboard alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/3)];
+    //    [self.dashBoard setbackgroundImage:@"Dashboard-House"];
     [self.dashBoard.home addTarget:self action:@selector(configureHome) forControlEvents:UIControlEventAllTouchEvents];
     [self.dashBoard.add addTarget:self action:@selector(newRoom) forControlEvents:UIControlEventAllTouchEvents];
     [self.view addSubview:self.dashBoard];
@@ -118,7 +125,6 @@ static NSString * const reuseIdentifier = @"Room";
     
     self.rooms =  [defaults objectForKey:@"rooms"];
     if (!self.rooms) {
-        NSLog(@"T.T");
         self.rooms = [[NSMutableArray alloc]init];
         [self addRoom:@"LivingRoom"];
         [self addRoom:@"Kitchen"];
@@ -138,13 +144,6 @@ static NSString * const reuseIdentifier = @"Room";
     [defaults synchronize];
 }
 
-- (void)setUpDevices
-{
-    self.selectedDevices = [[NSMutableArray alloc]init];
-    self.peripherals = [[NSMutableArray alloc]init];
-    self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
-}
-
 - (void)checkForConnectionAndConnectPeripheral
 {
     for (CBPeripheral *p in self.peripherals) {
@@ -161,6 +160,7 @@ static NSString * const reuseIdentifier = @"Room";
     }
 }
 
+
 - (void) configureHome
 {
     UIViewController *homeVC = [[HomeViewController alloc]init];
@@ -168,13 +168,85 @@ static NSString * const reuseIdentifier = @"Room";
 }
 
 
-- (void) newRoom
+- (void)logoClicked:(RoomLogoButton*)sender
 {
+    NSString *roomName = [sender titleForState:UIControlStateNormal];
+    NSLog(@"%@",roomName);
+
+    [self startShake:sender];
     
+    if (roomName) {
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *identifiers = [NSArray arrayWithArray:[defaults objectForKey:roomName]];
+        
+        for (NSString *identifier in identifiers) {
+            for (Device *device in self.Devices) {
+                if ([identifier isEqualToString:device.peripheral.identifier.UUIDString]) {
+                    NSLog(@"%@",device.peripheral.identifier.UUIDString);
+                    [device.peripheral writeValue:device.configurationEnabledData forCharacteristic:device.congigureCharacteristic type:CBCharacteristicWriteWithResponse];
+                    if (sender.isOn) {
+                        [device.peripheral writeValue:device.onData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+                    }
+
+                }
+            }
+        }
+    }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)pushToNextBulbViewControllers
 {
+    UITabBarController *tabBarController = [[UITabBarController alloc]init];
+    tabBarController.tabBar.backgroundColor = [UIColor clearColor];
+    [tabBarController.tabBar setTintColor:[UIColor clearColor]];
+
+    LightBulbColorViewController *ColorVC = [[LightBulbColorViewController alloc]initWithDevices:self.selectedDevices];
+    ColorVC.extendedLayoutIncludesOpaqueBars = YES;
+    LightBulbTimerViewController *TimerVC = [[LightBulbTimerViewController alloc]initWithDevices:self.selectedDevices];
+    TimerVC.extendedLayoutIncludesOpaqueBars = YES;
+    LightBulbRoomCollectionViewController *RoomVC = [[LightBulbRoomCollectionViewController alloc]initWithDevices:self.selectedDevices];
+    RoomVC.extendedLayoutIncludesOpaqueBars = YES;
+    NSArray *controllers = [NSArray arrayWithObjects: ColorVC,TimerVC,RoomVC, nil];
+    tabBarController.viewControllers = controllers;
+    [self.navigationController pushViewController:tabBarController animated:NO];
+}
+
+- (void)pushToNextDuinoViewControllers
+{
+    UITabBarController *tabBarController = [[UITabBarController alloc]init];
+    nextDuinoViewController *ControlVC = [[nextDuinoViewController alloc]initWithDevices:self.selectedDevices];
+    ControlVC.extendedLayoutIncludesOpaqueBars = YES;
+    
+    LightBulbTimerViewController *TimerVC = [[LightBulbTimerViewController alloc]initWithDevices:self.selectedDevices];
+    TimerVC.extendedLayoutIncludesOpaqueBars = YES;
+    LightBulbRoomCollectionViewController *RoomVC = [[LightBulbRoomCollectionViewController alloc]initWithDevices:self.selectedDevices];
+    RoomVC.extendedLayoutIncludesOpaqueBars = YES;
+    NSArray *controllers = [NSArray arrayWithObjects: ControlVC,TimerVC,RoomVC, nil];
+    tabBarController.viewControllers = controllers;
+    tabBarController.tabBar.barStyle = UIBarStyleBlack;
+    [tabBarController tabBar].translucent = NO;
+    [self.navigationController pushViewController:tabBarController animated:NO];
+}
+
+#pragma mark <shaking animation>
+
+- (void) startShake:(UIView *)view
+{
+    CGAffineTransform normal = CGAffineTransformMakeTranslation(0, 0);
+    CGAffineTransform leftShake = CGAffineTransformMakeTranslation(0, -5);
+    CGAffineTransform rightShake = CGAffineTransformMakeTranslation(0, 5);
+    
+    view.transform = leftShake;  // starting point
+    
+    [UIView beginAnimations:@"shake_button"context:NULL];
+    [UIView setAnimationRepeatAutoreverses:YES]; // important
+    [UIView setAnimationRepeatCount:5];
+    [UIView setAnimationDuration:0.05];
+    [UIView setAnimationDelegate:self];
+    view.transform = rightShake;
+    view.transform = normal;  // end here & auto-reverse
+    [UIView commitAnimations];
 }
 
 
@@ -202,17 +274,18 @@ static NSString * const reuseIdentifier = @"Room";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     RoomCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Room" forIndexPath:indexPath];
+    
     if (indexPath.section == 0) {
         NSString *roomName = [self.rooms objectAtIndex:indexPath.row];
         cell.name.text = roomName;
         [cell setLogoImage:roomName];
-        
+        cell.logo.titleLabel.textColor = [UIColor clearColor];
+        [cell.logo setTitle:roomName forState:UIControlStateNormal];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSMutableArray *devicesInEachRoom = [defaults objectForKey:roomName];
-        [cell setStateImage:[NSString stringWithFormat:@"%d",devicesInEachRoom.count]];
-
-        if (!devicesInEachRoom) {
-         }
+        NSMutableArray *identifiers = [defaults objectForKey:roomName];
+        NSUInteger deviceCount = identifiers.count;
+        [cell setStateImage:@"number-device"];
+        [cell setNumberOfDevice:deviceCount];
     }
     
     else if (indexPath.section == 1) {
@@ -230,6 +303,10 @@ static NSString * const reuseIdentifier = @"Room";
             cell.name.text = @"nextBulb-mega";
             [cell setLogoImage:@"nextBulb-mega"];
         }
+        else if ([device.name hasPrefix:@"Coin"]){
+            cell.name.text = @"nextDuino";
+            [cell setLogoImage:@"nextDuino"];
+        }
         
         /* Set State Image */
         if (device.state == CBPeripheralStateConnected) {
@@ -243,12 +320,12 @@ static NSString * const reuseIdentifier = @"Room";
         {
             [cell setStateImage:@"Disconnected"];
         }
-        else {
-        }
-
     }
+    [cell.logo addTarget:self action:@selector(logoClicked:) forControlEvents:UIControlEventTouchUpInside];
+
     return cell;
 }
+
 
 #pragma mark <UICollectionViewDelegate>
 
@@ -260,30 +337,24 @@ static NSString * const reuseIdentifier = @"Room";
         DevicesCollectionViewController *deviceVC = [[DevicesCollectionViewController alloc]initWithName:roomName];
         [self.navigationController pushViewController:deviceVC animated:NO];
     }
+    
     else if (indexPath.section == 1) {
         CBPeripheral *peripheral = [self.peripherals objectAtIndex:indexPath.row];
         Device *device = [[Device alloc]init];
         device.peripheral = peripheral;
         [self.selectedDevices addObject:device];
-        [self pushToViewControllers];
+        
+        if ([peripheral.name hasPrefix:@"LEDnet"]|| [peripheral.name hasPrefix:@"Tint"])
+        {
+            [self pushToNextBulbViewControllers];
+        }
+        
+        else {
+            [self pushToNextDuinoViewControllers];
+        }
     }
 }
 
-- (void)pushToViewControllers
-{
-    UITabBarController *tabBarController = [[UITabBarController alloc]init];
-    LightBulbColorViewController *ColorVC = [[LightBulbColorViewController alloc]initWithDevices:self.selectedDevices];
-    ColorVC.extendedLayoutIncludesOpaqueBars = YES;
-    LightBulbTimerViewController *TimerVC = [[LightBulbTimerViewController alloc]initWithDevices:self.selectedDevices];
-    TimerVC.extendedLayoutIncludesOpaqueBars = YES;
-    LightBulbRoomCollectionViewController *RoomVC = [[LightBulbRoomCollectionViewController alloc]initWithDevices:self.selectedDevices];
-    RoomVC.extendedLayoutIncludesOpaqueBars = YES;
-    NSArray *controllers = [NSArray arrayWithObjects: ColorVC,TimerVC,RoomVC, nil];
-    tabBarController.viewControllers = controllers;
-    tabBarController.tabBar.barStyle = UIBarStyleBlack;
-    [tabBarController tabBar].translucent = NO;
-    [self.navigationController pushViewController:tabBarController animated:NO];
-}
 
 #pragma mark <UICollectionViewDelegateFlowLayout>
 
@@ -299,11 +370,11 @@ static NSString * const reuseIdentifier = @"Room";
 {
     HeaderCellView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                    UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
-    int sectionNumber = indexPath.section;
+    NSInteger sectionNumber = indexPath.section;
     if (sectionNumber == 0) {
         [headerView.category setText:@"Rooms"];
     } else if (sectionNumber == 1) {
-        [headerView.category setText:@"Uncategorized"];
+        [headerView.category setText:@"Device"];
     }
     return headerView;
 }
@@ -350,7 +421,10 @@ static NSString * const reuseIdentifier = @"Room";
     }
     
     if (!existing) {
-        if ([peripheral.name hasPrefix:@"LEDnet"] || [peripheral.name hasPrefix:@"Tint"] ){
+        if ([peripheral.name hasPrefix:@"LEDnet"] || [peripheral.name hasPrefix:@"Tint"] || [peripheral.name hasPrefix:@"Coin"]) {
+            Device *device = [[Device alloc]init];
+            device.peripheral = peripheral;
+            [self.Devices addObject:device];
             [self.peripherals addObject:peripheral];
             [central connectPeripheral:peripheral options:nil];
             [self.collectionView reloadData];
@@ -377,6 +451,7 @@ static NSString * const reuseIdentifier = @"Room";
     for (;i<self.peripherals.count; i++) {
         CBPeripheral *p = [self.peripherals objectAtIndex:i];
         if (p.identifier == peripheral.identifier) {
+            [self.Devices removeObjectAtIndex:i];
             [self.peripherals removeObjectAtIndex:i];
         }
     }
@@ -395,18 +470,28 @@ static NSString * const reuseIdentifier = @"Room";
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
+    for (Device *device in self.Devices)
+    {
+        for (CBCharacteristic *characteristic in service.characteristics)
+        {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF1"]]) {
+                device.congigureCharacteristic = characteristic;
+            }
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF2"]]) {
+                device.onOffCharacteristic = characteristic;
+            }
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE4"]]) {
+                device.readCharacteristic = characteristic;
+            }
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE9"]]) {
+                device.writeCharacteristic = characteristic;
+            }
+        }
+    }
+    
 }
 
 #pragma mark - HMHomeManager delegate
 
-- (void)homeManagerDidUpdateHomes:(HMHomeManager *)manager
-{
-    self.homes = manager.homes;
-    self.primaryHome = manager.primaryHome;
-}
 
-- (void)homeManager:(HMHomeManager *)manager didAddHome:(HMHome *)home
-{
-    
-}
 @end

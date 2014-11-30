@@ -51,7 +51,7 @@
 {
     if (self.currentPosition > 0) {
         self.currentPosition -= 0.02;
-        int i = 100-(int)(self.currentPosition * 100);
+//        int i = 100-(int)(self.currentPosition * 100);
         [self setNeedsDisplay];
     }
 }
@@ -60,7 +60,7 @@
 {
     if (self.currentPosition < 1){
         self.currentPosition += 0.02;
-        int i = 100-(int)(self.currentPosition * 100);
+//        int i = 100-(int)(self.currentPosition * 100);
         [self setNeedsDisplay];
     }
 }

@@ -88,13 +88,27 @@
     colorByte[1] = 0x00; //R
     colorByte[2] = 0x00; //G
     colorByte[3] = 0x00; //B
-    colorByte[4] = (int)self.brightness;
+    colorByte[4] = 0xFE; //brightness
     colorByte[5] = 0x0F; //to indicate brightness
     colorByte[6] = 0xAA;
     
     NSLog(@"colorbyte = %d",colorByte[4]);
     self.colorData = [NSData dataWithBytes:&colorByte length:sizeof(colorByte)];
     return colorByte[4];
+}
+
+- (void)changeBrightness:(double)brightness
+{
+    UInt8 colorByte[7];
+    colorByte[0] = 0x56;
+    colorByte[1] = 0X00; //R
+    colorByte[2] = 0X00; //G
+    colorByte[3] = 0X00; //B
+    colorByte[4] = brightness; // Max Brightness
+    colorByte[5] = 0x0F; //to indicate Color Change
+    colorByte[6] = 0xAA;
+    
+    self.colorData = [NSData dataWithBytes:&colorByte length:sizeof(colorByte)];
 }
 
 - (void) changeColorWithRed:(double)red andGreen:(double)green andBlue:(double)blue

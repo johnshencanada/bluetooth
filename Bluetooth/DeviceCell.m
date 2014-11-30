@@ -17,8 +17,8 @@
     if (self) {
         
         self.backgroundColor = [UIColor clearColor];
-        UIImage *buttonImage = [UIImage imageNamed:@"nextBulb-nano"];
-        self.logo = [[UIButton alloc]initWithFrame:CGRectMake(13, 13, 60, 60)];
+        UIImage *buttonImage = [UIImage imageNamed:@"lightbulb_off"];
+        self.logo = [[UIButton alloc]initWithFrame:CGRectMake(13, 13, 70, 70)];
         [self.logo setBackgroundImage:buttonImage forState:UIControlStateNormal];
         [self.contentView addSubview:self.logo];
         

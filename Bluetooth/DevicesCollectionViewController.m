@@ -131,7 +131,6 @@ static NSString * const reuseIdentifier = @"Cell";
     self.peripherals = [[NSMutableArray alloc]init];
     self.selectedDevices = [[NSMutableArray alloc]init];
     self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
-    NSLog (@"count:%d",self.peripherals.count);
 }
 
 - (void)checkForConnectionAndConnectPeripheral
@@ -211,7 +210,6 @@ static NSString * const reuseIdentifier = @"Cell";
     if ([device.name hasPrefix:@"LEDnet"]) {
         cell.name.text = @"nextBulb";
     }
-    cell.state.text = [NSString stringWithFormat:@"%ld",device.state];
     return cell;
 }
 
@@ -224,7 +222,6 @@ static NSString * const reuseIdentifier = @"Cell";
     CBPeripheral *peripheral = [self.peripherals objectAtIndex:indexPath.row];
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
 
-    NSLog(@"Creating new deivce");
 
     /* Create a device at the index path */
     Device *device = [[Device alloc]init];
@@ -265,6 +262,7 @@ static NSString * const reuseIdentifier = @"Cell";
     peripheral.delegate = self;
 
     BOOL existing = false;
+    
     /* check if it's already in devices list */
     for (CBPeripheral *p in self.peripherals) {
         if (p.identifier == peripheral.identifier) {
@@ -272,10 +270,15 @@ static NSString * const reuseIdentifier = @"Cell";
         }
     }
     if (!existing) {
-        [self.peripherals addObject:peripheral];
-        [central connectPeripheral:peripheral options:nil];
-        [self.collectionView reloadData];
-        NSLog(@"Connecting %@", peripheral.name);
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSMutableArray *identifiers = [NSMutableArray arrayWithArray:[defaults objectForKey:self.roomName]];
+        NSString *UUIDString = peripheral.identifier.UUIDString;
+        if ([identifiers containsObject:UUIDString]) {
+            [self.peripherals addObject:peripheral];
+            [central connectPeripheral:peripheral options:nil];
+            [self.collectionView reloadData];
+        }
     }
 }
 
@@ -283,12 +286,10 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     [self.collectionView reloadData];
     [peripheral discoverServices:nil];
-    NSLog(@"Discovering Services in %@", peripheral.name);
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    NSLog(@"Peripheral Disconnected");
     int i = 0;
     for (;i<self.peripherals.count; i++) {
         CBPeripheral *p = [self.peripherals objectAtIndex:i];
@@ -312,9 +313,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    for (CBCharacteristic *characteristic in service.characteristics) {
-        NSLog(@"Discovered characteristic %@", characteristic);
-    }
+ 
 }
 
 /* returnRSSI is called */
@@ -341,7 +340,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)homeManagerDidUpdateHomes:(HMHomeManager *)manager
 {
-    NSLog(@"homes count:%lu",(unsigned long)self.homes.count);
 }
 
 - (void)homeManager:(HMHomeManager *)manager didAddHome:(HMHome *)home
