@@ -40,7 +40,6 @@
 - (void) viewDidAppear:(BOOL)animated {
     [self setUpBlurAndVibrancy];
     [self setUpView];
-    
 }
 
 - (void) setUpView {

@@ -34,14 +34,10 @@
 
 - (void) setUnSelected {
     self.isSelected = false;
-    self.imageView.alpha = 0.4;
-    self.textLabel.alpha = 0.7;
 }
 
 - (void) setIsSelected {
     self.isSelected = true;
-    self.imageView.alpha = 1;
-    self.textLabel.alpha = 0.7;
 }
 
 - (void) setLabelName:(NSString*)name

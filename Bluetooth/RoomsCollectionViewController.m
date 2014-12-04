@@ -51,10 +51,7 @@ static NSString * const reuseIdentifier = @"Room";
 - (instancetype)init
 {
     [self setUpHome];
-    self.selectedDevices = [[NSMutableArray alloc]init];
-    self.Devices = [[NSMutableArray alloc]init];
-    self.peripherals = [[NSMutableArray alloc]init];
-    self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
+    [self setUpDevice];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake(320, 80);
     layout.minimumInteritemSpacing = 1.0;
@@ -90,6 +87,15 @@ static NSString * const reuseIdentifier = @"Room";
 
 
 #pragma mark MVC helper methods
+
+- (void)setUpDevice
+{
+    self.selectedDevices = [[NSMutableArray alloc]init];
+    self.Devices = [[NSMutableArray alloc]init];
+    self.peripherals = [[NSMutableArray alloc]init];
+    self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
+}
+
 - (void)setUpView
 {
     self.view.backgroundColor = [UIColor clearColor];
@@ -149,6 +155,7 @@ static NSString * const reuseIdentifier = @"Room";
     for (CBPeripheral *p in self.peripherals) {
         
         if (p.state == CBPeripheralStateConnecting) {
+            
         }
         
         if (p.state == CBPeripheralStateDisconnected) {
@@ -185,8 +192,15 @@ static NSString * const reuseIdentifier = @"Room";
                 if ([identifier isEqualToString:device.peripheral.identifier.UUIDString]) {
                     NSLog(@"%@",device.peripheral.identifier.UUIDString);
                     [device.peripheral writeValue:device.configurationEnabledData forCharacteristic:device.congigureCharacteristic type:CBCharacteristicWriteWithResponse];
+                    
                     if (sender.isOn) {
+                        [device.peripheral writeValue:device.offData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+                        sender.isOn = false;
+                    }
+                    
+                    else {
                         [device.peripheral writeValue:device.onData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+                        sender.isOn = true;
                     }
 
                 }

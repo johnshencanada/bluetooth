@@ -14,6 +14,7 @@
 @interface LightBulbRoomCollectionViewController ()
 @property (nonatomic) NSArray *rooms;
 @property (nonatomic) NSString *currentRoom;
+@property (nonatomic) UILabel *currentRoomLabel;
 @end
 
 @implementation LightBulbRoomCollectionViewController
@@ -26,7 +27,7 @@ static NSString * const reuseIdentifier = @"Room";
     if (self) {
         
         self.devices = [NSArray arrayWithArray:devices];
-
+        
         UIImage *home = [UIImage imageNamed:@"home_small"];
         UITabBarItem *homeTab = [[UITabBarItem alloc] initWithTitle:@"Home" image:home tag:0];
         self.tabBarItem = homeTab;
@@ -40,6 +41,14 @@ static NSString * const reuseIdentifier = @"Room";
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         self.rooms = [defaults objectForKey:@"rooms"];
+        
+        self.currentRoomLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, 200)];
+        self.currentRoomLabel.text = [NSString stringWithFormat:@"hi"];
+        self.currentRoomLabel.textColor = [UIColor whiteColor];
+        self.currentRoomLabel.textAlignment = NSTextAlignmentCenter;
+        self.currentRoomLabel.font = [UIFont fontWithName:@"GillSans-Light" size:50.0];
+        [self.view addSubview:self.currentRoomLabel];
+        
     }
     return self;
 }
@@ -49,6 +58,7 @@ static NSString * const reuseIdentifier = @"Room";
 {
     [super viewDidLoad];
     [self setUpView];
+    [self checkCurrentRoom];
 }
 
 - (void)setUpView
@@ -73,6 +83,7 @@ static NSString * const reuseIdentifier = @"Room";
                 if ([identifier isEqualToString:device.peripheral.identifier.UUIDString]) {
                     NSLog(@"GOT IT");
                     self.currentRoom = room;
+                    self.currentRoomLabel.text = self.currentRoom;
                 }
             }
         }
@@ -87,12 +98,6 @@ static NSString * const reuseIdentifier = @"Room";
         NSArray *identifiers = [NSArray arrayWithArray:[defaults objectForKey:room]];
         NSLog(@"There are %d objects in %@",identifiers.count,room);
     }
-
-}
-
-- (void)deselectAllCellsUI
-{
-    
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -139,6 +144,7 @@ static NSString * const reuseIdentifier = @"Room";
         
         /* Make it belong to this room */
         [cell setIsSelected];
+        
         /* Save it into data */
         NSMutableArray *devicesUUID = [NSMutableArray arrayWithArray:[defaults objectForKey:roomName]];
         for (Device *device in self.devices) {
@@ -147,6 +153,7 @@ static NSString * const reuseIdentifier = @"Room";
         
         /* Remove that saved array and update it */
         NSLog(@"Updating %@",roomName);
+        self.currentRoom = roomName;
         [defaults setObject:[NSArray arrayWithArray:devicesUUID] forKey:roomName];
         [self PrintRoomDevices];
     }
@@ -183,7 +190,6 @@ static NSString * const reuseIdentifier = @"Room";
         /* If the user selects another room */
         else {
             NSLog(@"The user selected another room we have to delete the previous room: %@", self.currentRoom);
-            
             /* Remove the devices from its previous room */
             for (Device *device in self.devices)
             {
@@ -192,15 +198,13 @@ static NSString * const reuseIdentifier = @"Room";
                     if ([identifier isEqualToString:device.peripheral.identifier.UUIDString]) {
                         NSLog(@"I found the previous identifiers, I will have to delete the previous room from the UserDefault now!");
                         [identifiers removeObject:identifier];
-                        
                         [defaults setObject:[NSArray arrayWithArray:identifiers] forKey:roomName];
                         [defaults synchronize];
                     }
                 }
             }
             
-            /* Deselct all UI of the Cells in UICollectionView */
-            [self deselectAllCellsUI];
+            self.currentRoom = roomName;
             
             /* Select this room */
             [cell setIsSelected];
@@ -217,6 +221,15 @@ static NSString * const reuseIdentifier = @"Room";
             
             [self PrintRoomDevices];
         }
+    }
+    
+    
+    if (self.currentRoom) {
+        self.currentRoomLabel.text = self.currentRoom;
+    }
+    
+    else {
+        self.currentRoomLabel.text = [NSString stringWithFormat:@"No Room"];
     }
     
     [defaults synchronize];
