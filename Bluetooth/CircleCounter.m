@@ -2,8 +2,8 @@
 //  CircleCounter.m
 //  Color
 //
-//  Created by john on 7/7/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Created by nextHome on 7/7/14.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 #import "CircleCounter.h"
@@ -97,7 +97,6 @@
                     0);
     CGContextSetStrokeColorWithColor(context, [self.circleColor CGColor]);
     CGContextStrokePath(context);
-
 
 //    NSLog(@"%f", self.currentPosition);
 }

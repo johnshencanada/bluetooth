@@ -1,9 +1,9 @@
 //
 //  Dashboard.m
-//  Bluetooth
+//  nextHome
 //
 //  Created by john on 8/16/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 #import "Dashboard.h"
@@ -16,17 +16,17 @@
     if (self) {
         self.backgroundImageView = [[UIImageView alloc]initWithFrame:self.bounds];
         [self addSubview:self.backgroundImageView];
-        [self setbackgroundImage:@"Dashboard-House"];
+        [self setbackgroundImage:@"Ocean"];
         
-        UIImage *homeButtonImage = [UIImage imageNamed:@"home_small"];
+        UIImage *homeButtonImage = [UIImage imageNamed:@"home"];
         self.home = [[UIButton alloc]initWithFrame:CGRectMake(15, 20, 40, 40)];
         [self.home setBackgroundImage:homeButtonImage forState:UIControlStateNormal];
         [self addSubview:self.home];
         
-        UIImage *addButtonImage = [UIImage imageNamed:@"add"];
-        self.add = [[UIButton alloc]initWithFrame:CGRectMake(270, 20, 35, 35)];
-        [self.add setBackgroundImage:addButtonImage forState:UIControlStateNormal];
-        [self addSubview:self.add];
+        UIImage *cameraImage = [UIImage imageNamed:@"camera"];
+        self.camera = [[UIButton alloc]initWithFrame:CGRectMake(270, 20, 35, 35)];
+        [self.camera setBackgroundImage:cameraImage forState:UIControlStateNormal];
+        [self addSubview:self.camera];
         
         self.homeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, 320, 30)];
         self.homeLabel.text = [NSString stringWithFormat:@""];
@@ -35,21 +35,28 @@
         self.homeLabel.textColor = [UIColor whiteColor];
         [self addSubview:self.homeLabel];
         
-        self.greetingLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 80, 220, 40)];
-        self.greetingLabel.text = [NSString stringWithFormat:@"Good evening"];
-        self.greetingLabel.textAlignment = NSTextAlignmentCenter;
-        self.greetingLabel.font = [UIFont fontWithName:@"GillSans" size:35.0];
-        self.greetingLabel.textColor = [UIColor lightGrayColor];
-        [self addSubview:self.greetingLabel];
+        self.timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 80, 80, 60)];
+        self.timeLabel.text = [NSString stringWithFormat:@"5:59"];
+        self.timeLabel.textAlignment = NSTextAlignmentCenter;
+        self.timeLabel.font = [UIFont fontWithName:@"GillSans" size:40.0];
+        self.timeLabel.textColor = [UIColor lightGrayColor];
+        [self addSubview:self.timeLabel];
         
-        self.dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 110, 220, 40)];
-        self.dateLabel.text = [NSString stringWithFormat:@"2014 Nov 19th"];
+        self.AMPMLabel = [[UILabel alloc]initWithFrame:CGRectMake(320, 80, 80, 40)];
+        self.AMPMLabel.text = [NSString stringWithFormat:@"AM"];
+        self.AMPMLabel.textAlignment = NSTextAlignmentCenter;
+        self.AMPMLabel.font = [UIFont fontWithName:@"GillSans" size:35.0];
+        self.AMPMLabel.textColor = [UIColor lightGrayColor];
+        [self addSubview:self.AMPMLabel];
+        
+        self.dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 90, 220, 40)];
+        self.dateLabel.text = [NSString stringWithFormat:@"2014 Dec 22nd"];
         self.dateLabel.textAlignment = NSTextAlignmentCenter;
         self.dateLabel.font = [UIFont fontWithName:@"GillSans" size:15.0];
         self.dateLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:self.dateLabel];
 
-        /* Add some shawdow to it*/
+        /* Add some shawdow to it */
         UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.bounds];
         self.layer.masksToBounds = NO;
         self.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -117,7 +124,7 @@
     self.refresh = [[UIButton alloc]initWithFrame:CGRectMake(280, 20, 25, 25)];
     [self.refresh setBackgroundImage:image forState:UIControlStateNormal];
     [self addSubview:self.refresh];
-    [self.add removeFromSuperview];
+    [self.camera removeFromSuperview];
 }
 
 @end

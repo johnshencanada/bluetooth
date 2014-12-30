@@ -2,8 +2,8 @@
 //  CircleCounter.h
 //  Color
 //
-//  Created by john on 7/7/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Created by nextHome on 7/7/14.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

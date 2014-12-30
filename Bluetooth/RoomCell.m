@@ -1,9 +1,9 @@
 //
 //  RoomCell.m
-//  Bluetooth
+//  nextHome
 //
 //  Created by john on 8/22/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 #import "RoomCell.h"
@@ -34,9 +34,7 @@
         self.numberOfDeviceLabel = [[UILabel alloc]initWithFrame:CGRectMake(207,30,20,20)];
         self.numberOfDeviceLabel.text = [NSString stringWithFormat:@"%d", self.numberOfDevices];
         self.numberOfDeviceLabel.textColor = [UIColor whiteColor];
-        self.numberOfDeviceLabel.font = [UIFont fontWithName:@"GillSans-Light" size:10.0];
-        
-        
+        self.numberOfDeviceLabel.font = [UIFont fontWithName:@"Bradley Hand" size:10.0];
     }
     return self;
 }
@@ -62,15 +60,15 @@
     }
     else if ([logoName isEqualToString:@"nextBulb-mega"])
     {
-        logoImage = [UIImage imageNamed:@"lightbulb_on"];
+        logoImage = [UIImage imageNamed:@"appliance-nextbulb"];
     }
     else if ([logoName isEqualToString:@"nextBulb-nano"])
     {
-        logoImage = [UIImage imageNamed:@"lightbulb_on"];
+        logoImage = [UIImage imageNamed:@"appliance-nextbulb"];
     }
     else if ([logoName isEqualToString:@"nextBulb"])
     {
-        logoImage = [UIImage imageNamed:@"lightbulb_on"];
+        logoImage = [UIImage imageNamed:@"appliance-nextbulb"];
     }
     else if ([logoName isEqualToString:@"nextDuino"])
     {
@@ -79,7 +77,6 @@
 
     [self.logo setBackgroundImage:logoImage forState:UIControlStateNormal];
     self.logo.contentMode = UIViewContentModeScaleAspectFit;
-
 }
 
 - (void)setStateImage:(NSString*)state
@@ -116,7 +113,7 @@
         [self.contentView addSubview:self.numberOfDeviceLabel];
         self.connection = [[UIImageView alloc]initWithFrame:CGRectMake(250,17,50,50)];
         self.connection.contentMode = UIViewContentModeScaleAspectFit;
-        logoImage = [UIImage imageNamed:@"connected2"];
+        logoImage = [UIImage imageNamed:@"forward2"];
         self.connection.image = logoImage;
     }
     [self.contentView addSubview:self.connection];

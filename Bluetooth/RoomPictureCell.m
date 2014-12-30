@@ -1,9 +1,9 @@
 //
 //  RoomPictureCell.m
-//  Bluetooth
+//  nextHome
 //
 //  Created by john on 9/16/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 #import "RoomPictureCell.h"
@@ -33,10 +33,12 @@
 }
 
 - (void) setUnSelected {
+    self.imageView.alpha = 0.4;
     self.isSelected = false;
 }
 
 - (void) setIsSelected {
+    self.imageView.alpha = 0.8;
     self.isSelected = true;
 }
 

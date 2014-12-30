@@ -1,9 +1,9 @@
 //
 //  LightBulbColorViewController.m
-//  Bluetooth
+//  nextHome
 //
 //  Created by john on 8/4/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 #import "LightBulbColorViewController.h"
@@ -12,21 +12,31 @@
 #import "CircleCounter.h"
 
 @interface LightBulbColorViewController ()
+/* View */
 @property (strong,nonatomic) MyNavigationController *nav;
 @property (strong,nonatomic) UIVisualEffect *vibrancyEffect;
 @property  (strong,nonatomic) UIVisualEffectView *vibrancyView;
 @property (nonatomic) BrightnessView *brightView;
 @property (strong,nonatomic) UIButton *toogleButton;
+@property (nonatomic) UIButton *back;
 
-@property (strong,nonatomic) UIButton *brightnessButton;
-@property (strong,nonatomic) UIButton *warmnessButton;
+@property (strong,nonatomic) UIButton *brightnessButtonSmall;
+@property (strong,nonatomic) UIButton *brightnessButtonLarge;
+@property (strong,nonatomic) UIButton *warmnessButtonCold;
+@property (strong,nonatomic) UIButton *warmnessButtonWarm;
+
 @property (strong,nonatomic) ASValueTrackingSlider *brightSlider;
 @property (strong,nonatomic) ASValueTrackingSlider *warmSlider;
 
 @property (strong, nonatomic) CircleCounter *background;
 @property BOOL isOn;
 
+@property double red;
+@property double green;
+@property double blue;
+
 @property int percentage;
+
 @end
 
 @implementation LightBulbColorViewController
@@ -37,7 +47,7 @@
     if (self) {
         self.view.backgroundColor = [UIColor clearColor];
         self.devices = [NSArray arrayWithArray:devices];
-        UIImage *color = [UIImage imageNamed:@"heart"];
+        UIImage *color = [UIImage imageNamed:@"appliance-nextbulb-small"];
         UITabBarItem *colorTab = [[UITabBarItem alloc] initWithTitle:@"Color" image:color tag:0];
         self.tabBarItem = colorTab;
         [self findCharacteristicsAndConfigure];
@@ -50,11 +60,17 @@
     [super viewDidLoad];
     [self setUpBlurAndVibrancy];
     
-    self.background = [[CircleCounter alloc] initWithFrame:CGRectMake(20, ((self.view.frame.size.height)/2 - 210), 280, 280)];
+    self.background = [[CircleCounter alloc] initWithFrame:CGRectMake(10, ((self.view.frame.size.height)/2 - 220), 300, 300)];
     self.background.backgroundColor = [UIColor clearColor];
     self.background.circleColor = [UIColor colorWithRed:255/255.0f  green:255/255.0f  blue:255/255.0f  alpha:0.1];
-    self.background.circleWidth = 6.0f;
+    self.background.circleWidth = 24.0;
     [self.view addSubview:self.background];
+    
+    UIImage *image = [UIImage imageNamed:@"back"];
+    self.back = [[UIButton alloc]initWithFrame:CGRectMake(20, 25, 30, 30)];
+    [self.back setBackgroundImage:image forState:UIControlStateNormal];
+    [self.view addSubview:self.back];
+    [self.back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventAllTouchEvents];
 
     _colorWheel = [[ISColorWheel alloc] initWithFrame:CGRectMake(25, ((self.view.frame.size.height)/2 - 205), 270, 270)];
     _colorWheel.delegate = self;
@@ -69,9 +85,15 @@
     [self setUpBrightnessView];
 }
 
+- (void)goBack
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (void) setUpBlurAndVibrancy
 {
-    self.nav = self.navigationController;
+    self.nav = (MyNavigationController*)self.navigationController;
+    
     self.vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:self.nav.blurEffect];
     self.vibrancyView = [[UIVisualEffectView alloc]initWithEffect:self.vibrancyEffect];
     self.vibrancyView.frame = self.view.bounds;
@@ -83,14 +105,20 @@
     UIImage *brightnessImage = [UIImage imageNamed:@"brightness"];
     UIImage *warmImage = [UIImage imageNamed:@"warm"];
 
-    self.brightnessButton = [[UIButton alloc]initWithFrame:CGRectMake(15, 390, 25, 25)];
-    [self.brightnessButton setBackgroundImage:brightnessImage forState:UIControlStateNormal];
-    [self.view addSubview:self.brightnessButton];
-    [self.brightnessButton addTarget:self action:@selector(brightnessButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.brightnessButtonSmall = [[UIButton alloc]initWithFrame:CGRectMake(10, 395, 25, 25)];
+    [self.brightnessButtonSmall setBackgroundImage:brightnessImage forState:UIControlStateNormal];
+    [self.view addSubview:self.brightnessButtonSmall];
+    [self.brightnessButtonSmall addTarget:self action:@selector(brightnessButtonSmallClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.brightSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(50, 390, 240, 30)];
+    self.brightnessButtonLarge = [[UIButton alloc]initWithFrame:CGRectMake(275, 385, 40, 40)];
+    [self.brightnessButtonLarge setBackgroundImage:brightnessImage forState:UIControlStateNormal];
+    [self.view addSubview:self.brightnessButtonLarge];
+    [self.brightnessButtonLarge addTarget:self action:@selector(brightnessButtonLargeClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.brightSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(40, 393, 230, 30)];
     self.brightSlider.popUpViewCornerRadius = 12.0;
     self.brightSlider.maximumValue = 1.00;
+    self.brightSlider.dataSource = self;
     [self.brightSlider setMaxFractionDigitsDisplayed:0];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterPercentStyle];
@@ -101,12 +129,17 @@
     
     [self.view addSubview:self.brightSlider];
     
-    self.warmnessButton = [[UIButton alloc]initWithFrame:CGRectMake(15, 450, 25, 25)];
-    [self.warmnessButton setBackgroundImage:warmImage forState:UIControlStateNormal];
-    [self.view addSubview:self.warmnessButton];
-    [self.warmnessButton addTarget:self action:@selector(brightnessButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.warmnessButtonCold = [[UIButton alloc]initWithFrame:CGRectMake(10, 455, 25, 25)];
+    [self.warmnessButtonCold setBackgroundImage:warmImage forState:UIControlStateNormal];
+    [self.view addSubview:self.warmnessButtonCold];
+    [self.warmnessButtonCold addTarget:self action:@selector(brightnessButtonSmallClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.warmSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(50, 450, 240, 30)];
+    self.warmnessButtonWarm = [[UIButton alloc]initWithFrame:CGRectMake(275, 450, 40, 40)];
+    [self.warmnessButtonWarm setBackgroundImage:warmImage forState:UIControlStateNormal];
+    [self.view addSubview:self.warmnessButtonWarm];
+    [self.warmnessButtonWarm addTarget:self action:@selector(brightnessButtonLargeClicked:) forControlEvents:UIControlEventTouchUpInside];
+
+    self.warmSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(40, 453, 230, 30)];
     self.warmSlider.popUpViewCornerRadius = 12.0;
     self.warmSlider.maximumValue = 1.00;
     [self.warmSlider setMaxFractionDigitsDisplayed:0];
@@ -159,15 +192,15 @@
     [self.brightSlider setPopUpViewColor:[UIColor colorWithRed:red green:green blue:blue alpha:0.5]];
     [self.warmSlider setPopUpViewColor:[UIColor colorWithRed:red green:green blue:blue alpha:0.5]];
 
-    double r = (int)(red * 255);
-    double g = (int)(green * 255);
-    double b = (int)(blue * 255);
+    self.red = (int)(red * 255);
+    self.green = (int)(green * 255);
+    self.blue = (int)(blue * 255);
     
-    NSLog(@"R:%f, G:%f, B:%f",r,g,b);
+    NSLog(@"R:%f, G:%f, B:%f",self.red,self.green,self.blue);
 
     for (Device *device in self.devices) {
         NSLog(@"HI");
-        [device changeColorWithRed:r andGreen:g andBlue:b];
+        [device changeColorWithRed:self.red andGreen:self.green andBlue:self.blue];
         [device.peripheral writeValue:device.colorData forCharacteristic:device.writeCharacteristic type:CBCharacteristicWriteWithResponse];
     }
 }
@@ -183,6 +216,7 @@
     
     if (!self.isOn) {
         [self.toogleButton setBackgroundImage:[UIImage imageNamed:@"onButton"] forState:UIControlStateNormal];
+        [self.background setColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:0.5]];
         for(Device *device in self.devices) {
             [device.peripheral writeValue:device.onData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
         }
@@ -192,6 +226,7 @@
     
     else {
         [self.toogleButton setBackgroundImage:[UIImage imageNamed:@"offButton"] forState:UIControlStateNormal];
+        [self.background setColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
         NSLog(@"Sending Off data");
         for(Device *device in self.devices) {
             [device.peripheral writeValue:device.offData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
@@ -201,18 +236,38 @@
     }
 }
 
-- (void)brightnessButtonClicked:sender
+- (void)brightnessButtonSmallClicked:sender
 {
     [self startShake:sender];
     [self.brightSlider setPopUpViewColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
     [self.warmSlider setPopUpViewColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
-    self.background.circleColor = [UIColor colorWithRed:255/255.0f  green:255/255.0f  blue:255/255.0f  alpha:0.1];
+    [self.background setColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
+
+    for (Device *device in self.devices) {
+        [device changeBrightness:1];
+        [device.peripheral writeValue:device.colorData forCharacteristic:device.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+    }
+}
+
+- (void)brightnessButtonLargeClicked:sender
+{
+    [self startShake:sender];
+    [self.brightSlider setPopUpViewColor:[UIColor colorWithRed:255 green:205 blue:255 alpha:0.5]];
+    [self.warmSlider setPopUpViewColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:0.5]];
+    [self.background setColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:0.5]];
     for (Device *device in self.devices) {
         [device changeBrightness:255];
         [device.peripheral writeValue:device.colorData forCharacteristic:device.writeCharacteristic type:CBCharacteristicWriteWithResponse];
     }
 }
 
+#pragma mark - ASValueTrackingSliderDataSource
+
+- (NSString *)slider:(ASValueTrackingSlider *)slider stringForValue:(float)value;
+{
+    NSLog(@"%lf",value);
+    return 0;
+}
 
 #pragma mark <shaking animation>
 

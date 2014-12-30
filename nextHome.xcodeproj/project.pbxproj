@@ -14,18 +14,21 @@
 		5200822219639C8D00B2F433 /* BluetoothTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5200822119639C8D00B2F433 /* BluetoothTests.m */; };
 		5200822C1963A47900B2F433 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5200822B1963A47900B2F433 /* CoreBluetooth.framework */; };
 		5201847D199E1444009573B3 /* BrightnessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5201847C199E1444009573B3 /* BrightnessView.m */; };
+		521D6AC21A428BF3000E68F0 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521D6AC11A428BF3000E68F0 /* ExternalAccessory.framework */; };
 		5247D6891A16FE4C00EE800B /* nextDuinoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5247D6881A16FE4C00EE800B /* nextDuinoViewController.m */; };
 		5247D68F1A1705EE00EE800B /* CNBluetoothCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = 5247D68E1A1705EE00EE800B /* CNBluetoothCentral.m */; };
 		5256A43819C2B6DA001B5664 /* NewRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5256A43719C2B6DA001B5664 /* NewRoomViewController.m */; };
 		5256A43B19C2B712001B5664 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5256A43A19C2B712001B5664 /* HomeViewController.m */; };
 		5256A43D19C3DB4D001B5664 /* HomeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5256A43C19C3DB4D001B5664 /* HomeKit.framework */; };
 		5268E64819A00BF300E8C3CC /* Dashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 5268E64719A00BF300E8C3CC /* Dashboard.m */; };
+		526DC48D1A462DD70054B463 /* ChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526DC48C1A462DD70054B463 /* ChildViewController.m */; };
+		526DC4931A462EA80054B463 /* NewActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526DC4921A462EA80054B463 /* NewActionViewController.m */; };
 		527870CC19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */; };
 		527870CF19C95C6100FEBAE8 /* RoomPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 527870CE19C95C6100FEBAE8 /* RoomPictureCell.m */; };
 		527BBADF1A2BDC130097ECC6 /* RoomLogoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 527BBADE1A2BDC130097ECC6 /* RoomLogoButton.m */; };
 		52A04DEF19B1730D008EF273 /* LightBulbTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A04DEE19B1730D008EF273 /* LightBulbTimerViewController.m */; };
 		52A279C019AA76D200F0C597 /* StatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A279BF19AA76D200F0C597 /* StatusLabel.m */; };
-		52ABBFE419B23F8100357EA6 /* ControlPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52ABBFE319B23F8100357EA6 /* ControlPanelView.m */; };
+		52A6DFBF1A49F13800541587 /* AYVibrantButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A6DFBE1A49F13800541587 /* AYVibrantButton.m */; };
 		52B13CA719824287006EC977 /* CircleCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B13CA619824287006EC977 /* CircleCounter.m */; };
 		52D0465419662D68004F429A /* DevicesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465319662D68004F429A /* DevicesCollectionViewController.m */; };
 		52D0465719662EA6004F429A /* DeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D0465619662EA6004F429A /* DeviceCell.m */; };
@@ -36,6 +39,8 @@
 		52F4037719A85F0A00879F26 /* RoomsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4037619A85F0A00879F26 /* RoomsCollectionViewController.m */; };
 		52F4037A19A85F2600879F26 /* RoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4037919A85F2600879F26 /* RoomCell.m */; };
 		52F4037D19A8869D00879F26 /* HeaderCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4037C19A8869D00879F26 /* HeaderCellView.m */; };
+		52FB1BE81A43EFC000AAB83E /* TimedActionCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FB1BE71A43EFC000AAB83E /* TimedActionCollectionViewController.m */; };
+		52FB1BEB1A43FCC300AAB83E /* ClockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FB1BEA1A43FCC300AAB83E /* ClockCell.m */; };
 		D81A252D3CC248A7B40F7644 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E992773B23C455DBAA429AC /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +53,19 @@
 			remoteInfo = Bluetooth;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		52A6DFD51A4C028800541587 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5200820519639C8D00B2F433 /* nextHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nextHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +81,8 @@
 		5200822B1963A47900B2F433 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5201847B199E1444009573B3 /* BrightnessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrightnessView.h; sourceTree = "<group>"; };
 		5201847C199E1444009573B3 /* BrightnessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrightnessView.m; sourceTree = "<group>"; };
+		521D6AC11A428BF3000E68F0 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		521D6AC31A428BF3000E68F0 /* nextHome.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = nextHome.entitlements; sourceTree = "<group>"; };
 		5247D6871A16FE4C00EE800B /* nextDuinoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nextDuinoViewController.h; sourceTree = "<group>"; };
 		5247D6881A16FE4C00EE800B /* nextDuinoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nextDuinoViewController.m; sourceTree = "<group>"; };
 		5247D68D1A1705EE00EE800B /* CNBluetoothCentral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNBluetoothCentral.h; sourceTree = "<group>"; };
@@ -74,6 +94,10 @@
 		5256A43C19C3DB4D001B5664 /* HomeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HomeKit.framework; path = System/Library/Frameworks/HomeKit.framework; sourceTree = SDKROOT; };
 		5268E64619A00BF300E8C3CC /* Dashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dashboard.h; sourceTree = "<group>"; };
 		5268E64719A00BF300E8C3CC /* Dashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dashboard.m; sourceTree = "<group>"; };
+		526DC48B1A462DD70054B463 /* ChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildViewController.h; sourceTree = "<group>"; };
+		526DC48C1A462DD70054B463 /* ChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildViewController.m; sourceTree = "<group>"; };
+		526DC4911A462EA80054B463 /* NewActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewActionViewController.h; sourceTree = "<group>"; };
+		526DC4921A462EA80054B463 /* NewActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewActionViewController.m; sourceTree = "<group>"; };
 		527870CA19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightBulbRoomCollectionViewController.h; path = Bluetooth/LightBulbRoomCollectionViewController.h; sourceTree = "<group>"; };
 		527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightBulbRoomCollectionViewController.m; path = Bluetooth/LightBulbRoomCollectionViewController.m; sourceTree = "<group>"; };
 		527870CD19C95C6100FEBAE8 /* RoomPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomPictureCell.h; sourceTree = "<group>"; };
@@ -84,8 +108,9 @@
 		52A04DEE19B1730D008EF273 /* LightBulbTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightBulbTimerViewController.m; path = Bluetooth/LightBulbTimerViewController.m; sourceTree = "<group>"; };
 		52A279BE19AA76D200F0C597 /* StatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusLabel.h; sourceTree = "<group>"; };
 		52A279BF19AA76D200F0C597 /* StatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusLabel.m; sourceTree = "<group>"; };
-		52ABBFE219B23F8100357EA6 /* ControlPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPanelView.h; sourceTree = "<group>"; };
-		52ABBFE319B23F8100357EA6 /* ControlPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPanelView.m; sourceTree = "<group>"; };
+		52A6DFBD1A49F13800541587 /* AYVibrantButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AYVibrantButton.h; sourceTree = "<group>"; };
+		52A6DFBE1A49F13800541587 /* AYVibrantButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AYVibrantButton.m; sourceTree = "<group>"; };
+		52A6DFC51A4C028800541587 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		52B13CA519824287006EC977 /* CircleCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCounter.h; sourceTree = "<group>"; };
 		52B13CA619824287006EC977 /* CircleCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCounter.m; sourceTree = "<group>"; };
 		52D0465219662D68004F429A /* DevicesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicesCollectionViewController.h; sourceTree = "<group>"; };
@@ -106,8 +131,13 @@
 		52F4037919A85F2600879F26 /* RoomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomCell.m; sourceTree = "<group>"; };
 		52F4037B19A8869D00879F26 /* HeaderCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderCellView.h; sourceTree = "<group>"; };
 		52F4037C19A8869D00879F26 /* HeaderCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderCellView.m; sourceTree = "<group>"; };
+		52FB1BE61A43EFC000AAB83E /* TimedActionCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimedActionCollectionViewController.h; path = ../TimedActionCollectionViewController.h; sourceTree = "<group>"; };
+		52FB1BE71A43EFC000AAB83E /* TimedActionCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimedActionCollectionViewController.m; path = ../TimedActionCollectionViewController.m; sourceTree = "<group>"; };
+		52FB1BE91A43FCC300AAB83E /* ClockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockCell.h; sourceTree = "<group>"; };
+		52FB1BEA1A43FCC300AAB83E /* ClockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockCell.m; sourceTree = "<group>"; };
 		7E992773B23C455DBAA429AC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E882DC98027F4C98980EF592 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		F53850D7D816137420CDB0EC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		F625610C2C93277F685A84D9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +147,7 @@
 			files = (
 				5256A43D19C3DB4D001B5664 /* HomeKit.framework in Frameworks */,
 				5200822C1963A47900B2F433 /* CoreBluetooth.framework in Frameworks */,
+				521D6AC21A428BF3000E68F0 /* ExternalAccessory.framework in Frameworks */,
 				D81A252D3CC248A7B40F7644 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,15 +162,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F32CFD9ECD2235D2AD622C1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F625610C2C93277F685A84D9 /* Pods.debug.xcconfig */,
+				F53850D7D816137420CDB0EC /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		520081FC19639C8D00B2F433 = {
 			isa = PBXGroup;
 			children = (
+				521D6AC31A428BF3000E68F0 /* nextHome.entitlements */,
 				5200822B1963A47900B2F433 /* CoreBluetooth.framework */,
 				5200820719639C8D00B2F433 /* Bluetooth */,
 				5200821E19639C8D00B2F433 /* BluetoothTests */,
 				5200820619639C8D00B2F433 /* Products */,
-				E882DC98027F4C98980EF592 /* Pods.xcconfig */,
 				C5769B1A91854D98A969A1C3 /* Frameworks */,
+				4F32CFD9ECD2235D2AD622C1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,6 +271,19 @@
 			name = Home;
 			sourceTree = "<group>";
 		};
+		526DC4871A462B8A0054B463 /* Action */ = {
+			isa = PBXGroup;
+			children = (
+				52FB1BE61A43EFC000AAB83E /* TimedActionCollectionViewController.h */,
+				52FB1BE71A43EFC000AAB83E /* TimedActionCollectionViewController.m */,
+				526DC4911A462EA80054B463 /* NewActionViewController.h */,
+				526DC4921A462EA80054B463 /* NewActionViewController.m */,
+				526DC48B1A462DD70054B463 /* ChildViewController.h */,
+				526DC48C1A462DD70054B463 /* ChildViewController.m */,
+			);
+			name = Action;
+			sourceTree = "<group>";
+		};
 		52D0464F1965E3E9004F429A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,12 +302,14 @@
 				52A279BF19AA76D200F0C597 /* StatusLabel.m */,
 				52D0465519662EA6004F429A /* DeviceCell.h */,
 				52D0465619662EA6004F429A /* DeviceCell.m */,
-				52ABBFE219B23F8100357EA6 /* ControlPanelView.h */,
-				52ABBFE319B23F8100357EA6 /* ControlPanelView.m */,
+				52FB1BE91A43FCC300AAB83E /* ClockCell.h */,
+				52FB1BEA1A43FCC300AAB83E /* ClockCell.m */,
 				5201847B199E1444009573B3 /* BrightnessView.h */,
 				5201847C199E1444009573B3 /* BrightnessView.m */,
 				52B13CA519824287006EC977 /* CircleCounter.h */,
 				52B13CA619824287006EC977 /* CircleCounter.m */,
+				52A6DFBD1A49F13800541587 /* AYVibrantButton.h */,
+				52A6DFBE1A49F13800541587 /* AYVibrantButton.m */,
 				5200821219639C8D00B2F433 /* Main.storyboard */,
 			);
 			name = View;
@@ -278,6 +334,7 @@
 				52D0465219662D68004F429A /* DevicesCollectionViewController.h */,
 				52D0465319662D68004F429A /* DevicesCollectionViewController.m */,
 				5247D68C1A16FEC600EE800B /* Home */,
+				526DC4871A462B8A0054B463 /* Action */,
 				5247D68B1A16FE8400EE800B /* nextBulb */,
 			);
 			name = Controller;
@@ -286,8 +343,10 @@
 		C5769B1A91854D98A969A1C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				521D6AC11A428BF3000E68F0 /* ExternalAccessory.framework */,
 				5256A43C19C3DB4D001B5664 /* HomeKit.framework */,
 				7E992773B23C455DBAA429AC /* libPods.a */,
+				52A6DFC51A4C028800541587 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -304,6 +363,7 @@
 				5200820219639C8D00B2F433 /* Frameworks */,
 				5200820319639C8D00B2F433 /* Resources */,
 				17711DEB838D47BAB8F5655A /* Copy Pods Resources */,
+				52A6DFD51A4C028800541587 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -346,6 +406,9 @@
 						DevelopmentTeam = 5JE8Y2Q737;
 						SystemCapabilities = {
 							com.apple.HomeKit = {
+								enabled = 1;
+							};
+							com.apple.WAC = {
 								enabled = 1;
 							};
 						};
@@ -407,7 +470,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D38F2E66276B45CEA2960E02 /* Check Pods Manifest.lock */ = {
@@ -432,6 +495,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52FB1BE81A43EFC000AAB83E /* TimedActionCollectionViewController.m in Sources */,
 				52D0465419662D68004F429A /* DevicesCollectionViewController.m in Sources */,
 				5268E64819A00BF300E8C3CC /* Dashboard.m in Sources */,
 				5200820E19639C8D00B2F433 /* AppDelegate.m in Sources */,
@@ -449,10 +513,13 @@
 				52DC62BA198F9BA400E8FE18 /* LightBulbRoomViewController.m in Sources */,
 				52F4037719A85F0A00879F26 /* RoomsCollectionViewController.m in Sources */,
 				527870CF19C95C6100FEBAE8 /* RoomPictureCell.m in Sources */,
-				52ABBFE419B23F8100357EA6 /* ControlPanelView.m in Sources */,
+				526DC4931A462EA80054B463 /* NewActionViewController.m in Sources */,
 				52A279C019AA76D200F0C597 /* StatusLabel.m in Sources */,
+				52A6DFBF1A49F13800541587 /* AYVibrantButton.m in Sources */,
 				5247D68F1A1705EE00EE800B /* CNBluetoothCentral.m in Sources */,
 				52B13CA719824287006EC977 /* CircleCounter.m in Sources */,
+				526DC48D1A462DD70054B463 /* ChildViewController.m in Sources */,
+				52FB1BEB1A43FCC300AAB83E /* ClockCell.m in Sources */,
 				52E7ADF01964DA6100D8D9BE /* MyNavigationController.m in Sources */,
 				52F4037D19A8869D00879F26 /* HeaderCellView.m in Sources */,
 				5247D6891A16FE4C00EE800B /* nextDuinoViewController.m in Sources */,
@@ -567,10 +634,11 @@
 		};
 		5200822619639C8D00B2F433 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E882DC98027F4C98980EF592 /* Pods.xcconfig */;
+			baseConfigurationReference = F625610C2C93277F685A84D9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = nextHome.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Bluetooth/Info.plist;
@@ -582,10 +650,11 @@
 		};
 		5200822719639C8D00B2F433 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E882DC98027F4C98980EF592 /* Pods.xcconfig */;
+			baseConfigurationReference = F53850D7D816137420CDB0EC /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = nextHome.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Bluetooth/Info.plist;

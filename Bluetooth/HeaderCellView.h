@@ -1,9 +1,9 @@
 //
 //  HeaderCellView.h
-//  Bluetooth
+//  nextHome
 //
 //  Created by john on 8/23/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

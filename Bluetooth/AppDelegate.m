@@ -17,6 +17,14 @@
 
 @implementation AppDelegate
             
+- (void)setupPageViewController
+{
+    /* Page Controller Setup */
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+    pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
+    pageControl.backgroundColor = [UIColor clearColor];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window.backgroundColor = [UIColor whiteColor];
@@ -26,6 +34,8 @@
     MyNavigationController *roomsSelectorNavController = [[MyNavigationController alloc]initWithRootViewController:roomSelector];
     self.window.rootViewController = roomsSelectorNavController;
     [self.window makeKeyAndVisible];
+    
+    [self setupPageViewController];
     
     return YES;
 }

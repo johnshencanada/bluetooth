@@ -328,7 +328,6 @@
             // And check if it's the right one
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kCNCoinBLEWriteCharacteristicUUID]])
             {
-
                 tmpCharacteristic = characteristic;
                 break;
             }

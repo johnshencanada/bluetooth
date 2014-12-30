@@ -8,12 +8,14 @@
 
 #import "nextDuinoViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "CNBluetoothCentral.h"
+#import "VBFPopFlatButton.h"
+#import "DKCircleButton.h"
 
-@interface nextDuinoViewController () <CNBluetoothCentralDelegate>
+@interface nextDuinoViewController ()
 @property (strong,nonatomic) UIButton *toogleButton;
-@property BOOL isOn;
-
+@property (strong,nonatomic) VBFPopFlatButton *leftButton;
+@property (strong,nonatomic) VBFPopFlatButton *rightButton;
+@property (strong,nonatomic) DKCircleButton *stopButton;
 @end
 
 @implementation nextDuinoViewController
@@ -29,6 +31,7 @@
         UIImage *color = [UIImage imageNamed:@"heart"];
         UITabBarItem *colorTab = [[UITabBarItem alloc] initWithTitle:@"nextDuino" image:color tag:0];
         self.tabBarItem = colorTab;
+        [self findCharacteristicsAndConfigure];
     }
     return self;
 }
@@ -36,25 +39,71 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[CNBluetoothCentral sharedBluetoothCentral] setDelegate:self];
-    [[CNBluetoothCentral sharedBluetoothCentral] startCentral];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupStopButton];
+    [self setupLeftButton];
+    [self setupRightButton];
+}
 
-    self.toogleButton = [[UIButton alloc]initWithFrame:CGRectMake(110, 170, 100, 100)];
-    [self.toogleButton setBackgroundImage:[UIImage imageNamed:@"offButton"] forState:UIControlStateNormal];
-    [self.toogleButton addTarget:self action:@selector(toogleSwitch) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.toogleButton];
-    self.isOn = false;
+- (void)setupStopButton
+{
+    self.stopButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(130, 200, 100, 100)];
+    self.stopButton.center = CGPointMake(160, 200);
+    
+    [self.stopButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [self.stopButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateSelected];
+    [self.stopButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    self.stopButton.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:30.0];;
+
+    [self.stopButton setTitle:NSLocalizedString(@"Stop", nil) forState:UIControlStateNormal];
+    [self.stopButton setTitle:NSLocalizedString(@"Stop", nil) forState:UIControlStateSelected];
+    [self.stopButton setTitle:NSLocalizedString(@"Stop", nil) forState:UIControlStateHighlighted];
+
+    [self.stopButton addTarget:self
+                        action:@selector(stop)
+              forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.stopButton];
+}
+
+- (void)setupLeftButton
+{
+    self.leftButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(20, 200, 60, 60)
+                                                         buttonType:buttonBackType
+                                                        buttonStyle:buttonRoundedStyle
+                                              animateToInitialState:YES];
+    
+    self.leftButton.roundBackgroundColor = [UIColor colorWithWhite:255 alpha:0.1];
+    self.leftButton.lineThickness = 2;
+    self.leftButton.tintColor = [UIColor colorWithWhite:255 alpha:0.6];
+    [self.leftButton addTarget:self
+                               action:@selector(goLeft)
+                     forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.leftButton];
+}
+
+- (void)setupRightButton
+{
+    self.rightButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(240, 200, 60, 60)
+                                                         buttonType:buttonForwardType
+                                                        buttonStyle:buttonRoundedStyle
+                                              animateToInitialState:YES];
+    
+    self.rightButton.roundBackgroundColor = [UIColor colorWithWhite:255 alpha:0.1];
+    self.rightButton.lineThickness = 2;
+    self.rightButton.tintColor = [UIColor colorWithWhite:255 alpha:0.6];
+    [self.rightButton addTarget:self
+                               action:@selector(goRight)
+                     forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.rightButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[CNBluetoothCentral sharedBluetoothCentral] cleanup];
-    [[CNBluetoothCentral sharedBluetoothCentral] setDelegate:nil];
 }
 
 
@@ -64,103 +113,61 @@
 {
     for (Device *device in self.devices)
     {
-        NSLog(@"Device:%@",device);
-        
         for (CBService *service in device.peripheral.services)
         {
-            for (CBCharacteristic *characteristic in service.characteristics) {
-                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF1"]]) {
-                    device.congigureCharacteristic = characteristic;
-                }
-                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF2"]]) {
-                    device.onOffCharacteristic = characteristic;
-                }
-                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE4"]]) {
-                    device.readCharacteristic = characteristic;
-                }
-                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE9"]]) {
-                    device.writeCharacteristic = characteristic;
+            for (CBCharacteristic *characteristic in service.characteristics)
+            {
+                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kCNCoinBLEWriteCharacteristicUUID]])
+                {
+                    device.CoinWriteCharacteristic = characteristic;
                 }
             }
         }
-        
-        /* set the configuration characteristics to be configurable */
-        [device.peripheral writeValue:device.configurationEnabledData forCharacteristic:device.congigureCharacteristic type:CBCharacteristicWriteWithResponse];
-        /* then turn it on */
-        [device.peripheral writeValue:device.onData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
     }
 }
 
-
-
-- (void)toogleSwitch
+-(void)goLeft
 {
-    
+    NSString *str;
+    str = [NSString stringWithFormat:@"l"];
+    [self sendDataWithoutResponse:str];
+}
+
+- (void)goRight
+{
+    NSString *str;
+    str = [NSString stringWithFormat:@"r"];
+    [self sendDataWithoutResponse:str];
+}
+
+- (void)stop
+{
+    NSString *str;
+    str = [NSString stringWithFormat:@"s"];
+    [self sendDataWithoutResponse:str];
+}
+
+- (void)sendDataWithoutResponse:(NSString *)dataStr
+{
     for (Device *device in self.devices)
     {
-        NSLog(@"Device:%@",device.peripheral.name);
+        //Cut and send in 20 character size
+        NSString *tmpStr;
+        int x = 0;
+        
+        for (x = 0; x + 20 < [dataStr length]; x = x + 20)
+        {
+            tmpStr = [dataStr substringWithRange:NSMakeRange(x, 20)];
+            [device.peripheral writeValue:[tmpStr dataUsingEncoding:NSUTF8StringEncoding]
+                                forCharacteristic:device.CoinWriteCharacteristic
+                                             type:CBCharacteristicWriteWithResponse];
+        }
+        
+        [device.peripheral writeValue:[[dataStr substringWithRange:NSMakeRange(x, [dataStr length] - x)] dataUsingEncoding:NSUTF8StringEncoding]
+                            forCharacteristic:device.CoinWriteCharacteristic
+                                         type:CBCharacteristicWriteWithResponse];
     }
-    
-    NSLog(@"%lu",(unsigned long)self.devices.count);
-    NSString *str;
 
-    if (!self.isOn) {
-        [self.toogleButton setBackgroundImage:[UIImage imageNamed:@"onButton"] forState:UIControlStateNormal];
-        str = [NSString stringWithFormat:@"o"];
-        [[CNBluetoothCentral sharedBluetoothCentral] sendDataWithoutResponse:str];
-        self.isOn = true;
-        NSLog(@"Sending On data, self.on is :%d", self.isOn);
-    }
-    
-    else {
-        [self.toogleButton setBackgroundImage:[UIImage imageNamed:@"offButton"] forState:UIControlStateNormal];
-        str = [NSString stringWithFormat:@"c"];
-        NSLog(@"Sending Off data");
-        [[CNBluetoothCentral sharedBluetoothCentral] sendDataWithoutResponse:str];
-        self.isOn = false;
-        NSLog(@"Sending On data, self.on is :%d", self.isOn);
-    }
-    
 }
 
-#pragma mark <CNBluetoothCentralDelegate>
-
-- (void)scanStarted
-{
-    NSLog(@"scan starting");
-}
-
-- (void)centralDidNotStart:(NSString *)errorString
-{
-    NSLog(@"Central Did Not start, Error: %@",errorString);
-}
-
-- (void)centralConnectedwithPeripheral:(CBPeripheral *)peripheral withError:(NSError *)error
-{
-    NSLog(@"Connected");
-}
-
-- (void)centralDisconnectwithPeripheral:(CBPeripheral *)peripheral withError:(NSError *)error
-{
-    NSLog(@"Did Disconnect");
-}
-
-- (void)centralReadCharacteristic:(CBCharacteristic *)characteristic withPeripheral:(CBPeripheral *)peripheral withError:(NSError *)error
-{
-    NSString *temp = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", temp);
-}
-
-- (void)centralWroteCharacteristic:(CBCharacteristic *)characteristic withPeripheral:(CBPeripheral *)peripheral withError:(NSError *)error
-{
-    NSLog(@"");
-}
-
-
-#pragma mark <CBCentral Delegate>
-
-- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
-{
-    NSLog(@"Discovered %@ at %@", peripheral.name, RSSI);
-}
 @end

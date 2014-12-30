@@ -1,6 +1,6 @@
 //
 //  LightBulbColorViewController.h
-//  Bluetooth
+//  nextHome
 //
 //  Created by john on 8/4/14.
 //  Copyright (c) 2014 Banana Technology. All rights reserved.
@@ -11,7 +11,7 @@
 #import "ASValueTrackingSlider.h"
 #import "Device.h"
 
-@interface LightBulbColorViewController : UIViewController <ISColorWheelDelegate>
+@interface LightBulbColorViewController : UIViewController <ISColorWheelDelegate,ASValueTrackingSliderDataSource>
 {
     ISColorWheel* _colorWheel;
     UISlider* _brightnessSlider;

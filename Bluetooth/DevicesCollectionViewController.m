@@ -1,56 +1,63 @@
 //
 //  DevicesCollectionViewController.m
-//  Bluetooth
+//  nextHome
 //
 //  Created by john on 7/3/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 //General View
+#import "MyNavigationController.h"
 #import "Dashboard.h"
 #import "DevicesCollectionViewController.h"
-#import "ControlPanelView.h"
 
 // For the nextBulb
 #import "LightBulbColorViewController.h"
-#import "LightBulbTimerViewController.h"
+#import "TimedActionCollectionViewController.h"
 #import "LightBulbRoomCollectionViewController.h"
 #import "DeviceCell.h"
 
 @interface DevicesCollectionViewController ()
+@property (strong,nonatomic) MyNavigationController *nav;
+
 //view
-@property (strong,nonatomic) ControlPanelView *controlPanel;
 @property (strong,nonatomic) Dashboard *dashBoard;
 @property (strong,nonatomic) NSString *imageName;
+@property (strong,nonatomic) VBFPopFlatButton *flatRoundedButton;
+@property (strong,nonatomic) UIButton *goButton;
+
 //HomeKit
 @property NSString *roomName;
 @property (nonatomic) HMHomeManager *homeManger;
 @property (nonatomic) NSMutableArray *homes;
 @property (nonatomic) HMHome *primaryHome;
 @property (nonatomic) HMAccessory *accessory;
+
 //Model
 @property (strong,nonatomic) CBCentralManager *centralManager;
 @property (strong,nonatomic) NSNumber *rssi;
-@property (strong,nonatomic) NSMutableArray *peripherals;
+@property int rssiVal;
+@property (strong,nonatomic) NSMutableArray *devices;
 @property (strong,nonatomic) NSMutableArray *selectedDevices;
+
 @end
 
 
 @implementation DevicesCollectionViewController
 
-@synthesize peripherals;
 static NSString * const reuseIdentifier = @"Cell";
 
 
 #pragma mark - MVC
 
-- (instancetype)initWithName:(NSString *)name
+- (instancetype)initWithName:(NSString *)name andDevice:(NSArray *)devices
 {
     self.imageName = [NSString stringWithFormat:@"Dashboard-%@",name];
     self.roomName = name;
     [self setUpHome];
     [self setUpDevices];
-    
+    self.devices = [NSMutableArray arrayWithArray:devices];
+
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake(106, 106);
     layout.minimumInteritemSpacing = 1.0;
@@ -64,6 +71,11 @@ static NSString * const reuseIdentifier = @"Cell";
                                    selector:@selector(checkForConnectionAndConnectPeripheral)
                                    userInfo:nil
                                    repeats:YES];
+    [self findCharacteristicsAndConfigure];
+    if (!devices) {
+        [self setupAddButton];
+
+    }
     return self;
 }
 
@@ -81,6 +93,17 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     [super viewDidLoad];
     [self setUpView];
+    [self setUpTimer];
+    [self setUpAnimation];
+
+    /* check the connection every 5 seconds */
+    [NSTimer scheduledTimerWithTimeInterval:1.0
+                                     target:self
+                                   selector:@selector(checkRSSI)
+                                   userInfo:nil
+                                    repeats:YES];
+    
+    [self setupAddButton];
 }
 
 - (void)setUpView
@@ -90,22 +113,93 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.dashBoard setBackImage: @"back"];
     [self.dashBoard setRefreshImage:@"reconnect"];
     [self.dashBoard setTitle:self.roomName];
-
+    
     [self.dashBoard.back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventAllTouchEvents];
     [self.dashBoard.refresh addTarget:self action:@selector(refresh) forControlEvents:UIControlEventAllTouchEvents];
-
+    
     self.view.backgroundColor = [UIColor clearColor];
-    self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/3 - 15, 320, 400);
+    self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/3 - 15, 320, 300);
     self.collectionView.backgroundColor = [UIColor clearColor];
     [self.collectionView registerClass:[DeviceCell class] forCellWithReuseIdentifier:@"lightbulb"];
     self.dashBoard.homeLabel.text = self.roomName;
-
     [self.view addSubview:self.dashBoard];
-    self.controlPanel = [[ControlPanelView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-50, self.view.frame.size.width, 70)];
-    [self.view addSubview:self.controlPanel];
+    
+    self.goButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 600, 320, 80)];
+    [self.goButton setTitle:@"Go!" forState:UIControlStateNormal];
+    [self.goButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    self.goButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.goButton.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:50.0];
+    self.goButton.titleLabel.textColor = [UIColor blackColor];
+    self.goButton.backgroundColor = [UIColor colorWithWhite:255 alpha:0.2];
+    [self.goButton addTarget:self action:@selector(pushToViewControllers) forControlEvents:UIControlEventTouchUpInside];
+}
 
-    [self.controlPanel.go addTarget:self action:@selector(GoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self.controlPanel.slider addTarget:self action:@selector(adjustBrightness:) forControlEvents:UIControlEventTouchUpInside];
+- (void)setupAddButton
+{
+    self.flatRoundedButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(130, 220, 60, 60)
+                                                         buttonType:buttonAddType
+                                                        buttonStyle:buttonRoundedStyle
+                                              animateToInitialState:YES];
+    
+    self.flatRoundedButton.roundBackgroundColor = [UIColor colorWithWhite:255 alpha:0.1];
+    self.flatRoundedButton.lineThickness = 2;
+    self.flatRoundedButton.tintColor = [UIColor colorWithWhite:255 alpha:0.6];
+    [self.flatRoundedButton addTarget:self
+                               action:@selector(addDevice)
+                     forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.flatRoundedButton];
+}
+
+- (void)setUpAnimation
+{
+    [UIView animateWithDuration:1.0
+                          delay:0
+         usingSpringWithDamping:1
+          initialSpringVelocity:13
+                        options:0
+                     animations:^() {
+                         self.dashBoard.timeLabel.center = CGPointMake(125, 80);
+                         self.dashBoard.AMPMLabel.center = CGPointMake(195, 80);
+                         
+                     }
+                     completion:^(BOOL finished) {
+                     }];
+}
+
+- (void)setUpTimer
+{
+    [NSTimer scheduledTimerWithTimeInterval:3.0
+                                     target:self
+                                   selector:@selector(changeTime)
+                                   userInfo:nil
+                                    repeats:NO];
+    
+    [NSTimer scheduledTimerWithTimeInterval:5.0
+                                     target:self
+                                   selector:@selector(sevenSeconds)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+
+
+/* Temporary remove later */
+-(void)changeTime
+{
+    self.dashBoard.timeLabel.text = @"6:00";
+    
+    if (self.collectionView.visibleCells)
+    {
+        DeviceCell *cell = [self.collectionView.visibleCells firstObject];
+        [self startShake:cell.logo for:50 horizontal:YES];
+    }
+}
+
+/* Temporary remove later */
+-(void)sevenSeconds
+{
+    for (DeviceCell *cell in self.collectionView.visibleCells) {
+        [self startShake:cell.logo for:50 horizontal:YES];
+    }
 }
 
 - (void)setUpHome
@@ -126,9 +220,28 @@ static NSString * const reuseIdentifier = @"Cell";
     }];
 }
 
+- (void)checkRSSI
+{
+    self.rssiVal = 0;
+    int deviceCount = 0;
+
+    for (Device *device in self.devices) {
+
+        CBPeripheral *peripheral = device.peripheral;
+        if (peripheral) {
+            deviceCount++;
+            [peripheral readRSSI];
+        }
+    }
+}
+
+- (void)addDevice
+{
+    
+}
+
 - (void)setUpDevices
 {
-    self.peripherals = [[NSMutableArray alloc]init];
     self.selectedDevices = [[NSMutableArray alloc]init];
     self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
 }
@@ -157,27 +270,12 @@ static NSString * const reuseIdentifier = @"Cell";
     for (Device *device in self.selectedDevices) {
         NSLog(@"I am %@",device.peripheral);
     }
+    NSLog(@"The RSSI is: %d",self.rssiVal);
 }
 
 - (void)adjustBrightness:(id)sender
 {
     
-}
-
-- (void)pushToViewControllers
-{
-    UITabBarController *tabBarController = [[UITabBarController alloc]init];
-    LightBulbColorViewController *ColorVC = [[LightBulbColorViewController alloc]initWithDevices:self.selectedDevices];
-    ColorVC.extendedLayoutIncludesOpaqueBars = YES;
-    LightBulbTimerViewController *TimerVC = [[LightBulbTimerViewController alloc]initWithDevices:self.selectedDevices];
-    TimerVC.extendedLayoutIncludesOpaqueBars = YES;
-    LightBulbRoomCollectionViewController *RoomVC = [[LightBulbRoomCollectionViewController alloc]initWithDevices:self.selectedDevices];
-    RoomVC.extendedLayoutIncludesOpaqueBars = YES;
-    NSArray *controllers = [NSArray arrayWithObjects: ColorVC,TimerVC,RoomVC, nil];
-    tabBarController.viewControllers = controllers;
-    tabBarController.tabBar.barStyle = UIBarStyleBlack;
-    [tabBarController tabBar].translucent = NO;
-    [self.navigationController pushViewController:tabBarController animated:NO];
 }
 
 - (void)goBack
@@ -190,6 +288,63 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
+- (void)logoClicked:(RoomLogoButton*)sender
+{
+    [self startShake:sender for:20 horizontal:YES];
+    
+    for (Device *device in self.selectedDevices)
+    {
+        [device.peripheral writeValue:device.configurationEnabledData forCharacteristic:device.congigureCharacteristic type:CBCharacteristicWriteWithResponse];
+        [device.peripheral writeValue:device.offData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+        [device.peripheral writeValue:device.onData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+    }
+}
+
+- (void)pushToViewControllers
+{
+    UITabBarController *tabBarController = [[UITabBarController alloc]init];
+    LightBulbColorViewController *ColorVC = [[LightBulbColorViewController alloc]initWithDevices:self.selectedDevices];
+    ColorVC.extendedLayoutIncludesOpaqueBars = YES;
+    TimedActionCollectionViewController *TimerVC = [[TimedActionCollectionViewController alloc]initWithDevices:self.selectedDevices];
+    TimerVC.extendedLayoutIncludesOpaqueBars = YES;
+    LightBulbRoomCollectionViewController *RoomVC = [[LightBulbRoomCollectionViewController alloc]initWithDevices:self.selectedDevices];
+    RoomVC.extendedLayoutIncludesOpaqueBars = YES;
+    NSArray *controllers = [NSArray arrayWithObjects: ColorVC,TimerVC,RoomVC, nil];
+    tabBarController.viewControllers = controllers;
+    tabBarController.tabBar.barStyle = UIBarStyleBlackOpaque;
+    [self.navigationController pushViewController:tabBarController animated:NO];
+}
+
+- (void)pushUpGoButton
+{
+    [self.view addSubview:self.goButton];
+    [UIView animateWithDuration:1.0
+                          delay:0
+         usingSpringWithDamping:0.5
+          initialSpringVelocity:13
+                        options:0
+                     animations:^() {
+                         self.goButton.center = CGPointMake(160, 530);
+                     }
+                     completion:^(BOOL finished) {
+                     }];
+}
+
+- (void)pushDownGoButton
+{
+    [self.view addSubview:self.goButton];
+    [UIView animateWithDuration:1.0
+                          delay:0
+         usingSpringWithDamping:1
+          initialSpringVelocity:13
+                        options:0
+                     animations:^() {
+                         self.goButton.center = CGPointMake(160, 700);
+                     }
+                     completion:^(BOOL finished) {
+                     }];
+}
+
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -200,16 +355,64 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.peripherals.count;
+    return self.devices.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DeviceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"lightbulb" forIndexPath:indexPath];
-    CBPeripheral *device = [self.peripherals objectAtIndex:indexPath.row];
-    if ([device.name hasPrefix:@"LEDnet"]) {
-        cell.name.text = @"nextBulb";
+    
+    if (cell) {
+        [self.flatRoundedButton removeFromSuperview];
     }
+    
+    [cell.flatRoundedButton addTarget:self
+                               action:@selector(pushToViewControllers)
+                     forControlEvents:UIControlEventTouchUpInside];
+    
+    Device *device = [self.devices objectAtIndex:indexPath.row];
+    CBPeripheral *peripheral = device.peripheral;
+    peripheral.delegate = self;
+    [peripheral discoverServices:nil];
+    
+    /* Set logo Image */
+    if ([peripheral.name hasPrefix:@"LEDnet"]) {
+        cell.name.text = @"nextBulb-nano";
+        [cell setLogoImage:@"nextBulb-nano"];
+    }
+    
+    else if ([peripheral.name hasPrefix:@"Tint B7"]) {
+        cell.name.text = @"nextBulb";
+        [cell setLogoImage:@"nextBulb"];
+    }
+    
+    else if ([peripheral.name hasPrefix:@"Tint B9"]) {
+        cell.name.text = @"nextBulb-mega";
+        [cell setLogoImage:@"nextBulb-mega"];
+    }
+    
+    else if ([peripheral.name hasPrefix:@"Coin"]){
+        cell.name.text = @"nextDuino";
+        [cell setLogoImage:@"nextDuino"];
+    }
+    
+    /* Set State Image */
+    if (peripheral.state == CBPeripheralStateConnected) {
+        [cell setStateImage:@"Connected"];
+    }
+    
+    else if (peripheral.state == CBPeripheralStateConnecting)
+    {
+        [cell setStateImage:@"Connecting"];
+    }
+    
+    else if (peripheral.state == CBPeripheralStateDisconnected)
+    {
+        [cell setStateImage:@"Disconnected"];
+    }
+    
+    [cell.logo addTarget:self action:@selector(logoClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
     return cell;
 }
 
@@ -219,25 +422,33 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     /* Find the peripheral and the cell at the index path */
-    CBPeripheral *peripheral = [self.peripherals objectAtIndex:indexPath.row];
-    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-
+    Device *device = [self.devices objectAtIndex:indexPath.row];
+//    CBPeripheral *peripheral = device.peripheral;
+    DeviceCell *cell = (DeviceCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [self startShake:cell.logo for:2 horizontal:NO];
 
     /* Create a device at the index path */
-    Device *device = [[Device alloc]init];
-    device.peripheral = peripheral;
-    device.centralManager = self.centralManager;
-    
     if (!device.isSelected) {
         device.isSelected = true;
-        cell.backgroundColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:0.1];
+        [cell addRoundedButton];
         [self.selectedDevices addObject:device];
         NSLog(@"%lu",(unsigned long)self.selectedDevices.count);
     }
     
     else {
         device.isSelected = false;
-        cell.backgroundColor = [UIColor clearColor];
+        [self.selectedDevices removeObject:device];
+        [cell removeRounedButton];
+    }
+    
+    if ([self.selectedDevices count] > 0)
+    {
+        [self pushUpGoButton];
+    }
+    
+    else
+    {
+        [self pushDownGoButton];
     }
 }
 
@@ -255,51 +466,6 @@ static NSString * const reuseIdentifier = @"Cell";
         [central scanForPeripheralsWithServices:nil options:nil];
     }
 }
-
--(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
-{
-    // check the NSUserDefualts for this room
-    peripheral.delegate = self;
-
-    BOOL existing = false;
-    
-    /* check if it's already in devices list */
-    for (CBPeripheral *p in self.peripherals) {
-        if (p.identifier == peripheral.identifier) {
-            existing = true;
-        }
-    }
-    if (!existing) {
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSMutableArray *identifiers = [NSMutableArray arrayWithArray:[defaults objectForKey:self.roomName]];
-        NSString *UUIDString = peripheral.identifier.UUIDString;
-        if ([identifiers containsObject:UUIDString]) {
-            [self.peripherals addObject:peripheral];
-            [central connectPeripheral:peripheral options:nil];
-            [self.collectionView reloadData];
-        }
-    }
-}
-
--(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
-{
-    [self.collectionView reloadData];
-    [peripheral discoverServices:nil];
-}
-
-- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
-{
-    int i = 0;
-    for (;i<self.peripherals.count; i++) {
-        CBPeripheral *p = [self.peripherals objectAtIndex:i];
-        if (p.identifier == peripheral.identifier) {
-            [self.peripherals removeObjectAtIndex:i];
-        }
-    }
-    [self.collectionView reloadData];
-}
-
 
 
 #pragma mark - CBPeripheral delegate
@@ -319,22 +485,62 @@ static NSString * const reuseIdentifier = @"Cell";
 /* returnRSSI is called */
 //- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
 //{
-//    self.rssi = peripheral.RSSI;
-//    if ([self.rssi intValue] > -75 && [self.rssi intValue] < -10 )
+//    self.rssiVal += [peripheral.RSSI intValue];
+//    
+//    if (self.rssiVal > -85)
 //    {
-//        [self.device.peripheral writeValue:self.device.onData forCharacteristic:self.device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+//        for (Device *device in self.devices) {
+//            
+//            if (self.rssiVal > -80) {
+//                NSLog(@"Close");
+//                [device.peripheral writeValue:device.onData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+//            }
+//        }
 //    }
 //    
-//    if ([self.rssi intValue] < -75 || [self.rssi intValue] > -10 )
+//    if (self.rssiVal < -85)
 //    {
-//        [self.device.peripheral writeValue:self.device.offData forCharacteristic:self.device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+//        for (Device *device in self.devices) {
+//            
+//            NSLog(@"Far");
+//            [device.peripheral writeValue:device.offData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+//        }
 //    }
-//
-//    NSLog(@"The RSSI is: %@",self.rssi);
+//    
+//    NSLog(@"The RSSI is: %d",self.rssiVal);
 //}
-//
 
 
+- (void)findCharacteristicsAndConfigure
+{
+    for (Device *device in self.devices)
+    {
+        NSLog(@"Device:%@",device);
+        
+        for (CBService *service in device.peripheral.services)
+        {
+            for (CBCharacteristic *characteristic in service.characteristics) {
+                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF1"]]) {
+                    device.congigureCharacteristic = characteristic;
+                }
+                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF2"]]) {
+                    device.onOffCharacteristic = characteristic;
+                }
+                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE4"]]) {
+                    device.readCharacteristic = characteristic;
+                }
+                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE9"]]) {
+                    device.writeCharacteristic = characteristic;
+                }
+            }
+        }
+        
+        /* set the configuration characteristics to be configurable */
+        [device.peripheral writeValue:device.configurationEnabledData forCharacteristic:device.congigureCharacteristic type:CBCharacteristicWriteWithResponse];
+        /* then turn it on */
+        [device.peripheral writeValue:device.onData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+    }
+}
 
 #pragma mark - HMHomeManager delegate
 
@@ -347,5 +553,36 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
+
+#pragma mark <Shaking animation>
+
+- (void)startShake:(UIView *)view for:(int)times horizontal:(BOOL)horizontal
+{
+    CGAffineTransform normal = CGAffineTransformMakeTranslation(0, 0);
+    CGAffineTransform leftShake;
+    CGAffineTransform rightShake;
+    
+    if (horizontal)
+    {
+        leftShake = CGAffineTransformMakeTranslation(-5, 0);
+        rightShake = CGAffineTransformMakeTranslation(5, 0);
+    }
+    
+    else {
+        leftShake = CGAffineTransformMakeTranslation(0, -5);
+        rightShake = CGAffineTransformMakeTranslation(0, 5);
+    }
+
+    view.transform = leftShake;  // starting point
+    
+    [UIView beginAnimations:@"shake_button"context:NULL];
+    [UIView setAnimationRepeatAutoreverses:YES]; // important
+    [UIView setAnimationRepeatCount:times];
+    [UIView setAnimationDuration:0.02];
+    [UIView setAnimationDelegate:self];
+    view.transform = rightShake;
+    view.transform = normal;  // end here & auto-reverse
+    [UIView commitAnimations];
+}
 
 @end

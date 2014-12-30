@@ -1,9 +1,9 @@
 //
 //  Dashboard.h
-//  Bluetooth
+//  nextHome
 //
 //  Created by john on 8/16/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -13,15 +13,14 @@
 @property (nonatomic) NSString *homeName;
 @property (nonatomic) UILabel *homeLabel;
 @property (nonatomic) UILabel *state;
-@property (nonatomic) UILabel *greetingLabel;
+@property (nonatomic) UILabel *timeLabel;
+@property (nonatomic) UILabel *AMPMLabel;
 @property (nonatomic) UILabel *dateLabel;
 
 @property (nonatomic) UIButton *home;
-@property (nonatomic) UIButton *add;
+@property (nonatomic) UIButton *camera;
 @property (nonatomic) UIButton *back;
 @property (nonatomic) UIButton *refresh;
-
-
 
 - (void)setTitle:(NSString *)title;
 - (void)setbackgroundImage:(NSString *)image;

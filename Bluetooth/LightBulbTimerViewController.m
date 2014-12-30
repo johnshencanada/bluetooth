@@ -1,102 +1,150 @@
 //
 //  LightBulbTimerViewController.m
-//  Bluetooth
+//  nextHome
 //
 //  Created by john on 8/29/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 #import "LightBulbTimerViewController.h"
 #import "MyNavigationController.h"
-#import "CircleCounter.h"
+#import "ClockCell.h"
+#import "VBFPopFlatButton.h"
 
 @interface LightBulbTimerViewController ()
 @property (nonatomic) MyNavigationController *nav;
 @property (nonatomic) UIVibrancyEffect *vibrancyEffect;
 @property  (nonatomic) UIVisualEffectView *vibrancyView;
-@property (nonatomic) UIView *colorView;
+@property (strong,nonatomic) VBFPopFlatButton *flatRoundedButton;
 
-@property (strong, nonatomic)  UILabel *daysToGoLabel;
-@property (strong, nonatomic)  UILabel *hoursToGoLabel;
-@property (strong, nonatomic)  UILabel *minutesToGoLabel;
-@property (strong, nonatomic)  UILabel *secondsToGoLabel;
-@property (nonatomic) CircleCounter *circleCounter;
+@property NSMutableArray *clocks;
+
 @end
 
 @implementation LightBulbTimerViewController
+
+#pragma mark - MVC
 
 -(id)initWithDevices:(NSArray *)devices
 {
     self = [super init];
     if (self) {
-        self.view.backgroundColor = [UIColor clearColor];
+        self.clocks = [[NSMutableArray alloc]init];
+        
         UIImage *timer = [UIImage imageNamed:@"timer"];
         UITabBarItem *homeTab = [[UITabBarItem alloc] initWithTitle:@"Timer" image:timer tag:0];
         self.tabBarItem = homeTab;
+        
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+        layout.itemSize = CGSizeMake(320, 150);
+        layout.minimumInteritemSpacing = 1.0;
+        layout.minimumLineSpacing = 1.0;
+        layout.headerReferenceSize = CGSizeMake(0,0);
+        self = [super initWithCollectionViewLayout:layout];
+
     }
     return self;
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    [self setUpBlurAndVibrancy];
+- (void)awakeFromNib {
+    [super awakeFromNib];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/4 - 15, 320, 400);
+}
+
+- (void)viewDidLoad
+{
     [self setUpView];
 }
 
-- (void) setUpView {
-    self.circleCounter = [[CircleCounter alloc] initWithFrame:self.view.frame];
-    self.circleCounter.circleColor = [UIColor colorWithRed:129/255.0f  green:243/255.0f  blue:253/255.0f  alpha:1.0];
-    self.circleCounter.circleWidth = 8.0f;
-    [self.view addSubview:self.circleCounter];
+
+
+- (void) viewDidAppear:(BOOL)animated {
+    
+    [self setUpBlurAndVibrancy];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)setUpView
+{
+    self.view.backgroundColor = [UIColor clearColor];
+    self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/3 - 15, 320, 350);
+    [self.collectionView registerClass:[ClockCell class] forCellWithReuseIdentifier:@"Clock"];
+    [self setupAddButton];
+}
+
+- (void)setupAddButton
+{
+    self.flatRoundedButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(130, 220, 60, 60)
+                                                         buttonType:buttonAddType
+                                                        buttonStyle:buttonRoundedStyle
+                                              animateToInitialState:YES];
+    
+    self.flatRoundedButton.roundBackgroundColor = [UIColor colorWithWhite:255 alpha:0.1];
+    self.flatRoundedButton.lineThickness = 2;
+    self.flatRoundedButton.tintColor = [UIColor colorWithWhite:255 alpha:0.6];
+    [self.flatRoundedButton addTarget:self
+                               action:@selector(insertNewObject:)
+                     forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.flatRoundedButton];
+}
 
 - (void) setUpBlurAndVibrancy
 {
-    self.nav = self.navigationController;
+    self.nav = (MyNavigationController *)self.navigationController;
     self.vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:self.nav.blurEffect];
     self.vibrancyView = [[UIVisualEffectView alloc]initWithEffect:self.vibrancyEffect];
     self.vibrancyView.frame = self.view.bounds;
     [self.nav.blurView addSubview:self.vibrancyView];
 }
 
-
-- (void)viewDidLoad
-{
-    [self findCharacteristicsAndConfigure];
-}
-
-- (void)findCharacteristicsAndConfigure
-{
-    for (Device *device in self.devices) {
-        device.isOn = false;
-        for (CBService *service in device.peripheral.services)
-        {
-            for (CBCharacteristic *characteristic in service.characteristics) {
-                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF1"]]) {
-                    device.congigureCharacteristic = characteristic;
-                }
-                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFF2"]]) {
-                    device.onOffCharacteristic = characteristic;
-                }
-                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE4"]]) {
-                    device.readCharacteristic = characteristic;
-                }
-                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE9"]]) {
-                    device.writeCharacteristic = characteristic;
-                }
-            }
-        }
-        
-        /* set the configuration characteristics to be configurable */
-        [device.peripheral writeValue:device.configurationEnabledData forCharacteristic:device.congigureCharacteristic type:CBCharacteristicWriteWithResponse];
-        /* then turn it on */
-        [device.peripheral writeValue:device.onData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
-        device.isOn = true;
+- (void)insertNewObject:(id)sender {
+    
+    if (!self.clocks) {
+        self.clocks = [[NSMutableArray alloc] init];
     }
+    
+    [self.clocks insertObject:[NSDate date] atIndex:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
 }
 
-- (void) viewWillDisappear:(BOOL)animated
+- (void)createNewAction
 {
     
 }
+
+#pragma mark <UICollectionViewDataSource>
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 5;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ClockCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Clock" forIndexPath:indexPath];
+    return cell;
+}
+
+#pragma mark <UICollectionViewDelegate>
+
+- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
 @end

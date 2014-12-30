@@ -1,15 +1,15 @@
 //
 //  LightBulbTimerViewController.h
-//  Bluetooth
+//  nextHome
 //
 //  Created by john on 8/29/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "Device.h"
 
-@interface LightBulbTimerViewController : UIViewController
+@interface LightBulbTimerViewController : UICollectionViewController
+@property (nonatomic) UIButton *add;
 - (id) initWithDevices:(NSArray *)devices;
-@property (strong,nonatomic) NSArray *devices;
+
 @end

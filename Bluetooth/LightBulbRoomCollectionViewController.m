@@ -1,20 +1,22 @@
 //
 //  LightBulbRoomCollectionViewController.m
-//  Bluetooth
+//  nextHome
 //
 //  Created by john on 9/16/14.
-//  Copyright (c) 2014 Banana Technology. All rights reserved.
+//  Copyright (c) 2014 nextHome Technology. All rights reserved.
 //
 
 #import "LightBulbRoomCollectionViewController.h"
 #import "RoomCell.h"
 #import "RoomPictureCell.h"
 #import "Device.h"
+#import "VBFPopFlatButton.h"
 
 @interface LightBulbRoomCollectionViewController ()
 @property (nonatomic) NSArray *rooms;
 @property (nonatomic) NSString *currentRoom;
 @property (nonatomic) UILabel *currentRoomLabel;
+@property (strong,nonatomic) VBFPopFlatButton *flatRoundedButton;
 @end
 
 @implementation LightBulbRoomCollectionViewController
@@ -41,14 +43,6 @@ static NSString * const reuseIdentifier = @"Room";
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         self.rooms = [defaults objectForKey:@"rooms"];
-        
-        self.currentRoomLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, 200)];
-        self.currentRoomLabel.text = [NSString stringWithFormat:@"hi"];
-        self.currentRoomLabel.textColor = [UIColor whiteColor];
-        self.currentRoomLabel.textAlignment = NSTextAlignmentCenter;
-        self.currentRoomLabel.font = [UIFont fontWithName:@"GillSans-Light" size:50.0];
-        [self.view addSubview:self.currentRoomLabel];
-        
     }
     return self;
 }
@@ -67,6 +61,31 @@ static NSString * const reuseIdentifier = @"Room";
     self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/3 - 15, 320, 350);
     self.collectionView.backgroundColor = [UIColor clearColor];
     [self.collectionView registerClass:[RoomPictureCell class] forCellWithReuseIdentifier:@"Room"];
+    
+    self.currentRoomLabel = [[UILabel alloc]initWithFrame:CGRectMake(60, 0, 200, 60)];
+    self.currentRoomLabel.textColor = [UIColor whiteColor];
+    self.currentRoomLabel.textAlignment = NSTextAlignmentCenter;
+    self.currentRoomLabel.font = [UIFont fontWithName:@"GillSans-Light" size:20.0];
+    self.currentRoomLabel.text = [NSString stringWithFormat:@"Please Select Room"];
+    [self.view addSubview:self.currentRoomLabel];
+    
+    [self setupAddButton];
+}
+
+- (void)setupAddButton
+{
+    self.flatRoundedButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(130, 80, 60, 60)
+                                                         buttonType:buttonAddType
+                                                        buttonStyle:buttonRoundedStyle
+                                              animateToInitialState:YES];
+    
+    self.flatRoundedButton.roundBackgroundColor = [UIColor colorWithWhite:255 alpha:0.1];
+    self.flatRoundedButton.lineThickness = 2;
+    self.flatRoundedButton.tintColor = [UIColor colorWithWhite:255 alpha:0.6];
+    [self.flatRoundedButton addTarget:self
+                               action:@selector(flatRoundedButtonPressed)
+                     forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.flatRoundedButton];
 }
 
 - (void)checkCurrentRoom
@@ -95,8 +114,10 @@ static NSString * const reuseIdentifier = @"Room";
 {
     for (NSString *room in self.rooms) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSArray *identifiers = [NSArray arrayWithArray:[defaults objectForKey:room]];
-        NSLog(@"There are %d objects in %@",identifiers.count,room);
+        if (room) {
+            NSArray *identifiers = [NSArray arrayWithArray:[defaults objectForKey:room]];
+            NSLog(@"There are %lu objects in %@",(unsigned long)identifiers.count,room);
+        }
     }
 }
 
@@ -167,7 +188,7 @@ static NSString * const reuseIdentifier = @"Room";
             /* if it's already selected, diselect it */
             if (cell.isSelected) {
                 [cell setUnSelected];
-                NSLog(@"The user deselcts the same room which is: %@",self.currentRoom);
+                NSLog(@"The user deselects the same room which is: %@",self.currentRoom);
                 self.currentRoom = NULL;
 
                 /* Remove the device in this room saved in data */
@@ -190,18 +211,24 @@ static NSString * const reuseIdentifier = @"Room";
         /* If the user selects another room */
         else {
             NSLog(@"The user selected another room we have to delete the previous room: %@", self.currentRoom);
+            
             /* Remove the devices from its previous room */
             for (Device *device in self.devices)
             {
                 NSMutableArray *identifiers = [NSMutableArray arrayWithArray:[defaults objectForKey:self.currentRoom]];
-                for (NSString *identifier in identifiers) {
-                    if ([identifier isEqualToString:device.peripheral.identifier.UUIDString]) {
-                        NSLog(@"I found the previous identifiers, I will have to delete the previous room from the UserDefault now!");
-                        [identifiers removeObject:identifier];
-                        [defaults setObject:[NSArray arrayWithArray:identifiers] forKey:roomName];
-                        [defaults synchronize];
-                    }
+                NSString *UUIDString = device.peripheral.identifier.UUIDString;
+                
+                if ([identifiers containsObject:UUIDString]) {
+                    NSLog(@"I found the previous identifiers, I will have to delete the previous room from the UserDefault now!");
+                    [identifiers removeObject:UUIDString];
+                    [defaults setObject:[NSArray arrayWithArray:identifiers] forKey:self.currentRoom];
+                    [defaults synchronize];
                 }
+            }
+            
+            /* Deselect all the other cells */
+            for (RoomPictureCell *cell in [[self collectionView]visibleCells]) {
+                [cell setUnSelected];
             }
             
             self.currentRoom = roomName;
@@ -218,7 +245,6 @@ static NSString * const reuseIdentifier = @"Room";
             NSLog(@"Updating %@",roomName);
             [defaults setObject:[NSArray arrayWithArray:devicesUUID] forKey:roomName];
             [defaults synchronize];
-            
             [self PrintRoomDevices];
         }
     }
@@ -229,7 +255,7 @@ static NSString * const reuseIdentifier = @"Room";
     }
     
     else {
-        self.currentRoomLabel.text = [NSString stringWithFormat:@"No Room"];
+        self.currentRoomLabel.text = [NSString stringWithFormat:@"Please Select Room"];
     }
     
     [defaults synchronize];
