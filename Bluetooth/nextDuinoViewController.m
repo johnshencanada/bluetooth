@@ -167,7 +167,6 @@
                             forCharacteristic:device.CoinWriteCharacteristic
                                          type:CBCharacteristicWriteWithResponse];
     }
-
 }
 
 @end

@@ -16,7 +16,7 @@
 @property (nonatomic) UILabel *titleLabel;
 @property (nonatomic) UIButton *back;
 @property (strong,nonatomic) VBFPopFlatButton *flatRoundedButton;
-
+@property (strong,nonatomic) NSArray *actions;
 @end
 
 @implementation TimedActionCollectionViewController
@@ -27,10 +27,8 @@ static NSString * const reuseIdentifier = @"Clock";
 {
     self = [super init];
     if (self) {
-        
         self.devices = [NSArray arrayWithArray:devices];
-        
-        UIImage *timer = [UIImage imageNamed:@"timer"];
+        UIImage *timer = [UIImage imageNamed:@"alarm-small"];
         UITabBarItem *homeTab = [[UITabBarItem alloc] initWithTitle:@"Timer" image:timer tag:0];
         self.tabBarItem = homeTab;
         
@@ -48,6 +46,16 @@ static NSString * const reuseIdentifier = @"Clock";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpView];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.actions = [defaults objectForKey:@"actions"];
+    
+    if (self.actions) {
+        [self.collectionView reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -102,7 +110,7 @@ static NSString * const reuseIdentifier = @"Clock";
 
 - (void)createNewAction
 {
-    NewActionViewController *newAcitonVC = [[NewActionViewController alloc]init];
+    NewActionViewController *newAcitonVC = [[NewActionViewController alloc]initWithDevices:self.devices];
     [self.navigationController pushViewController:newAcitonVC animated:NO];
 }
 
@@ -114,11 +122,43 @@ static NSString * const reuseIdentifier = @"Clock";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 5;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *timedActionArray = [NSMutableArray arrayWithArray:[defaults objectForKey:@"actions"]];
+    return [timedActionArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+
     ClockCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    
+    if (self.actions) {
+        NSDictionary *dictionary = [self.actions objectAtIndex:indexPath.row];
+        NSNumber *actionType = [dictionary objectForKey:@"actionType"];
+        NSNumber *onOff = [dictionary objectForKey:@"OnOff"];
+
+        if ([actionType intValue] == 0) {
+            NSDate *date = [dictionary objectForKey:@"time"];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"hh:mm a"];
+            NSString *dateString = [dateFormatter stringFromDate:date];
+            cell.timeLabel.text = dateString;
+        }
+        
+        else {
+//            NSNumber *proximity = [dictionary objectForKey:@"proximity"];
+            NSLog(@"shit");
+        }
+
+        
+        if ([onOff intValue] == 1) {
+            cell.actionLabel.text = @"On";
+        }
+        
+        else {
+            cell.actionLabel.text = @"Off";
+        }
+    }
     
     // Configure the cell
     return cell;

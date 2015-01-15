@@ -105,7 +105,7 @@ static NSString * const reuseIdentifier = @"Room";
     [self.collectionView registerClass:[HeaderCellView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
     self.dashBoard = [[Dashboard alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/3)];
     //    [self.dashBoard setbackgroundImage:@"Dashboard-House"];
-    [self.dashBoard.home addTarget:self action:@selector(configureHome) forControlEvents:UIControlEventAllTouchEvents];
+    [self.dashBoard.home addTarget:self action:@selector(goHomeButton) forControlEvents:UIControlEventAllTouchEvents];
     [self.dashBoard.camera addTarget:self action:@selector(changePhoto) forControlEvents:UIControlEventAllTouchEvents];
 
     [self.view addSubview:self.dashBoard];
@@ -174,11 +174,16 @@ static NSString * const reuseIdentifier = @"Room";
     [defaults synchronize];
 }
 
+- (void)goHomeButton
+{
+    HomeViewController *homeVC = [[HomeViewController alloc]init];
+    [self presentViewController:homeVC animated:YES completion:nil];
+}
+
 - (void)changePhoto
 {
     TGCameraNavigationController *navigationController =
     [TGCameraNavigationController newWithCameraDelegate:self];
-    
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -207,14 +212,6 @@ static NSString * const reuseIdentifier = @"Room";
         [self.collectionView reloadData];
     }
 }
-
-
-- (void) configureHome
-{
-    UIViewController *homeVC = [[HomeViewController alloc]init];
-    [self.navigationController pushViewController:homeVC animated:YES];
-}
-
 
 /* Still has bugs Solve Later! */
 - (void)logoClicked:(RoomLogoButton*)sender
@@ -266,7 +263,6 @@ static NSString * const reuseIdentifier = @"Room";
     LightBulbRoomCollectionViewController *RoomVC = [[LightBulbRoomCollectionViewController alloc]initWithDevices:self.selectedDevices];
     RoomVC.extendedLayoutIncludesOpaqueBars = YES;
     NSArray *controllers = [NSArray arrayWithObjects: ColorVC,TimerVC,RoomVC, nil];
-    
     tabBarController.tabBar.barStyle = UIBarStyleBlackOpaque;
 
     tabBarController.viewControllers = controllers;
@@ -561,25 +557,6 @@ static NSString * const reuseIdentifier = @"Room";
 
 #pragma mark - HMHomeManager delegate
 
-#pragma mark - TGCameraDelegate optional
-
-- (void)cameraWillTakePhoto
-{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-}
-
-- (void)cameraDidSavePhotoAtPath:(NSURL *)assetURL
-{
-    // When this method is implemented, an image will be saved on the user's device
-    NSLog(@"%s album path: %@", __PRETTY_FUNCTION__, assetURL);
-}
-
-- (void)cameraDidSavePhotoWithError:(NSError *)error
-{
-    NSLog(@"%s error: %@", __PRETTY_FUNCTION__, error);
-}
-
-
 #pragma mark - TGCameraDelegate required
 
 - (void)cameraDidCancel
@@ -589,7 +566,12 @@ static NSString * const reuseIdentifier = @"Room";
 
 - (void)cameraDidTakePhoto:(UIImage *)image
 {
-    self.dashBoard.backgroundImageView.image = image;
+    CGSize size = [image size];
+    CGRect rect = CGRectMake(0 ,size.height*0.2, size.width*2, size.height*1.2);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], rect);
+    UIImage *img = [UIImage imageWithCGImage:imageRef];
+    
+    self.dashBoard.backgroundImageView.image = img;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -604,11 +586,10 @@ static NSString * const reuseIdentifier = @"Room";
 - (void) startShake:(UIView *)view
 {
     CGAffineTransform normal = CGAffineTransformMakeTranslation(0, 0);
-    CGAffineTransform leftShake = CGAffineTransformMakeTranslation(0, -5);
-    CGAffineTransform rightShake = CGAffineTransformMakeTranslation(0, 5);
+    CGAffineTransform leftShake = CGAffineTransformMakeTranslation(0, -10);
+    CGAffineTransform rightShake = CGAffineTransformMakeTranslation(0, 10);
     
     view.transform = leftShake;  // starting point
-    
     [UIView beginAnimations:@"shake_button"context:NULL];
     [UIView setAnimationRepeatAutoreverses:YES]; // important
     [UIView setAnimationRepeatCount:5];

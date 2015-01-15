@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "BEMAnalogClockView.h"
+#import "Device.h"
 
-@interface ChildViewController : UIViewController <BEMAnalogClockDelegate, UIGestureRecognizerDelegate>
+@interface ChildViewController : UIViewController <BEMAnalogClockDelegate, UIGestureRecognizerDelegate,CBPeripheralDelegate>
+@property (strong,nonatomic) NSArray *devices;
 @property (assign, nonatomic) NSInteger index;
-
-
 @property (nonatomic) UILabel *titleLabel;
 @property (nonatomic) UIView *contentView;
+- (id) initWithDevices:(NSArray *)devices;
 
 @end

@@ -37,9 +37,11 @@
 @property (strong,nonatomic) CBCentralManager *centralManager;
 @property (strong,nonatomic) NSNumber *rssi;
 @property int rssiVal;
+@property int averageRSSI;
 @property (strong,nonatomic) NSMutableArray *devices;
 @property (strong,nonatomic) NSMutableArray *selectedDevices;
 
+@property (strong,nonatomic) NSTimer *discoverTimer;
 @end
 
 
@@ -65,16 +67,9 @@ static NSString * const reuseIdentifier = @"Cell";
     layout.headerReferenceSize = CGSizeMake(0,0);
     self = [super initWithCollectionViewLayout:layout];
     
-    /* check the connection every 5 seconds */
-    [NSTimer scheduledTimerWithTimeInterval:5.0
-                                     target:self
-                                   selector:@selector(checkForConnectionAndConnectPeripheral)
-                                   userInfo:nil
-                                   repeats:YES];
     [self findCharacteristicsAndConfigure];
     if (!devices) {
         [self setupAddButton];
-
     }
     return self;
 }
@@ -84,10 +79,12 @@ static NSString * const reuseIdentifier = @"Cell";
     [super didReceiveMemoryWarning];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
-    
+    [self.discoverTimer invalidate];
 }
+
+
 
 - (void)viewDidLoad
 {
@@ -95,15 +92,18 @@ static NSString * const reuseIdentifier = @"Cell";
     [self setUpView];
     [self setUpTimer];
     [self setUpAnimation];
-
-    /* check the connection every 5 seconds */
-    [NSTimer scheduledTimerWithTimeInterval:1.0
-                                     target:self
-                                   selector:@selector(checkRSSI)
-                                   userInfo:nil
-                                    repeats:YES];
-    
     [self setupAddButton];
+
+    /* check the connection every 1 second */
+    if ([self.devices count]) {
+        self.discoverTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                         target:self
+                                       selector:@selector(checkRSSI)
+                                       userInfo:nil
+                                       repeats:YES];
+    }
+
+    [self.dashBoard.discover addTarget:self action:@selector(checkRSSI) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setUpView
@@ -114,9 +114,14 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.dashBoard setRefreshImage:@"reconnect"];
     [self.dashBoard setTitle:self.roomName];
     
+    [self.dashBoard addSubview:self.dashBoard.camera];
+    [self.dashBoard addSubview:self.dashBoard.lightBulb];
+
     [self.dashBoard.back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventAllTouchEvents];
     [self.dashBoard.refresh addTarget:self action:@selector(refresh) forControlEvents:UIControlEventAllTouchEvents];
-    
+    [self.dashBoard.camera addTarget:self action:@selector(changePhoto) forControlEvents:UIControlEventAllTouchEvents];
+    [self.dashBoard.lightBulb addTarget:self action:@selector(selectAllLightbulb) forControlEvents:UIControlEventAllTouchEvents];
+
     self.view.backgroundColor = [UIColor clearColor];
     self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/3 - 15, 320, 300);
     self.collectionView.backgroundColor = [UIColor clearColor];
@@ -206,7 +211,6 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     self.homeManger = [[HMHomeManager alloc]init];
     self.homeManger.delegate = self;
-    
     [self.homeManger addHomeWithName:@"My Home" completionHandler:^(HMHome *home, NSError *error) {
         
         if (error != nil) {
@@ -223,6 +227,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)checkRSSI
 {
     self.rssiVal = 0;
+    self.averageRSSI = 0;
     int deviceCount = 0;
 
     for (Device *device in self.devices) {
@@ -230,6 +235,7 @@ static NSString * const reuseIdentifier = @"Cell";
         CBPeripheral *peripheral = device.peripheral;
         if (peripheral) {
             deviceCount++;
+            NSLog(@"checking");
             [peripheral readRSSI];
         }
     }
@@ -246,24 +252,6 @@ static NSString * const reuseIdentifier = @"Cell";
     self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
 }
 
-- (void)checkForConnectionAndConnectPeripheral
-{
-//    for (CBPeripheral *p in self.peripherals) {
-//        
-//        if (p.state == CBPeripheralStateConnecting) {
-//        
-//        }
-//            
-//        if (p.state == CBPeripheralStateDisconnected) {
-//            [self.centralManager connectPeripheral:p options:nil];
-//            [self.collectionView reloadData];
-//        }
-//
-//        [self.collectionView reloadData];
-//
-//        }
-}
-
 - (void)GoButtonTapped:(id)sender
 {
     [self pushToViewControllers];
@@ -273,9 +261,11 @@ static NSString * const reuseIdentifier = @"Cell";
     NSLog(@"The RSSI is: %d",self.rssiVal);
 }
 
-- (void)adjustBrightness:(id)sender
+- (void)changePhoto
 {
-    
+    TGCameraNavigationController *navigationController =
+    [TGCameraNavigationController newWithCameraDelegate:self];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)goBack
@@ -284,6 +274,11 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)refresh
+{
+    
+}
+
+- (void)selectAllLightbulb
 {
     
 }
@@ -423,7 +418,6 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     /* Find the peripheral and the cell at the index path */
     Device *device = [self.devices objectAtIndex:indexPath.row];
-//    CBPeripheral *peripheral = device.peripheral;
     DeviceCell *cell = (DeviceCell *)[collectionView cellForItemAtIndexPath:indexPath];
     [self startShake:cell.logo for:2 horizontal:NO];
 
@@ -483,32 +477,40 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 /* returnRSSI is called */
-//- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
-//{
-//    self.rssiVal += [peripheral.RSSI intValue];
-//    
-//    if (self.rssiVal > -85)
-//    {
-//        for (Device *device in self.devices) {
-//            
-//            if (self.rssiVal > -80) {
-//                NSLog(@"Close");
-//                [device.peripheral writeValue:device.onData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
-//            }
-//        }
-//    }
-//    
-//    if (self.rssiVal < -85)
-//    {
-//        for (Device *device in self.devices) {
-//            
-//            NSLog(@"Far");
-//            [device.peripheral writeValue:device.offData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
-//        }
-//    }
-//    
-//    NSLog(@"The RSSI is: %d",self.rssiVal);
-//}
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    self.rssiVal += [peripheral.RSSI intValue];
+    
+    if (self.rssiVal) {
+        int devceCount = (int)[self.devices count];
+        self.averageRSSI += [peripheral.RSSI intValue]/devceCount;
+        self.dashBoard.RSSILabel.text = [NSString stringWithFormat:@"%d",self.rssiVal];
+        self.dashBoard.DeviceCount.text = [NSString stringWithFormat:@"%lu", (unsigned long)devceCount];
+        self.dashBoard.Average.text = [NSString stringWithFormat:@"%d",self.averageRSSI];
+    }
+
+    if (self.averageRSSI > -70)
+    {
+        for (Device *device in self.devices) {
+            
+            if (self.rssiVal > -80) {
+                NSLog(@"Close");
+                [device.peripheral writeValue:device.onData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+            }
+        }
+    }
+    
+    if (self.averageRSSI < -75)
+    {
+        for (Device *device in self.devices) {
+            
+            NSLog(@"Far");
+            [device.peripheral writeValue:device.offData forCharacteristic:device.onOffCharacteristic type:CBCharacteristicWriteWithResponse];
+        }
+    }
+    
+    NSLog(@"The RSSI is: %d",self.rssiVal);
+}
 
 
 - (void)findCharacteristicsAndConfigure
@@ -546,13 +548,37 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)homeManagerDidUpdateHomes:(HMHomeManager *)manager
 {
+    
 }
 
 - (void)homeManager:(HMHomeManager *)manager didAddHome:(HMHome *)home
 {
-    
+
 }
 
+#pragma mark - TGCameraDelegate required
+
+- (void)cameraDidCancel
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)cameraDidTakePhoto:(UIImage *)image
+{
+    CGSize size = [image size];
+    CGRect rect = CGRectMake(0 ,size.height*0.2, size.width*2, size.height*1.2);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], rect);
+    UIImage *img = [UIImage imageWithCGImage:imageRef];
+    
+    self.dashBoard.backgroundImageView.image = img;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)cameraDidSelectAlbumPhoto:(UIImage *)image
+{
+    self.dashBoard.backgroundImageView.image = image;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark <Shaking animation>
 

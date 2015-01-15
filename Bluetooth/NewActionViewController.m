@@ -9,17 +9,25 @@
 #import "NewActionViewController.h"
 #import "ChildViewController.h"
 #import "VBFPopFlatButton.h"
-#import "NYSegmentedControl.h"
 
 @interface NewActionViewController ()
 @property (nonatomic) UIButton *back;
 @property (strong,nonatomic) VBFPopFlatButton *backwardButton;
 @property (strong,nonatomic) VBFPopFlatButton *forwardButton;
-@property (nonatomic,strong) UIButton *goButton;
 
 @end
 
 @implementation NewActionViewController
+
+-(id)initWithDevices:(NSArray *)devices
+{
+    self = [super init];
+    if (self) {
+        self.devices = [NSArray arrayWithArray:devices];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +37,7 @@
     /* Create new PageViewController */
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.dataSource = self;
-    [[self.pageViewController view]setFrame:CGRectMake(0, 0, 320, 420)];
+    [[self.pageViewController view]setFrame:CGRectMake(0, 0, 320, 620)];
     
     ChildViewController *initialViewController = [self viewControllerAtIndex:0];
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
@@ -40,7 +48,10 @@
     [self.pageViewController didMoveToParentViewController:self];
 }
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+}
 
 - (void)setUpView
 {
@@ -78,71 +89,10 @@
                             action:@selector(goForward)
                   forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.forwardButton];
-    
-    [self setupSegementedControl];
-    [self setupGoButton];
-}
-
-- (void)setupSegementedControl
-{
-    UIView *foursquareSegmentedControlBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
-                                                                                                0.0f,
-                                                                                                CGRectGetWidth([UIScreen mainScreen].bounds),
-                                                                                                44.0f)];
-    foursquareSegmentedControlBackgroundView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:foursquareSegmentedControlBackgroundView];
-    
-    NYSegmentedControl *foursquareSegmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"On", @"Off"]];
-    foursquareSegmentedControl.titleTextColor = [UIColor lightGrayColor];
-    foursquareSegmentedControl.selectedTitleTextColor = [UIColor whiteColor];
-    foursquareSegmentedControl.selectedTitleFont = [UIFont systemFontOfSize:13.0f];
-    foursquareSegmentedControl.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.38f green:0.68f blue:0.93f alpha:0.6];
-    foursquareSegmentedControl.backgroundColor = [UIColor colorWithRed:0.31f green:0.53f blue:0.72f alpha:0.2f];
-    foursquareSegmentedControl.borderWidth = 0.0f;
-    foursquareSegmentedControl.segmentIndicatorBorderWidth = 0.0f;
-    foursquareSegmentedControl.segmentIndicatorInset = 1.0f;
-    foursquareSegmentedControl.segmentIndicatorBorderColor = self.view.backgroundColor;
-    [foursquareSegmentedControl sizeToFit];
-    foursquareSegmentedControl.cornerRadius = CGRectGetHeight(foursquareSegmentedControl.frame) / 2.0f;
-    foursquareSegmentedControl.center = CGPointMake(self.view.center.x, self.view.center.y + 150.0f);
-    foursquareSegmentedControlBackgroundView.center = foursquareSegmentedControl.center;
-    [self.view addSubview:foursquareSegmentedControl];
-}
-
-- (void)setupGoButton
-{
-    self.goButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 600, 320, 80)];
-    [self.goButton setTitle: @"Go!" forState:UIControlStateNormal];
-    [self.goButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    self.goButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.goButton.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:50.0];
-    self.goButton.backgroundColor = [UIColor colorWithWhite:255 alpha:0.2];
-    [self.goButton addTarget:self action:@selector(go) forControlEvents:UIControlEventTouchUpInside];
-    [self pushUpGoButton];
-}
-
-- (void)pushUpGoButton
-{
-    [self.view addSubview:self.goButton];
-    [UIView animateWithDuration:1.0
-                          delay:0
-         usingSpringWithDamping:0.5
-          initialSpringVelocity:13
-                        options:0
-                     animations:^() {
-                         self.goButton.center = CGPointMake(160, 530);
-                     }
-                     completion:^(BOOL finished) {
-                     }];
 }
 
 
 #pragma mark - UIbuttons Delegate
-
-- (void)go
-{
-    
-}
 
 - (void)goBack
 {
@@ -161,7 +111,7 @@
 
 - (ChildViewController *)viewControllerAtIndex:(NSUInteger)index
 {
-    ChildViewController *childViewController = [[ChildViewController alloc]init];
+    ChildViewController *childViewController = [[ChildViewController alloc]initWithDevices:self.devices];
     childViewController.index = index;
     return childViewController;
 }

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Device.h"
 
 @interface NewActionViewController : UIViewController <UIPageViewControllerDataSource>
-
+@property (strong,nonatomic) NSArray *devices;
 @property (strong, nonatomic) UIPageViewController *pageViewController;
+- (id) initWithDevices:(NSArray *)devices;
 
 @end

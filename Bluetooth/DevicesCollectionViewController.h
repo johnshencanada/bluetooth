@@ -11,8 +11,9 @@
 #import <HomeKit/HomeKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "VBFPopFlatButton.h"
+#import "TGCameraViewController.h"
 
-@interface DevicesCollectionViewController : UICollectionViewController <CBCentralManagerDelegate,CBPeripheralDelegate, HMHomeManagerDelegate >
+@interface DevicesCollectionViewController : UICollectionViewController <CBCentralManagerDelegate,CBPeripheralDelegate, HMHomeManagerDelegate,TGCameraDelegate >
 
 - (instancetype)initWithName:(NSString *)name andDevice:(NSArray *)devices;
 

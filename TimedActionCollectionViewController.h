@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Device.h"
 
 @interface TimedActionCollectionViewController : UICollectionViewController
 @property (strong,nonatomic) NSArray *devices;

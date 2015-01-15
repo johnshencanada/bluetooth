@@ -10,6 +10,4 @@
 
 @interface HomeViewController : UIViewController
 
-- (instancetype)init;
-
 @end

@@ -50,12 +50,42 @@
         [self addSubview:self.AMPMLabel];
         
         self.dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 90, 220, 40)];
-        self.dateLabel.text = [NSString stringWithFormat:@"2014 Dec 22nd"];
+        self.dateLabel.text = [NSString stringWithFormat:@"2014 Jan 10th"];
         self.dateLabel.textAlignment = NSTextAlignmentCenter;
         self.dateLabel.font = [UIFont fontWithName:@"GillSans" size:15.0];
         self.dateLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:self.dateLabel];
+        
+        UIImage *nextBulb = [UIImage imageNamed:@"appliance-nextbulb"];
+        self.lightBulb = [[UIButton alloc]initWithFrame:CGRectMake(5, 140, 30, 30)];
+        [self.lightBulb setBackgroundImage:nextBulb forState:UIControlStateNormal];
 
+        self.RSSILabel = [[UILabel alloc]initWithFrame:CGRectMake(280, 100, 40, 40)];
+        self.RSSILabel.text = [NSString stringWithFormat:@"0"];
+        self.RSSILabel.textAlignment = NSTextAlignmentCenter;
+        self.RSSILabel.font = [UIFont fontWithName:@"GillSans" size:15.0];
+        self.RSSILabel.textColor = [UIColor lightGrayColor];
+//        [self addSubview:self.RSSILabel];
+        
+        self.DeviceCount = [[UILabel alloc]initWithFrame:CGRectMake(280, 120, 40, 40)];
+        self.DeviceCount.text = [NSString stringWithFormat:@"0"];
+        self.DeviceCount.textAlignment = NSTextAlignmentCenter;
+        self.DeviceCount.font = [UIFont fontWithName:@"GillSans" size:15.0];
+        self.DeviceCount.textColor = [UIColor lightGrayColor];
+//        [self addSubview:self.DeviceCount];
+        
+        self.Average = [[UILabel alloc]initWithFrame:CGRectMake(280, 140, 40, 40)];
+        self.Average.text = [NSString stringWithFormat:@"0"];
+        self.Average.textAlignment = NSTextAlignmentCenter;
+        self.Average.font = [UIFont fontWithName:@"GillSans" size:15.0];
+        self.Average.textColor = [UIColor lightGrayColor];
+//        [self addSubview:self.Average];
+        
+//        UIImage *discoverImage = [UIImage imageNamed:@"heart"];
+//        self.discover = [[UIButton alloc]initWithFrame:CGRectMake(0, 140, 40, 40)];
+//        [self.discover setBackgroundImage:discoverImage forState:UIControlStateNormal];
+//        [self addSubview:self.discover];
+        
         /* Add some shawdow to it */
         UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.bounds];
         self.layer.masksToBounds = NO;

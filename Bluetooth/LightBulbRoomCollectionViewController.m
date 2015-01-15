@@ -140,6 +140,9 @@ static NSString * const reuseIdentifier = @"Room";
     NSString *roomName = [self.rooms objectAtIndex:indexPath.row];
     [cell setLabelName:roomName];
     [cell setImage:[NSString stringWithFormat:@"Dashboard-%@",roomName]];
+    if ([roomName isEqualToString:self.currentRoom]) {
+        [cell setIsSelected];
+    }
     return cell;
 }
 

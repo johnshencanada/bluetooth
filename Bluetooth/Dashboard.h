@@ -16,11 +16,16 @@
 @property (nonatomic) UILabel *timeLabel;
 @property (nonatomic) UILabel *AMPMLabel;
 @property (nonatomic) UILabel *dateLabel;
+@property (nonatomic) UILabel *RSSILabel;
+@property (nonatomic) UILabel *DeviceCount;
+@property (nonatomic) UILabel *Average;
 
+@property (nonatomic) UIButton *lightBulb;
 @property (nonatomic) UIButton *home;
 @property (nonatomic) UIButton *camera;
 @property (nonatomic) UIButton *back;
 @property (nonatomic) UIButton *refresh;
+@property (nonatomic) UIButton *discover;
 
 - (void)setTitle:(NSString *)title;
 - (void)setbackgroundImage:(NSString *)image;

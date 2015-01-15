@@ -47,7 +47,7 @@
         self.actionLabel.textColor = [UIColor whiteColor];
         self.actionLabel.textAlignment = NSTextAlignmentCenter;
         self.actionLabel.font = [UIFont fontWithName:@"GillSans" size:30.0];
-        self.actionLabel.text = [NSString stringWithFormat:@"ON"];
+        self.actionLabel.text = [NSString stringWithFormat:@"On"];
         [self addSubview:self.actionLabel];
         
         self.enableSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(250, 50, 60, 30)];

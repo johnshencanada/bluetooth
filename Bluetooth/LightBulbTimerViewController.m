@@ -41,7 +41,6 @@
         layout.minimumLineSpacing = 1.0;
         layout.headerReferenceSize = CGSizeMake(0,0);
         self = [super initWithCollectionViewLayout:layout];
-
     }
     return self;
 }
@@ -59,8 +58,6 @@
 {
     [self setUpView];
 }
-
-
 
 - (void) viewDidAppear:(BOOL)animated {
     
