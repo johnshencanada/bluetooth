@@ -99,16 +99,6 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 
-- (void)backward
-{
-    
-}
-
-- (void)forward
-{
-//    [self.pageViewController setViewControllers:direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-}
-
 - (ChildViewController *)viewControllerAtIndex:(NSUInteger)index
 {
     ChildViewController *childViewController = [[ChildViewController alloc]initWithDevices:self.devices];

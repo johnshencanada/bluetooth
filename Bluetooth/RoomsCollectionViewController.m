@@ -517,8 +517,6 @@ static NSString * const reuseIdentifier = @"Room";
             [defaults synchronize];
         }
     }
-
-
     [self.collectionView reloadData];
 }
 

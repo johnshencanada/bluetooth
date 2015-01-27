@@ -81,7 +81,7 @@ static NSString * const reuseIdentifier = @"Clock";
     self.titleLabel.textColor = [UIColor whiteColor];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:20.0];
-    self.titleLabel.text = [NSString stringWithFormat:@"Please Add Action"];
+    self.titleLabel.text = [NSString stringWithFormat:@"Add Action"];
     [self.view addSubview:self.titleLabel];
     
     [self setupAddButton];

@@ -23,6 +23,9 @@
 		5268E64819A00BF300E8C3CC /* Dashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 5268E64719A00BF300E8C3CC /* Dashboard.m */; };
 		526DC48D1A462DD70054B463 /* ChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526DC48C1A462DD70054B463 /* ChildViewController.m */; };
 		526DC4931A462EA80054B463 /* NewActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526DC4921A462EA80054B463 /* NewActionViewController.m */; };
+		52733B6F1A7325F0006EA793 /* railway.gif in Resources */ = {isa = PBXBuildFile; fileRef = 52733B6E1A7325F0006EA793 /* railway.gif */; };
+		52733B721A73265A006EA793 /* BackgroundGifViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52733B711A73265A006EA793 /* BackgroundGifViewController.m */; };
+		52733B751A736DD3006EA793 /* IntroductionChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52733B741A736DD3006EA793 /* IntroductionChildViewController.m */; };
 		527870CC19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */; };
 		527870CF19C95C6100FEBAE8 /* RoomPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 527870CE19C95C6100FEBAE8 /* RoomPictureCell.m */; };
 		527BBADF1A2BDC130097ECC6 /* RoomLogoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 527BBADE1A2BDC130097ECC6 /* RoomLogoButton.m */; };
@@ -39,6 +42,7 @@
 		52F4037719A85F0A00879F26 /* RoomsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4037619A85F0A00879F26 /* RoomsCollectionViewController.m */; };
 		52F4037A19A85F2600879F26 /* RoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4037919A85F2600879F26 /* RoomCell.m */; };
 		52F4037D19A8869D00879F26 /* HeaderCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4037C19A8869D00879F26 /* HeaderCellView.m */; };
+		52F536F61A770FAA009A34BE /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F536F51A770FAA009A34BE /* Launch Screen.xib */; };
 		52FB1BE81A43EFC000AAB83E /* TimedActionCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FB1BE71A43EFC000AAB83E /* TimedActionCollectionViewController.m */; };
 		52FB1BEB1A43FCC300AAB83E /* ClockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FB1BEA1A43FCC300AAB83E /* ClockCell.m */; };
 		D81A252D3CC248A7B40F7644 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E992773B23C455DBAA429AC /* libPods.a */; };
@@ -98,6 +102,11 @@
 		526DC48C1A462DD70054B463 /* ChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildViewController.m; sourceTree = "<group>"; };
 		526DC4911A462EA80054B463 /* NewActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewActionViewController.h; sourceTree = "<group>"; };
 		526DC4921A462EA80054B463 /* NewActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewActionViewController.m; sourceTree = "<group>"; };
+		52733B6E1A7325F0006EA793 /* railway.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = railway.gif; sourceTree = "<group>"; };
+		52733B701A73265A006EA793 /* BackgroundGifViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundGifViewController.h; sourceTree = "<group>"; };
+		52733B711A73265A006EA793 /* BackgroundGifViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundGifViewController.m; sourceTree = "<group>"; };
+		52733B731A736DD3006EA793 /* IntroductionChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionChildViewController.h; sourceTree = "<group>"; };
+		52733B741A736DD3006EA793 /* IntroductionChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroductionChildViewController.m; sourceTree = "<group>"; };
 		527870CA19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightBulbRoomCollectionViewController.h; path = Bluetooth/LightBulbRoomCollectionViewController.h; sourceTree = "<group>"; };
 		527870CB19C9163A00FEBAE8 /* LightBulbRoomCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightBulbRoomCollectionViewController.m; path = Bluetooth/LightBulbRoomCollectionViewController.m; sourceTree = "<group>"; };
 		527870CD19C95C6100FEBAE8 /* RoomPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomPictureCell.h; sourceTree = "<group>"; };
@@ -131,6 +140,7 @@
 		52F4037919A85F2600879F26 /* RoomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomCell.m; sourceTree = "<group>"; };
 		52F4037B19A8869D00879F26 /* HeaderCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderCellView.h; sourceTree = "<group>"; };
 		52F4037C19A8869D00879F26 /* HeaderCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderCellView.m; sourceTree = "<group>"; };
+		52F536F51A770FAA009A34BE /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		52FB1BE61A43EFC000AAB83E /* TimedActionCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimedActionCollectionViewController.h; path = ../TimedActionCollectionViewController.h; sourceTree = "<group>"; };
 		52FB1BE71A43EFC000AAB83E /* TimedActionCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimedActionCollectionViewController.m; path = ../TimedActionCollectionViewController.m; sourceTree = "<group>"; };
 		52FB1BE91A43FCC300AAB83E /* ClockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockCell.h; sourceTree = "<group>"; };
@@ -198,6 +208,8 @@
 			children = (
 				5200820C19639C8D00B2F433 /* AppDelegate.h */,
 				5200820D19639C8D00B2F433 /* AppDelegate.m */,
+				52733B761A737616006EA793 /* image */,
+				52733B6D1A7325CD006EA793 /* Introduction */,
 				52D046501965E3F1004F429A /* Model */,
 				52D0464F1965E3E9004F429A /* View */,
 				52D046511965E3FA004F429A /* Controller */,
@@ -284,10 +296,30 @@
 			name = Action;
 			sourceTree = "<group>";
 		};
+		52733B6D1A7325CD006EA793 /* Introduction */ = {
+			isa = PBXGroup;
+			children = (
+				52733B701A73265A006EA793 /* BackgroundGifViewController.h */,
+				52733B711A73265A006EA793 /* BackgroundGifViewController.m */,
+				52733B731A736DD3006EA793 /* IntroductionChildViewController.h */,
+				52733B741A736DD3006EA793 /* IntroductionChildViewController.m */,
+			);
+			name = Introduction;
+			sourceTree = "<group>";
+		};
+		52733B761A737616006EA793 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				52733B6E1A7325F0006EA793 /* railway.gif */,
+			);
+			name = image;
+			sourceTree = "<group>";
+		};
 		52D0464F1965E3E9004F429A /* View */ = {
 			isa = PBXGroup;
 			children = (
 				5200821519639C8D00B2F433 /* Images.xcassets */,
+				52F536F51A770FAA009A34BE /* Launch Screen.xib */,
 				5268E64619A00BF300E8C3CC /* Dashboard.h */,
 				5268E64719A00BF300E8C3CC /* Dashboard.m */,
 				52F4037B19A8869D00879F26 /* HeaderCellView.h */,
@@ -443,6 +475,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52733B6F1A7325F0006EA793 /* railway.gif in Resources */,
+				52F536F61A770FAA009A34BE /* Launch Screen.xib in Resources */,
 				5200821419639C8D00B2F433 /* Main.storyboard in Resources */,
 				5200821619639C8D00B2F433 /* Images.xcassets in Resources */,
 			);
@@ -496,6 +530,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52FB1BE81A43EFC000AAB83E /* TimedActionCollectionViewController.m in Sources */,
+				52733B751A736DD3006EA793 /* IntroductionChildViewController.m in Sources */,
 				52D0465419662D68004F429A /* DevicesCollectionViewController.m in Sources */,
 				5268E64819A00BF300E8C3CC /* Dashboard.m in Sources */,
 				5200820E19639C8D00B2F433 /* AppDelegate.m in Sources */,
@@ -506,6 +541,7 @@
 				5256A43819C2B6DA001B5664 /* NewRoomViewController.m in Sources */,
 				52D0465719662EA6004F429A /* DeviceCell.m in Sources */,
 				52D0465A19663254004F429A /* Device.m in Sources */,
+				52733B721A73265A006EA793 /* BackgroundGifViewController.m in Sources */,
 				52A04DEF19B1730D008EF273 /* LightBulbTimerViewController.m in Sources */,
 				52DC62B7198F9B9500E8FE18 /* LightBulbColorViewController.m in Sources */,
 				5201847D199E1444009573B3 /* BrightnessView.m in Sources */,
@@ -642,9 +678,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Bluetooth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = nextHome;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -658,9 +696,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Bluetooth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = nextHome;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

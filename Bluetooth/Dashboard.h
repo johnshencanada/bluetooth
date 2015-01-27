@@ -16,6 +16,7 @@
 @property (nonatomic) UILabel *timeLabel;
 @property (nonatomic) UILabel *AMPMLabel;
 @property (nonatomic) UILabel *dateLabel;
+@property (nonatomic) UIImageView *alarmImageView;
 @property (nonatomic) UILabel *RSSILabel;
 @property (nonatomic) UILabel *DeviceCount;
 @property (nonatomic) UILabel *Average;

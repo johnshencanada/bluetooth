@@ -17,6 +17,7 @@
 @property (nonatomic) NSString *currentRoom;
 @property (nonatomic) UILabel *currentRoomLabel;
 @property (strong,nonatomic) VBFPopFlatButton *flatRoundedButton;
+@property (strong,nonatomic) UIButton *back;
 @end
 
 @implementation LightBulbRoomCollectionViewController
@@ -66,8 +67,14 @@ static NSString * const reuseIdentifier = @"Room";
     self.currentRoomLabel.textColor = [UIColor whiteColor];
     self.currentRoomLabel.textAlignment = NSTextAlignmentCenter;
     self.currentRoomLabel.font = [UIFont fontWithName:@"GillSans-Light" size:20.0];
-    self.currentRoomLabel.text = [NSString stringWithFormat:@"Please Select Room"];
+    self.currentRoomLabel.text = [NSString stringWithFormat:@"Select Room"];
     [self.view addSubview:self.currentRoomLabel];
+    
+    UIImage *image = [UIImage imageNamed:@"back"];
+    self.back = [[UIButton alloc]initWithFrame:CGRectMake(20, 25, 30, 30)];
+    [self.back setBackgroundImage:image forState:UIControlStateNormal];
+    [self.view addSubview:self.back];
+    [self.back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventAllTouchEvents];
     
     [self setupAddButton];
 }
@@ -121,6 +128,11 @@ static NSString * const reuseIdentifier = @"Room";
     }
 }
 
+- (void)goBack
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -150,21 +162,14 @@ static NSString * const reuseIdentifier = @"Room";
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    for (Device *device in self.devices) {
-        NSLog(@"Identifier: %@",device.peripheral.identifier);
-    }
-    
     [self checkCurrentRoom];
     
     RoomPictureCell *cell = (RoomPictureCell*)[collectionView cellForItemAtIndexPath:indexPath];
     NSString *roomName = [self.rooms objectAtIndex:indexPath.row];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    NSLog(@"Current room is: %@",self.currentRoom);
     
     /* If this peripheral don't belong to any room */
     if (!self.currentRoom) {
-        NSLog(@"Not in any room");
         
         /* Make it belong to this room */
         [cell setIsSelected];
@@ -176,7 +181,6 @@ static NSString * const reuseIdentifier = @"Room";
         }
         
         /* Remove that saved array and update it */
-        NSLog(@"Updating %@",roomName);
         self.currentRoom = roomName;
         [defaults setObject:[NSArray arrayWithArray:devicesUUID] forKey:roomName];
         [self PrintRoomDevices];
@@ -191,7 +195,6 @@ static NSString * const reuseIdentifier = @"Room";
             /* if it's already selected, diselect it */
             if (cell.isSelected) {
                 [cell setUnSelected];
-                NSLog(@"The user deselects the same room which is: %@",self.currentRoom);
                 self.currentRoom = NULL;
 
                 /* Remove the device in this room saved in data */
@@ -201,7 +204,6 @@ static NSString * const reuseIdentifier = @"Room";
                     NSString *UUIDString = device.peripheral.identifier.UUIDString;
                     
                     if ([identifiers containsObject:UUIDString]) {
-                        NSLog(@"I found the identifiers, I will have to remove it in the UserDefault now!");
                         [identifiers removeObject:UUIDString];
                         [defaults setObject:[NSArray arrayWithArray:identifiers] forKey:roomName];
                         [defaults synchronize];
@@ -213,7 +215,6 @@ static NSString * const reuseIdentifier = @"Room";
         
         /* If the user selects another room */
         else {
-            NSLog(@"The user selected another room we have to delete the previous room: %@", self.currentRoom);
             
             /* Remove the devices from its previous room */
             for (Device *device in self.devices)
@@ -222,7 +223,6 @@ static NSString * const reuseIdentifier = @"Room";
                 NSString *UUIDString = device.peripheral.identifier.UUIDString;
                 
                 if ([identifiers containsObject:UUIDString]) {
-                    NSLog(@"I found the previous identifiers, I will have to delete the previous room from the UserDefault now!");
                     [identifiers removeObject:UUIDString];
                     [defaults setObject:[NSArray arrayWithArray:identifiers] forKey:self.currentRoom];
                     [defaults synchronize];
@@ -245,7 +245,6 @@ static NSString * const reuseIdentifier = @"Room";
                 [devicesUUID addObject:device.peripheral.identifier.UUIDString];
             }
             
-            NSLog(@"Updating %@",roomName);
             [defaults setObject:[NSArray arrayWithArray:devicesUUID] forKey:roomName];
             [defaults synchronize];
             [self PrintRoomDevices];

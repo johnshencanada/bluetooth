@@ -40,7 +40,7 @@
 @property int averageRSSI;
 @property (strong,nonatomic) NSMutableArray *devices;
 @property (strong,nonatomic) NSMutableArray *selectedDevices;
-
+@property BOOL allSelected;
 @property (strong,nonatomic) NSTimer *discoverTimer;
 @end
 
@@ -59,7 +59,8 @@ static NSString * const reuseIdentifier = @"Cell";
     [self setUpHome];
     [self setUpDevices];
     self.devices = [NSMutableArray arrayWithArray:devices];
-
+    self.allSelected = false;
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake(106, 106);
     layout.minimumInteritemSpacing = 1.0;
@@ -83,8 +84,6 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     [self.discoverTimer invalidate];
 }
-
-
 
 - (void)viewDidLoad
 {
@@ -115,12 +114,13 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.dashBoard setTitle:self.roomName];
     
     [self.dashBoard addSubview:self.dashBoard.camera];
-    [self.dashBoard addSubview:self.dashBoard.lightBulb];
+    [self.dashBoard addSubview:self.dashBoard.alarmImageView];
+//    [self.dashBoard addSubview:self.dashBoard.lightBulb];
 
     [self.dashBoard.back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventAllTouchEvents];
     [self.dashBoard.refresh addTarget:self action:@selector(refresh) forControlEvents:UIControlEventAllTouchEvents];
     [self.dashBoard.camera addTarget:self action:@selector(changePhoto) forControlEvents:UIControlEventAllTouchEvents];
-    [self.dashBoard.lightBulb addTarget:self action:@selector(selectAllLightbulb) forControlEvents:UIControlEventAllTouchEvents];
+//    [self.dashBoard.lightBulb addTarget:self action:@selector(selectAllLightbulb) forControlEvents:UIControlEventAllTouchEvents];
 
     self.view.backgroundColor = [UIColor clearColor];
     self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/3 - 15, 320, 300);
@@ -175,33 +175,30 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     [NSTimer scheduledTimerWithTimeInterval:3.0
                                      target:self
-                                   selector:@selector(changeTime)
+                                   selector:@selector(changeTimeAndShake)
                                    userInfo:nil
                                     repeats:NO];
     
-    [NSTimer scheduledTimerWithTimeInterval:5.0
-                                     target:self
-                                   selector:@selector(sevenSeconds)
-                                   userInfo:nil
-                                    repeats:NO];
+
 }
 
 
 /* Temporary remove later */
--(void)changeTime
+-(void)changeTimeAndShake
 {
     self.dashBoard.timeLabel.text = @"6:00";
     
-    if (self.collectionView.visibleCells)
-    {
-        DeviceCell *cell = [self.collectionView.visibleCells firstObject];
-        [self startShake:cell.logo for:50 horizontal:YES];
-    }
-}
-
-/* Temporary remove later */
--(void)sevenSeconds
-{
+    [UIView animateWithDuration:1.0
+                          delay:0
+         usingSpringWithDamping:1
+          initialSpringVelocity:13
+                        options:0
+                     animations:^() {
+                         self.dashBoard.alarmImageView.center = CGPointMake(160, 150);
+                     }
+                     completion:^(BOOL finished) {
+                     }];
+    
     for (DeviceCell *cell in self.collectionView.visibleCells) {
         [self startShake:cell.logo for:50 horizontal:YES];
     }
@@ -278,10 +275,45 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
-- (void)selectAllLightbulb
-{
-    
-}
+//- (void)selectAllLightbulb
+//{
+//    if (self.collectionView.visibleCells)
+//    {
+//        
+//        for (Device *device in self.devices) {
+//            
+//            if (!self.allSelected) {
+//                device.isSelected = TRUE;
+//                [self.selectedDevices addObject:device];
+//            }
+//            
+//            else {
+//                device.isSelected = FALSE;
+//                [self.selectedDevices removeObject:device];
+//            }
+//        }
+//        
+//        for (DeviceCell *cell in self.collectionView.visibleCells) {
+//            
+//            if (!self.allSelected) {
+//                [cell setSelected:YES];
+//                [cell addRoundedButton];
+//                self.allSelected = true;
+//            }
+//            
+//            else {
+//                [cell setSelected:NO];
+//                [cell removeRounedButton];
+//                self.allSelected = false;
+//            }
+//
+//            if ([self.selectedDevices count] > 0)
+//            {
+//                [self pushUpGoButton];
+//            }
+//        }
+//    }
+//}
 
 - (void)logoClicked:(RoomLogoButton*)sender
 {
@@ -456,6 +488,7 @@ static NSString * const reuseIdentifier = @"Cell";
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Oops" message:[NSString stringWithFormat:@"CoreBluetooth return state: %ld",central.state] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
+    
     else {
         [central scanForPeripheralsWithServices:nil options:nil];
     }
@@ -489,7 +522,7 @@ static NSString * const reuseIdentifier = @"Cell";
         self.dashBoard.Average.text = [NSString stringWithFormat:@"%d",self.averageRSSI];
     }
 
-    if (self.averageRSSI > -70)
+    if (self.averageRSSI > -60)
     {
         for (Device *device in self.devices) {
             
@@ -590,8 +623,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     if (horizontal)
     {
-        leftShake = CGAffineTransformMakeTranslation(-5, 0);
-        rightShake = CGAffineTransformMakeTranslation(5, 0);
+        leftShake = CGAffineTransformMakeTranslation(-10, 0);
+        rightShake = CGAffineTransformMakeTranslation(10, 0);
     }
     
     else {
@@ -604,7 +637,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [UIView beginAnimations:@"shake_button"context:NULL];
     [UIView setAnimationRepeatAutoreverses:YES]; // important
     [UIView setAnimationRepeatCount:times];
-    [UIView setAnimationDuration:0.02];
+    [UIView setAnimationDuration:0.1];
     [UIView setAnimationDelegate:self];
     view.transform = rightShake;
     view.transform = normal;  // end here & auto-reverse

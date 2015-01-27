@@ -16,5 +16,4 @@
 @property (nonatomic) UILabel *titleLabel;
 @property (nonatomic) UIView *contentView;
 - (id) initWithDevices:(NSArray *)devices;
-
 @end

@@ -56,6 +56,10 @@
         self.dateLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:self.dateLabel];
         
+        self.alarmImageView = [[UIImageView alloc]initWithFrame:CGRectMake(-60, 120, 60, 60)];
+        UIImage *alarmImage = [UIImage imageNamed:@"alarm"];
+        self.alarmImageView.image = alarmImage;
+        
         UIImage *nextBulb = [UIImage imageNamed:@"appliance-nextbulb"];
         self.lightBulb = [[UIButton alloc]initWithFrame:CGRectMake(5, 140, 30, 30)];
         [self.lightBulb setBackgroundImage:nextBulb forState:UIControlStateNormal];

@@ -9,9 +9,9 @@
 #import "AppDelegate.h"
 #import "MyNavigationController.h"
 #import "RoomsCollectionViewController.h"
+#import "BackgroundGifViewController.h"
 
 @interface AppDelegate ()
-            
 
 @end
 
@@ -32,6 +32,8 @@
     
     RoomsCollectionViewController *roomSelector = [[RoomsCollectionViewController alloc]init];
     MyNavigationController *roomsSelectorNavController = [[MyNavigationController alloc]initWithRootViewController:roomSelector];
+    
+    BackgroundGifViewController *backgroundGIF = [[BackgroundGifViewController alloc]init];
     self.window.rootViewController = roomsSelectorNavController;
     [self.window makeKeyAndVisible];
     

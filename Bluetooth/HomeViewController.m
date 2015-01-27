@@ -10,6 +10,9 @@
 
 @interface HomeViewController ()
 @property (nonatomic) UIButton *back;
+@property (nonatomic) UIButton *resetBtn;
+@property (nonatomic) UIButton *storeBtn;
+
 @end
 
 @implementation HomeViewController
@@ -34,7 +37,32 @@
     [self.view addSubview:imageView];
     [self.view sendSubviewToBack:imageView];
     [self setBackImage:@"back"];
+    [self setUpView];
     [self.back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self setUpAnimation];
+}
+
+- (void)setUpView
+{
+    //resetBtn
+    self.resetBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 600, 280, 50)];
+    self.resetBtn.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+    self.resetBtn.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:20.0];
+    [self.resetBtn setTintColor:[UIColor whiteColor]];
+    [self.resetBtn setTitle:@"Reset Rooms" forState:UIControlStateNormal];
+    [self.view addSubview:self.resetBtn];
+    
+    //storeBtn
+    self.storeBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 600, 280, 50)];
+    self.storeBtn.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+    self.storeBtn.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:20.0];
+    [self.storeBtn setTintColor:[UIColor whiteColor]];
+    [self.storeBtn setTitle:@"Next Store" forState:UIControlStateNormal];
+    [self.view addSubview:self.storeBtn];
 }
 
 - (void)setBackImage:(NSString *)imageName
@@ -49,5 +77,21 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)setUpAnimation
+{
+    [UIView animateWithDuration:1.0
+                          delay:0
+         usingSpringWithDamping:0.8
+          initialSpringVelocity:13
+                        options:0
+                     animations:^() {
+                         self.resetBtn.center = CGPointMake(160, 400);
+                         self.storeBtn.center = CGPointMake(160, 460);
+                     }
+                     completion:^(BOOL finished) {
+                     }];
+}
+
 
 @end

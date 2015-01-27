@@ -14,6 +14,7 @@
 @interface LightBulbColorViewController ()
 /* View */
 @property (strong,nonatomic) MyNavigationController *nav;
+@property (strong,nonatomic) UILabel *titleLabel;
 @property (strong,nonatomic) UIVisualEffect *vibrancyEffect;
 @property  (strong,nonatomic) UIVisualEffectView *vibrancyView;
 @property (nonatomic) BrightnessView *brightView;
@@ -93,7 +94,6 @@
 - (void) setUpBlurAndVibrancy
 {
     self.nav = (MyNavigationController*)self.navigationController;
-    
     self.vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:self.nav.blurEffect];
     self.vibrancyView = [[UIVisualEffectView alloc]initWithEffect:self.vibrancyEffect];
     self.vibrancyView.frame = self.view.bounds;
@@ -102,6 +102,15 @@
 
 - (void)setUpBrightnessView
 {
+    /* Do any additional setup after loading the view */
+    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(60, 0, 200, 60)];
+    self.titleLabel.textColor = [UIColor whiteColor];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:20.0];
+    self.titleLabel.text = [NSString stringWithFormat:@"Change Color"];
+    [self.view addSubview:self.titleLabel];
+
+    
     UIImage *brightnessImage = [UIImage imageNamed:@"brightness"];
     UIImage *warmImage = [UIImage imageNamed:@"warm"];
 

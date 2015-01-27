@@ -107,7 +107,7 @@
         self.proximityLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, 250, 160, 60)];
         self.proximityLabel.textColor = [UIColor lightGrayColor];
         self.proximityLabel.textAlignment = NSTextAlignmentCenter;
-        self.proximityLabel.text = @"Too Far Nigger!";
+        self.proximityLabel.text = @"Too Far!";
         self.proximityLabel.font = [UIFont fontWithName:@"GillSans-Light" size:25];
         [self.view addSubview:self.proximityLabel];
     }
@@ -266,27 +266,27 @@
     }
     
     else if (absoluteRSSI < 100) {
-        self.proximityLabel.text = @"Still Far Man!";
+        self.proximityLabel.text = @"In Range!";
     }
     
     else if (absoluteRSSI >= 90 && absoluteRSSI < 100) {
-        self.proximityLabel.text = @"Quite Distant!";
+        self.proximityLabel.text = @"Far!";
     }
     
     else if (absoluteRSSI >= 80 && absoluteRSSI < 90) {
-        self.proximityLabel.text = @"Getting There";
+        self.proximityLabel.text = @"Closer";
     }
     
     else if (absoluteRSSI >= 75 && absoluteRSSI < 80) {
-        self.proximityLabel.text = @"Getting Close";
+        self.proximityLabel.text = @"Very Close";
     }
     
     else if (absoluteRSSI >= 70 && absoluteRSSI < 75) {
-        self.proximityLabel.text = @"Pretty Close";
+        self.proximityLabel.text = @"Super Close";
     }
     
     else if (absoluteRSSI < 70) {
-        self.proximityLabel.text = @"In Your Face MotherFuker!";
+        self.proximityLabel.text = @"Near You!";
     }
     
     return percentageRSSI;
