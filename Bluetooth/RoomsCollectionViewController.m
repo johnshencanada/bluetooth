@@ -99,33 +99,33 @@ static NSString * const reuseIdentifier = @"Room";
 - (void)setUpView
 {
     self.view.backgroundColor = [UIColor clearColor];
-    self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/3.5, 320, 400);
+    self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/4, 320, 420);
     self.collectionView.backgroundColor = [UIColor clearColor];
     [self.collectionView registerClass:[RoomCell class] forCellWithReuseIdentifier:@"Room"];
     [self.collectionView registerClass:[HeaderCellView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
-    self.dashBoard = [[Dashboard alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/3)];
+    self.dashBoard = [[Dashboard alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/3.5)];
     //    [self.dashBoard setbackgroundImage:@"Dashboard-House"];
     [self.dashBoard.home addTarget:self action:@selector(goHomeButton) forControlEvents:UIControlEventAllTouchEvents];
     [self.dashBoard.camera addTarget:self action:@selector(changePhoto) forControlEvents:UIControlEventAllTouchEvents];
 
     [self.view addSubview:self.dashBoard];
-    [self setUpAnimation];
+//    [self setUpAnimation];
 }
 
-- (void)setUpAnimation
-{
-    [UIView animateWithDuration:1.0
-                          delay:0
-         usingSpringWithDamping:1
-          initialSpringVelocity:13
-                        options:0
-                     animations:^() {
-                         self.dashBoard.timeLabel.center = CGPointMake(125, 80);
-                         self.dashBoard.AMPMLabel.center = CGPointMake(195, 80);
-                     }
-                     completion:^(BOOL finished) {
-                     }];
-}
+//- (void)setUpAnimation
+//{
+//    [UIView animateWithDuration:1.0
+//                          delay:0
+//         usingSpringWithDamping:1
+//          initialSpringVelocity:13
+//                        options:0
+//                     animations:^() {
+//                         self.dashBoard.timeLabel.center = CGPointMake(125, 80);
+//                         self.dashBoard.AMPMLabel.center = CGPointMake(195, 80);
+//                     }
+//                     completion:^(BOOL finished) {
+//                     }];
+//}
 
 - (void)setupAddButton
 {

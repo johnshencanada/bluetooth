@@ -89,8 +89,8 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     [super viewDidLoad];
     [self setUpView];
-    [self setUpTimer];
-    [self setUpAnimation];
+//    [self setUpTimer];
+//    [self setUpAnimation];
     [self setupAddButton];
 
     /* check the connection every 1 second */
@@ -107,7 +107,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)setUpView
 {
-    self.dashBoard = [[Dashboard alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/3)];
+    self.dashBoard = [[Dashboard alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/3.5)];
     [self.dashBoard setbackgroundImage:self.imageName];
     [self.dashBoard setBackImage: @"back"];
     [self.dashBoard setRefreshImage:@"reconnect"];
@@ -123,7 +123,7 @@ static NSString * const reuseIdentifier = @"Cell";
 //    [self.dashBoard.lightBulb addTarget:self action:@selector(selectAllLightbulb) forControlEvents:UIControlEventAllTouchEvents];
 
     self.view.backgroundColor = [UIColor clearColor];
-    self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/3 - 15, 320, 300);
+    self.collectionView.frame = CGRectMake(0, self.view.frame.size.height/4, 320, 320);
     self.collectionView.backgroundColor = [UIColor clearColor];
     [self.collectionView registerClass:[DeviceCell class] forCellWithReuseIdentifier:@"lightbulb"];
     self.dashBoard.homeLabel.text = self.roomName;
@@ -171,38 +171,38 @@ static NSString * const reuseIdentifier = @"Cell";
                      }];
 }
 
-- (void)setUpTimer
-{
-    [NSTimer scheduledTimerWithTimeInterval:3.0
-                                     target:self
-                                   selector:@selector(changeTimeAndShake)
-                                   userInfo:nil
-                                    repeats:NO];
-    
-
-}
+//- (void)setUpTimer
+//{
+//    [NSTimer scheduledTimerWithTimeInterval:3.0
+//                                     target:self
+//                                   selector:@selector(changeTimeAndShake)
+//                                   userInfo:nil
+//                                    repeats:NO];
+//    
+//
+//}
 
 
 /* Temporary remove later */
--(void)changeTimeAndShake
-{
-    self.dashBoard.timeLabel.text = @"6:00";
-    
-    [UIView animateWithDuration:1.0
-                          delay:0
-         usingSpringWithDamping:1
-          initialSpringVelocity:13
-                        options:0
-                     animations:^() {
-                         self.dashBoard.alarmImageView.center = CGPointMake(160, 150);
-                     }
-                     completion:^(BOOL finished) {
-                     }];
-    
-    for (DeviceCell *cell in self.collectionView.visibleCells) {
-        [self startShake:cell.logo for:50 horizontal:YES];
-    }
-}
+//-(void)changeTimeAndShake
+//{
+//    self.dashBoard.timeLabel.text = @"6:00";
+//    
+//    [UIView animateWithDuration:1.0
+//                          delay:0
+//         usingSpringWithDamping:1
+//          initialSpringVelocity:13
+//                        options:0
+//                     animations:^() {
+//                         self.dashBoard.alarmImageView.center = CGPointMake(160, 150);
+//                     }
+//                     completion:^(BOOL finished) {
+//                     }];
+//    
+//    for (DeviceCell *cell in self.collectionView.visibleCells) {
+//        [self startShake:cell.logo for:50 horizontal:YES];
+//    }
+//}
 
 - (void)setUpHome
 {

@@ -35,30 +35,30 @@
         self.homeLabel.textColor = [UIColor whiteColor];
         [self addSubview:self.homeLabel];
         
-        self.timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 80, 80, 60)];
-        self.timeLabel.text = [NSString stringWithFormat:@"5:59"];
-        self.timeLabel.textAlignment = NSTextAlignmentCenter;
-        self.timeLabel.font = [UIFont fontWithName:@"GillSans" size:40.0];
-        self.timeLabel.textColor = [UIColor lightGrayColor];
-        [self addSubview:self.timeLabel];
+//        self.timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 80, 80, 60)];
+//        self.timeLabel.text = [NSString stringWithFormat:@"5:59"];
+//        self.timeLabel.textAlignment = NSTextAlignmentCenter;
+//        self.timeLabel.font = [UIFont fontWithName:@"GillSans" size:40.0];
+//        self.timeLabel.textColor = [UIColor lightGrayColor];
+//        [self addSubview:self.timeLabel];
         
-        self.AMPMLabel = [[UILabel alloc]initWithFrame:CGRectMake(320, 80, 80, 40)];
-        self.AMPMLabel.text = [NSString stringWithFormat:@"AM"];
-        self.AMPMLabel.textAlignment = NSTextAlignmentCenter;
-        self.AMPMLabel.font = [UIFont fontWithName:@"GillSans" size:35.0];
-        self.AMPMLabel.textColor = [UIColor lightGrayColor];
-        [self addSubview:self.AMPMLabel];
+//        self.AMPMLabel = [[UILabel alloc]initWithFrame:CGRectMake(320, 80, 80, 40)];
+//        self.AMPMLabel.text = [NSString stringWithFormat:@"AM"];
+//        self.AMPMLabel.textAlignment = NSTextAlignmentCenter;
+//        self.AMPMLabel.font = [UIFont fontWithName:@"GillSans" size:35.0];
+//        self.AMPMLabel.textColor = [UIColor lightGrayColor];
+//        [self addSubview:self.AMPMLabel];
+//        
+//        self.dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 90, 220, 40)];
+//        self.dateLabel.text = [NSString stringWithFormat:@"2014 Jan 10th"];
+//        self.dateLabel.textAlignment = NSTextAlignmentCenter;
+//        self.dateLabel.font = [UIFont fontWithName:@"GillSans" size:15.0];
+//        self.dateLabel.textColor = [UIColor lightGrayColor];
+//        [self addSubview:self.dateLabel];
         
-        self.dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 90, 220, 40)];
-        self.dateLabel.text = [NSString stringWithFormat:@"2014 Jan 10th"];
-        self.dateLabel.textAlignment = NSTextAlignmentCenter;
-        self.dateLabel.font = [UIFont fontWithName:@"GillSans" size:15.0];
-        self.dateLabel.textColor = [UIColor lightGrayColor];
-        [self addSubview:self.dateLabel];
-        
-        self.alarmImageView = [[UIImageView alloc]initWithFrame:CGRectMake(-60, 120, 60, 60)];
-        UIImage *alarmImage = [UIImage imageNamed:@"alarm"];
-        self.alarmImageView.image = alarmImage;
+//        self.alarmImageView = [[UIImageView alloc]initWithFrame:CGRectMake(-60, 120, 60, 60)];
+//        UIImage *alarmImage = [UIImage imageNamed:@"alarm"];
+//        self.alarmImageView.image = alarmImage;
         
         UIImage *nextBulb = [UIImage imageNamed:@"appliance-nextbulb"];
         self.lightBulb = [[UIButton alloc]initWithFrame:CGRectMake(5, 140, 30, 30)];
@@ -69,21 +69,21 @@
         self.RSSILabel.textAlignment = NSTextAlignmentCenter;
         self.RSSILabel.font = [UIFont fontWithName:@"GillSans" size:15.0];
         self.RSSILabel.textColor = [UIColor lightGrayColor];
-//        [self addSubview:self.RSSILabel];
+        [self addSubview:self.RSSILabel];
         
         self.DeviceCount = [[UILabel alloc]initWithFrame:CGRectMake(280, 120, 40, 40)];
         self.DeviceCount.text = [NSString stringWithFormat:@"0"];
         self.DeviceCount.textAlignment = NSTextAlignmentCenter;
         self.DeviceCount.font = [UIFont fontWithName:@"GillSans" size:15.0];
         self.DeviceCount.textColor = [UIColor lightGrayColor];
-//        [self addSubview:self.DeviceCount];
+        [self addSubview:self.DeviceCount];
         
         self.Average = [[UILabel alloc]initWithFrame:CGRectMake(280, 140, 40, 40)];
         self.Average.text = [NSString stringWithFormat:@"0"];
         self.Average.textAlignment = NSTextAlignmentCenter;
         self.Average.font = [UIFont fontWithName:@"GillSans" size:15.0];
         self.Average.textColor = [UIColor lightGrayColor];
-//        [self addSubview:self.Average];
+        [self addSubview:self.Average];
         
 //        UIImage *discoverImage = [UIImage imageNamed:@"heart"];
 //        self.discover = [[UIButton alloc]initWithFrame:CGRectMake(0, 140, 40, 40)];
